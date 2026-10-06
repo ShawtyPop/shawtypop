@@ -149,7 +149,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   - The cart is saved in localStorage key `shawtypop_cart_v1`.
   - On phones, a floating black "Bag (n) · $x" bar with a "View bag" button appears when the bag has items.
 - **Newsletter popup:**
-  - Appears 3 seconds after the page loads, only once per visitor (localStorage key `sp_nl`).
+  - Appears 3 seconds after the site is visible: 3 seconds after load for unlocked visitors, or 3 seconds after the password gate is unlocked. It shows on every visit, except that closing it hides it for the rest of that browser session (sessionStorage key `sp_nl`) and signing up through it hides it for good (localStorage key `sp_nl_joined`).
   - Content:
     - white rounded card on a blurred dark overlay
     - pink kicker "Join the Pop Culture Club"

@@ -1252,15 +1252,19 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeCart();closeSe
 /* ---------- FORMS ---------- */
 const okEmail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
 /* newsletter popup: once per visitor, 3s after load */
-(function(){const nl=$("nl");let seen=false;try{seen=localStorage.getItem("sp_nl")==="1"}catch(e){}
-  const close=()=>{nl.classList.remove("open");nl.setAttribute("aria-hidden","true");try{localStorage.setItem("sp_nl","1")}catch(e){}};
-  if(!seen)setTimeout(()=>{nl.classList.add("open");nl.setAttribute("aria-hidden","false")},3000);
+(function(){const nl=$("nl");let seen=false;try{seen=localStorage.getItem("sp_nl_joined")==="1"||sessionStorage.getItem("sp_nl")==="1"}catch(e){}
+  const close=()=>{nl.classList.remove("open");nl.setAttribute("aria-hidden","true");try{sessionStorage.setItem("sp_nl","1")}catch(e){}};
+  /* 3s after the site is visible: right away, or after the waitlist gate is unlocked */
+  const root=document.documentElement,gateEl=$("gate");
+  const later=()=>setTimeout(()=>{nl.classList.add("open");nl.setAttribute("aria-hidden","false")},3000);
+  if(!seen){if(!gateEl||gateEl.style.display==="none"||root.classList.contains("unlocked"))later();
+    else{const mo=new MutationObserver(()=>{if(root.classList.contains("unlocked")){mo.disconnect();later()}});mo.observe(root,{attributes:true,attributeFilter:["class"]})}}
   $("nlClose").onclick=close;$("nlNo").onclick=close;nl.addEventListener("click",e=>{if(e.target===nl)close()});
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&nl.classList.contains("open"))close()});
   $("nlForm").addEventListener("submit",e=>{e.preventDefault();const i=e.target.querySelector("input");
     if(!okEmail(i.value.trim())){$("nlMsg").textContent="Enter a valid email";return}
     $("nlMsg").textContent="Adding you…";
-    spSubscribe(i.value.trim(),"Popup").then(()=>{i.value="";$("nlMsg").textContent="You're in 💗";setTimeout(close,1600)},
+    spSubscribe(i.value.trim(),"Popup").then(()=>{try{localStorage.setItem("sp_nl_joined","1")}catch(e){}i.value="";$("nlMsg").textContent="You're in 💗";setTimeout(close,1600)},
       ()=>{$("nlMsg").textContent="Something went wrong, try again"})});
 })();
 $("miniForm").addEventListener("submit",e=>{e.preventDefault();const i=e.target.querySelector("input");const v=i.value.trim();
