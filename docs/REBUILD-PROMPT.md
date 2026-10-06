@@ -17,7 +17,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
 
 ### 1. Brand and content rules (never break these)
 
-- **Brand:** ShawtyPop, a caffeinated lollipop sold as a fashion piece.
+- **Brand:** ShawtyPop, a caffeinated lollipop (caffeine + L-Theanine) sold as a fashion piece.
 - **Socials:** Instagram and TikTok handle @getshawtypop.
   - Instagram: https://www.instagram.com/getshawtypop/
   - TikTok: https://www.tiktok.com/@getshawtypop
@@ -185,7 +185,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
     - Thumbnail 2: the cutout rotated -14° on a hot-pink radial background with a drop shadow.
   - Clicking a thumbnail swaps the main image. The active thumbnail gets a black outline.
 - **Info column, top to bottom:**
-  1. Pink label "Caffeinated lollipop".
+  1. Pink label "Caffeine + L-Theanine lollipop".
   2. Huge display title "CHERRY / GLOSS" on two lines.
   3. Italic serif line "Fashion you can taste."
   4. Price in large bold type, with the per-pop price next to it in gray. Single shows "1 pop", the 5 Pack shows "$2.00 / pop", and the 12 Pack shows "$1.67 / pop".
@@ -199,7 +199,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   8. A black rounded banner (opens the newsletter popup): pink label "Pop Culture", "Join our newsletter for 15% off your first order.", and "→".
   9. Blush pill chips: "No jitters", "No crash", "Free shipping on $50+".
   10. Accordion:
-      - "The pop" (open by default): "One glossy Cherry Gloss lollipop on a rose gold ShawtyPop stick. Energy, accessorized."
+      - "The pop" (open by default): "One glossy Cherry Gloss lollipop on a rose gold ShawtyPop stick, made with caffeine and L-Theanine. Energy, accessorized."
       - "Shipping": "Free shipping on orders over $50."
 
 ### 7. Brand home page (`/home`)
