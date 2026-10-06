@@ -75,7 +75,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
 - `lollipop-photo-on-pink.jpg` (1000x1500): the real Cherry Gloss lollipop standing upright on a pink background. Main product photo.
 - `lollipop-cutout.webp` (523x1443, transparent): the same lollipop cut out. The candy circle sits at the top (center about x 261, y 261, radius 259) and the rose-gold stick runs down the middle (x 223–306). Used for every other lollipop image.
 - `logo-one-line-header.webp`: the one-line "shawtypop™" wordmark (pink "shawty", plum "pop" with lips for the o). Used in the header, the mobile menu and the password gate.
-- `logo-transparent-footer.webp`: the transparent wordmark for the black footer.
+- `logo-transparent-footer.webp`: the transparent wordmark for the footer brand column (46px tall).
 - `favicon-lips.png`: the pink lips icon. Used as the favicon and apple-touch-icon.
 
 ### 4. Design tokens
@@ -132,7 +132,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
     - About: Contact, FAQ
     - Help: Shipping, Returns, Privacy, Terms
     - Social: Instagram, TikTok, plus round outlined icon buttons for both, turning pink on hover
-  - The full-width transparent logo sits big across the bottom.
+  - Giant pink "SHAWTYPOP" text runs across the bottom: Archivo 900, width 125, letter-spacing -.065em, uppercase, auto-sized by script to fill the footer width exactly, sitting slightly cut off at the bottom edge. It is text, not the logo image.
   - Bottom bar: "© 2026 ShawtyPop. Prototype storefront."
 - **Cart drawer:**
   - Slides in from the right, 460px wide, over a dark scrim. Title "Your bag" in display type with a pink superscript count.
