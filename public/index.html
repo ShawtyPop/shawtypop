@@ -207,6 +207,7 @@ input{font:inherit}
 .sec-head__side{display:flex;flex-direction:column;align-items:flex-end;gap:18px;padding-bottom:8px}
 .sec-head__side p{max-width:260px;text-align:right;color:var(--ink-60);font-size:14px}
 #shop .sec-head{display:none}
+@media (min-width:1100px){.shelf{justify-content:center}}
 .arrows{display:flex;gap:8px}
 .arrows button{width:52px;height:52px;border-radius:50%;box-shadow:inset 0 0 0 1.5px #000;display:grid;place-items:center;transition:background .3s,color .3s,transform .4s var(--ease-out)}
 .arrows button:hover{background:#000;color:#fff;transform:scale(1.06)}
@@ -714,10 +715,10 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
   <p class="feature__note">"Matches every outfit. Especially the pink ones."</p>
   <div class="feature__card rv">
     <div class="row"><span class="label" style="color:var(--pink)">Best seller</span><span class="stars" style="color:var(--pink)">★★★★★</span></div>
-    <div class="row" style="margin-top:10px"><h3>Cherry Gloss</h3><span class="price">$9.99</span></div>
+    <div class="row" style="margin-top:10px"><h3>Cherry Gloss 5 Pack</h3><span class="price">$10.00</span></div>
     <dl class="feature__specs">
       <div><dt>Flavor</dt><dd>Cherry Gloss</dd></div>
-      <div><dt>Size</dt><dd>4 pops / pack</dd></div>
+      <div><dt>Size</dt><dd>5 pops / pack</dd></div>
       <div><dt>Finish</dt><dd>High gloss</dd></div>
       <div><dt>Vibe</dt><dd>Main character</dd></div>
     </dl>
@@ -898,7 +899,9 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
 
 /* ---------- PRODUCT DATA (edit here) ---------- */
 const PRODUCTS=[
-  {id:"cherry-gloss",name:"Cherry Gloss",flavor:"Cherry Gloss",price:9.99,badge:"Best Seller",badgeStyle:"",pop:"red",alt:"#E0213A",tags:["fruity"]}
+  {id:"cherry-gloss-1",name:"Cherry Gloss Single",ghost:"Single",flavor:"Cherry Gloss · 1 pop",price:2.50,badge:"",badgeStyle:"",pop:"red",alt:"#E0213A",tags:["single"]},
+  {id:"cherry-gloss-5",name:"Cherry Gloss 5 Pack",ghost:"5 Pack",flavor:"Cherry Gloss · 5 pops",price:10.00,badge:"Best Seller",badgeStyle:"",pop:"red",alt:"#E0213A",tags:["pack"]},
+  {id:"cherry-gloss-12",name:"Cherry Gloss 12 Pack",ghost:"12 Pack",flavor:"Cherry Gloss · 12 pops",price:19.99,badge:"Best Value",badgeStyle:"",pop:"red",alt:"#E0213A",tags:["pack"]}
 ];
 const SHIP_FREE=50;
 
@@ -963,7 +966,7 @@ shelf.innerHTML=PRODUCTS.map((p,i)=>{
   return `<article class="card rv" data-d="${Math.min(i,4)}" style="--alt:${p.alt};--r:${i%2?10:-12}deg">
     <div class="card__media slot" data-slot="product-${p.id}" data-add="${p.id}" role="button" tabindex="0" aria-label="Add ${p.name} to cart">
       <div class="card__bg"></div>
-      <span class="card__ghost d" aria-hidden="true">${p.name.split(" ").pop()}</span>
+      <span class="card__ghost d" aria-hidden="true">${p.ghost||p.name}</span>
       ${p.badge?`<span class="badge ${p.badgeStyle||""}">${p.badge}</span>`:""}
       <div class="card__art"><img src="${POP_SRC}" alt="${p.name} lollipop"></div>
       <button class="card__quick" data-add="${p.id}" tabindex="-1">${plusIcon} Add to cart</button>
@@ -1003,7 +1006,7 @@ document.getElementById("featurePop").innerHTML=`<img src="${POP_SRC}" alt="Cher
 let fq=1;const fQty=document.getElementById("fQty");
 document.getElementById("fMinus").onclick=()=>{fq=Math.max(1,fq-1);fQty.textContent=fq};
 document.getElementById("fPlus").onclick=()=>{fq=Math.min(20,fq+1);fQty.textContent=fq};
-document.getElementById("fAdd").onclick=()=>{add("pink-shawty",fq);fq=1;fQty.textContent=1};
+document.getElementById("fAdd").onclick=()=>{add("cherry-gloss-5",fq);fq=1;fQty.textContent=1};
 
 /* ---------- STORAGE (guarded) ---------- */
 const KEY="shawtypop_cart_v1";
