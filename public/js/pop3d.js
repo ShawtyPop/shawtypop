@@ -17,21 +17,18 @@ function webgl() {
 
 if (stage && webgl()) init();
 
-function stickTexture(logo) {
+function stickTexture(logo, wrap) {
   // u runs around the stick, v runs along it; logos read along the length
-  const W = 512, H = 4096, c = document.createElement("canvas");
+  const W = 1024, H = 3000, c = document.createElement("canvas");
   c.width = W; c.height = H;
   const g = c.getContext("2d");
-  const grad = g.createLinearGradient(0, 0, W, 0);
-  grad.addColorStop(0, "#d99a86"); grad.addColorStop(.5, "#f6c9b8"); grad.addColorStop(1, "#d99a86");
-  g.fillStyle = grad; g.fillRect(0, 0, W, H);
+  if (wrap) { const t = 512; for (let y = 0; y < H; y += t) for (let x = 0; x < W; x += t) g.drawImage(wrap, x, y, t, t); }
+  else { g.fillStyle = "#eab3a0"; g.fillRect(0, 0, W, H); }
   if (logo) {
-    const lw = H * .2, lh = lw * logo.height / logo.width;
+    const lw = H * .3, lh = lw * logo.height / logo.width;
     const draw = (cx, cy) => { g.save(); g.translate(cx, cy); g.rotate(-Math.PI / 2); g.drawImage(logo, -lw / 2, -lh / 2, lw, lh); g.restore(); };
-    for (let i = 0; i < 4; i++) {
-      draw(W * .5, H * (.14 + i * .24));          // front
-      draw(0, H * (.26 + i * .24)); draw(W, H * (.26 + i * .24)); // back, wraps the seam
-    }
+    for (const f of [.33, .72]) draw(W * .5, H * f);                 // front column
+    for (const f of [.52, .9]) { draw(0, H * f); draw(W, H * f); }  // back, wraps the seam
   }
   const t = new THREE.CanvasTexture(c);
   t.colorSpace = THREE.SRGBColorSpace;
@@ -62,31 +59,24 @@ function init() {
   scene.add(new THREE.AmbientLight(0xffd6e6, .15));
   const glint = new THREE.PointLight(0xffffff, 18, 12); glint.position.set(-2.5, 2.5, 4); scene.add(glint);
 
-  // candy: the real Cherry Gloss photos from the character sheet wrapped on a
-  // 3D disc. The front-view photo is printed on both domed faces and the
-  // side-view photo wraps the rounded rim, so it reads as the actual candy.
-  const R = 1, h = .21, FR = R * .97, tl = new THREE.TextureLoader();
+  // candy: lens-shaped like the 3D character sheet (about half as thick as
+  // it is wide, fully rounded edge), with the product photo projected
+  // straight onto both faces and the sheet's bubbly candy texture on the rim
+  const R = 1, T = .5, tl = new THREE.TextureLoader();
   const faceTex = tl.load("img/candy-face.webp", () => draw());
   faceTex.colorSpace = THREE.SRGBColorSpace; faceTex.anisotropy = 8;
-  const rimTex = tl.load("img/candy-rim.webp", () => draw());
-  rimTex.colorSpace = THREE.SRGBColorSpace; rimTex.wrapS = THREE.RepeatWrapping; rimTex.repeat.set(9, 1);
-  const photoMat = map => new THREE.MeshPhysicalMaterial({
-    map, emissiveMap: map, emissive: 0xffffff, emissiveIntensity: .5, color: 0x7d7d7d,
-    roughness: .16, metalness: 0, clearcoat: 1, clearcoatRoughness: .03, envMapIntensity: .45
+  const pts = [];
+  for (let k = 0; k <= 64; k++) { const a = -Math.PI / 2 + Math.PI * k / 64; pts.push(new THREE.Vector2(R * Math.cos(a) ** .55, T * Math.sin(a))); }
+  const lens = new THREE.LatheGeometry(pts, 160); lens.rotateX(Math.PI / 2);
+  { const pos = lens.attributes.position, uv = lens.attributes.uv; for (let k = 0; k < pos.count; k++) uv.setXY(k, pos.getX(k) / (2 * R) * (pos.getZ(k) < 0 ? -1 : 1) + .5, pos.getY(k) / (2 * R) + .5); lens.computeVertexNormals(); }
+  const candy = new THREE.MeshPhysicalMaterial({
+    map: faceTex, emissiveMap: faceTex, emissive: 0xffffff, emissiveIntensity: .5, color: 0x808080,
+    roughness: .12, metalness: 0, clearcoat: 1, clearcoatRoughness: .03, envMapIntensity: .5
   });
-  const faceGeo = new THREE.CircleGeometry(FR, 128, 0, Math.PI * 2);
-  { const pos = faceGeo.attributes.position; for (let k = 0; k < pos.count; k++) { const x = pos.getX(k), y = pos.getY(k), rr = (x * x + y * y) / (FR * FR); pos.setZ(k, .05 * (1 - rr)); } faceGeo.computeVertexNormals(); }
-  const faceMat = photoMat(faceTex);
-  const front = new THREE.Mesh(faceGeo, faceMat); front.position.z = h;
-  const back = new THREE.Mesh(faceGeo, faceMat); back.position.z = -h; back.rotation.y = Math.PI;
-  const rimPts = [];
-  for (let k = 0; k <= 24; k++) { const t = -1 + 2 * k / 24; rimPts.push(new THREE.Vector2(FR + (R - FR) * (1 - t * t) * 1.6, t * h)); }
-  const rimGeo = new THREE.LatheGeometry(rimPts, 160); rimGeo.rotateX(Math.PI / 2);
-  const rimMesh = new THREE.Mesh(rimGeo, photoMat(rimTex));
-  const disc = new THREE.Group(); disc.add(front, back, rimMesh);
+  const disc = new THREE.Mesh(lens, candy);
 
-  const stickMat = new THREE.MeshPhysicalMaterial({ color: 0xffd2c2, metalness: .75, roughness: .3, clearcoat: .5, clearcoatRoughness: .2, envMapIntensity: .8 });
-  const SL = 3.5, SR = .1;
+  const stickMat = new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: .55, roughness: .38, clearcoat: .7, clearcoatRoughness: .25, envMapIntensity: .7 });
+  const SL = 3.3, SR = .17;
   const stick = new THREE.Mesh(new THREE.CylinderGeometry(SR, SR, SL, 64, 1, false), stickMat);
   stick.rotation.y = Math.PI;            // put the front logo column (u = .5) toward the viewer
   stick.position.y = -SL / 2 - .35;      // top end sits inside the candy
@@ -98,16 +88,15 @@ function init() {
   pop.rotation.order = "ZYX";
   const rig = new THREE.Group(); rig.add(pop); scene.add(rig);
 
-  if (logoSrc) {
-    const img = new Image();
-    img.onload = () => { stickMat.map = stickTexture(img); stickMat.needsUpdate = true; draw(); };
-    img.src = logoSrc;
-  } else { stickMat.map = stickTexture(null); }
+  const loadImg = src => new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = src; });
+  Promise.all([logoSrc ? loadImg(logoSrc) : null, loadImg("img/stick-wrap.webp")]).then(([logo, wrap]) => {
+    stickMat.map = stickTexture(logo, wrap); stickMat.needsUpdate = true; draw();
+  });
 
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const clamp01 = v => v < 0 ? 0 : v > 1 ? 1 : v;
   const easeInOut = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-  const MID = -1.66; // centre of the second logo on the stick: the camera ends on it
+  const MID = -1.45; // centre of the second logo on the stick: the camera ends on it
 
   // raw scroll progress; past 1 the stage is scrolling away, and the motion
   // keeps drifting (never freezes) while it fades into the next section
@@ -132,7 +121,7 @@ function init() {
     const pa = ps, p = clamp01(pa), over = Math.max(pa - 1, 0), time = (t || 0) / 1000;
     const zr = -Math.PI / 2 + (Math.PI / 4) * easeInOut(p);      // lying flat -> 45deg tilt
     const yr = Math.PI * 2 * easeInOut(p) + .35 * (1 - p);        // one full spin, ending logo-forward
-    const s = (1 + 8 * Math.pow(p, 3)) * (1 + over * .9);         // fly in onto the stick, then keep drifting
+    const s = (1 + 7 * Math.pow(p, 3)) * (1 + over * .9);         // fly in onto the stick, then keep drifting
     pop.rotation.set(.22 * Math.sin(time * .9) * (1 - p) + .12 * (1 - p), yr + .12 * Math.sin(time * .7) * (1 - p) + over * .5, zr - over * .25);
     pop.scale.setScalar(s);
     // offset so the middle of the lollipop is centred first, then the candy
