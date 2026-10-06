@@ -966,7 +966,7 @@ document.querySelectorAll("[data-mq]").forEach(r=>{r.innerHTML=mqItems.map(t=>(t
 const shelf=document.getElementById("shelf");
 const POP_SRC=document.getElementById("popImg").src;
 /* multi-packs show a 3D-rendered bouquet (img/pack-N.webp, rendered from the same model as the opener) */
-function bundle(p){return `<img class="pack" src="img/pack-${p.count}.webp" alt="${p.name}: ${p.count} Cherry Gloss lollipops tied with a ribbon" loading="lazy">`}
+function bundle(p){return `<img class="pack" src="img/pack-${p.count}.webp" width="900" height="1125" decoding="async" alt="${p.name}: ${p.count} Cherry Gloss lollipops tied with a ribbon" loading="lazy">`}
 const plusIcon=`<svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="2"><path d="M6 1v10M1 6h10"/></svg>`;
 shelf.innerHTML=PRODUCTS.map((p,i)=>{
   const swatch=p.pop==="mix"?["red","pink","baby"]:[p.pop];
