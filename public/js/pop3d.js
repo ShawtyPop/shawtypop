@@ -62,25 +62,28 @@ function init() {
   scene.add(new THREE.AmbientLight(0xffd6e6, .15));
   const glint = new THREE.PointLight(0xffffff, 18, 12); glint.position.set(-2.5, 2.5, 4); scene.add(glint);
 
-  // candy: lathe a rounded-rim profile, then face it at the camera
-  // like the sheet: a fat rounded rim that stands slightly proud of two
-  // gently domed faces, so the edge catches a ring of light
-  const R = 1, T = .5, e = .27, F = .2, inner = R - 2 * e + .02, pts = [];
-  const face = sgn => { const out = []; for (let i = 0; i <= 16; i++) { const r = inner * i / 16; out.push(new THREE.Vector2(r, sgn * (F + .045 * (1 - (r / inner) ** 2)))); } return out; };
-  pts.push(...face(-1));
-  for (let i = 0; i <= 40; i++) { const a = -Math.PI * .62 + Math.PI * 1.24 * i / 40; pts.push(new THREE.Vector2(R - e + Math.cos(a) * e, Math.sin(a) * e)); }
-  pts.push(...face(1).reverse());
-  const discGeo = new THREE.LatheGeometry(pts, 128);
-  discGeo.rotateX(Math.PI / 2);
-  const candy = new THREE.MeshPhysicalMaterial({
-    color: 0x9e0016, roughness: .04, metalness: 0, clearcoat: 1, clearcoatRoughness: .01,
-    ior: 1.5, envMapIntensity: 1.25, specularIntensity: 1, transparent: true, opacity: .95
+  // candy: the real Cherry Gloss photos from the character sheet wrapped on a
+  // 3D disc. The front-view photo is printed on both domed faces and the
+  // side-view photo wraps the rounded rim, so it reads as the actual candy.
+  const R = 1, h = .21, FR = R * .97, tl = new THREE.TextureLoader();
+  const faceTex = tl.load("img/candy-face.webp", () => draw());
+  faceTex.colorSpace = THREE.SRGBColorSpace; faceTex.anisotropy = 8;
+  const rimTex = tl.load("img/candy-rim.webp", () => draw());
+  rimTex.colorSpace = THREE.SRGBColorSpace; rimTex.wrapS = THREE.RepeatWrapping; rimTex.repeat.set(9, 1);
+  const photoMat = map => new THREE.MeshPhysicalMaterial({
+    map, emissiveMap: map, emissive: 0xffffff, emissiveIntensity: .5, color: 0x7d7d7d,
+    roughness: .16, metalness: 0, clearcoat: 1, clearcoatRoughness: .03, envMapIntensity: .45
   });
-  const disc = new THREE.Mesh(discGeo, candy);
-
-  // inner "core" gives the deep red glow seen through the glossy shell
-  const core = new THREE.Mesh(new THREE.CylinderGeometry(R * .66, R * .66, F * 1.4, 96).rotateX(Math.PI / 2),
-    new THREE.MeshStandardMaterial({ color: 0x6e0010, roughness: .5, emissive: 0x3a0006, emissiveIntensity: .5 }));
+  const faceGeo = new THREE.CircleGeometry(FR, 128, 0, Math.PI * 2);
+  { const pos = faceGeo.attributes.position; for (let k = 0; k < pos.count; k++) { const x = pos.getX(k), y = pos.getY(k), rr = (x * x + y * y) / (FR * FR); pos.setZ(k, .05 * (1 - rr)); } faceGeo.computeVertexNormals(); }
+  const faceMat = photoMat(faceTex);
+  const front = new THREE.Mesh(faceGeo, faceMat); front.position.z = h;
+  const back = new THREE.Mesh(faceGeo, faceMat); back.position.z = -h; back.rotation.y = Math.PI;
+  const rimPts = [];
+  for (let k = 0; k <= 24; k++) { const t = -1 + 2 * k / 24; rimPts.push(new THREE.Vector2(FR + (R - FR) * (1 - t * t) * 1.6, t * h)); }
+  const rimGeo = new THREE.LatheGeometry(rimPts, 160); rimGeo.rotateX(Math.PI / 2);
+  const rimMesh = new THREE.Mesh(rimGeo, photoMat(rimTex));
+  const disc = new THREE.Group(); disc.add(front, back, rimMesh);
 
   const stickMat = new THREE.MeshPhysicalMaterial({ color: 0xffd2c2, metalness: .75, roughness: .3, clearcoat: .5, clearcoatRoughness: .2, envMapIntensity: .8 });
   const SL = 3.5, SR = .1;
@@ -91,7 +94,7 @@ function init() {
   cap.position.y = -SL - .35;
 
   const pop = new THREE.Group();
-  pop.add(core, disc, stick, cap);
+  pop.add(disc, stick, cap);
   pop.rotation.order = "ZYX";
   const rig = new THREE.Group(); rig.add(pop); scene.add(rig);
 
@@ -106,11 +109,14 @@ function init() {
   const easeInOut = x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
   const MID = -1.66; // centre of the second logo on the stick: the camera ends on it
 
+  // raw scroll progress; past 1 the stage is scrolling away, and the motion
+  // keeps drifting (never freezes) while it fades into the next section
   function progress() {
     if (reduce) return .3;
     const r = sec.getBoundingClientRect(), total = sec.offsetHeight - stage.offsetHeight;
-    return total > 0 ? clamp01(-r.top / total) : 0;
+    return total > 0 ? Math.min(Math.max(-r.top / total, 0), 1.6) : 0;
   }
+  let ps = progress();
 
   function size() {
     const w = stage.clientWidth, h = stage.clientHeight;
@@ -122,16 +128,18 @@ function init() {
   }
 
   function draw(t) {
-    const p = progress(), time = (t || 0) / 1000;
+    ps += (progress() - ps) * .085;                               // eased, so it glides instead of snapping
+    const pa = ps, p = clamp01(pa), over = Math.max(pa - 1, 0), time = (t || 0) / 1000;
     const zr = -Math.PI / 2 + (Math.PI / 4) * easeInOut(p);      // lying flat -> 45deg tilt
     const yr = Math.PI * 2 * easeInOut(p) + .35 * (1 - p);        // one full spin, ending logo-forward
-    const s = 1 + 8 * Math.pow(p, 3);                             // fly in onto the stick
-    pop.rotation.set(.22 * Math.sin(time * .9) * (1 - p) + .12 * (1 - p), yr + .12 * Math.sin(time * .7) * (1 - p), zr);
+    const s = (1 + 8 * Math.pow(p, 3)) * (1 + over * .9);         // fly in onto the stick, then keep drifting
+    pop.rotation.set(.22 * Math.sin(time * .9) * (1 - p) + .12 * (1 - p), yr + .12 * Math.sin(time * .7) * (1 - p) + over * .5, zr - over * .25);
     pop.scale.setScalar(s);
     // offset so the middle of the lollipop is centred first, then the candy
     const off = s;
     rig.position.set(MID * Math.sin(zr) * off, -MID * Math.cos(zr) * off, 0);
     rig.position.y += Math.sin(time * 1.1) * .1 * (1 - p);
+    cv.style.opacity = (1 - Math.min(over * 1.8, 1)).toFixed(3);
     renderer.render(scene, camera);
   }
 
