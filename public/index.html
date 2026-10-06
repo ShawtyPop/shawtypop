@@ -667,8 +667,8 @@ html.unlocked .gate{display:none}
 </style>
 <script>
 /* gate: decide before first paint so the page never flashes */
-/* routes: "/" is the Cherry Gloss product page, "/pop-culture" is the full brand page */
-if(/^\/pop-culture\/?$/.test(location.pathname))document.documentElement.classList.add("v-home");
+/* routes: "/" is the Cherry Gloss product page, "/home" is the full brand page (old "/pop-culture" links still work) */
+if(/^\/(home|pop-culture)\/?$/.test(location.pathname))document.documentElement.classList.add("v-home");
 try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentElement.classList.add("unlocked")}catch(e){}
 </script>
 </head>
@@ -687,7 +687,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
   <div class="header__in">
     <nav class="nav" aria-label="Primary">
       <a class="u" href="/">Shop</a>
-      <a class="u" href="/pop-culture">Pop Culture</a>
+      <a class="u" href="/home">Home</a>
     </nav>
     <button class="burger" id="burgerBtn" aria-label="Open menu">
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h18M3 16h12"/></svg>
@@ -713,8 +713,8 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
   </div>
   <nav class="mmenu__links">
     <a class="d" href="/" data-mlink>Shop</a>
-    <a class="d" href="/pop-culture" data-mlink>Pop Culture</a>
-    <a class="d" href="/pop-culture#club" data-mlink>The Club</a>
+    <a class="d" href="/home" data-mlink>Home</a>
+    <a class="d" href="/home#club" data-mlink>The Club</a>
   </nav>
   <div class="mmenu__foot label">
     <button data-account data-mlink>Account</button>
@@ -759,7 +759,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
       <div class="stepper"><button id="pMinus" aria-label="Decrease quantity">−</button><span id="pQty">1</span><button id="pPlus" aria-label="Increase quantity">+</button></div>
       <button class="btn btn--pink" id="pAdd">Add to bag · <span id="pAddPrice">$9.99</span></button>
     </div>
-    <a class="pdp__club" href="/pop-culture#club"><span class="label">Pop Culture Club</span><span>Members save 10% and are first in the know.</span><span class="arr">→</span></a>
+    <a class="pdp__club" href="/home#club"><span class="label">Pop Culture Club</span><span>Members save 10% and are first in the know.</span><span class="arr">→</span></a>
     <ul class="pdp__perks label"><li>No jitters</li><li>No crash</li><li>Free shipping on $50+</li></ul>
     <div class="pdp__acc">
       <details open><summary>The pop</summary><p>One glossy Cherry Gloss lollipop on a rose gold ShawtyPop stick. Energy, accessorized.</p></details>
