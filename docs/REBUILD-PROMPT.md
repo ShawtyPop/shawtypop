@@ -2,7 +2,7 @@
 
 Snapshot of shawtypop.com as of October 6, 2026.
 
-**How to use this:** paste everything below the line into Claude. Attach the five files from the `images` folder, plus `index-backup.html` if you still have it.
+**How to use this:** paste everything under "The prompt" into Claude. Attach the five images and `index-backup.html`, which are saved in the project files under `website/rebuild`.
 
 - **Fastest recovery:** if the backup HTML is available, Claude should restore that file exactly. That is a perfect copy of the site. The written spec below is the fallback for rebuilding from scratch.
 - **The code also lives on GitHub:** the live site is the `main` branch of github.com/ShawtyPop/shawtypop. Git history keeps every past version, so check there first.
