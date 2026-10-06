@@ -229,8 +229,6 @@ input{font:inherit}
 .card__art svg{width:62%;transform:rotate(var(--r,-12deg));filter:drop-shadow(18px 22px 0 var(--shadow,rgba(234,60,140,.22)));transition:transform 1.1s var(--ease-out),filter .9s}
 .card__art img{width:40%;height:auto;transform:rotate(var(--r,-12deg));filter:drop-shadow(0 24px 30px rgba(184,15,99,.25));transition:transform 1.1s var(--ease-out),filter .9s}
 .card:hover .card__art img{transform:rotate(calc(var(--r,-12deg) + 14deg)) scale(1.06) translateY(-8px);filter:drop-shadow(0 34px 40px rgba(90,0,45,.45))}
-.card__art img.pack{width:100%;height:auto;transform:translateY(-4%);filter:drop-shadow(0 20px 26px rgba(120,0,50,.22))}
-.card:hover .card__art img.pack{transform:translateY(-6%) scale(1.04) rotate(-2deg);filter:drop-shadow(0 28px 34px rgba(90,0,45,.35))}
 .card:hover .card__bg{--r:150%}
 .card:hover .card__bg::before{transform:scale(1);opacity:1}
 .card:hover .card__art svg{transform:rotate(calc(var(--r,-12deg) + 14deg)) scale(1.06) translateY(-8px);filter:drop-shadow(26px 30px 0 rgba(0,0,0,.2))}
@@ -965,8 +963,6 @@ document.querySelectorAll("[data-mq]").forEach(r=>{r.innerHTML=mqItems.map(t=>(t
 /* ---------- PRODUCT CARDS ---------- */
 const shelf=document.getElementById("shelf");
 const POP_SRC=document.getElementById("popImg").src;
-/* multi-packs show a 3D-rendered bouquet (img/pack-N.webp, rendered from the same model as the opener) */
-function bundle(p){return `<img class="pack" src="img/pack-${p.count}.webp" width="900" height="1125" decoding="async" alt="${p.name}: ${p.count} Cherry Gloss lollipops tied with a ribbon" loading="lazy">`}
 const plusIcon=`<svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="2"><path d="M6 1v10M1 6h10"/></svg>`;
 shelf.innerHTML=PRODUCTS.map((p,i)=>{
   const swatch=p.pop==="mix"?["red","pink","baby"]:[p.pop];
@@ -975,7 +971,7 @@ shelf.innerHTML=PRODUCTS.map((p,i)=>{
       <div class="card__bg"></div>
       <span class="card__ghost d" aria-hidden="true">${p.ghost||p.name}</span>
       ${p.badge?`<span class="badge ${p.badgeStyle||""}">${p.badge}</span>`:""}
-      <div class="card__art">${(p.count||1)>1?bundle(p):`<img src="${POP_SRC}" alt="${p.name} lollipop">`}</div>
+      <div class="card__art"><img src="${POP_SRC}" alt="${p.name} lollipop"></div>
       <button class="card__quick" data-add="${p.id}" tabindex="-1">${plusIcon} Add to cart</button>
     </div>
     <div class="card__info">
