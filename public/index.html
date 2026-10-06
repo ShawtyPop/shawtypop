@@ -542,6 +542,11 @@ html.v-home .pdp{display:none}
   .pdp__club{grid-template-columns:1fr auto}
   .pdp__club .label{grid-column:1/-1}
 }
+.real-pop{display:block;height:100%;max-height:100%;width:auto;margin:auto;transform:rotate(-12deg)}
+.line__img{overflow:hidden}
+.line__img .real-pop{height:96px}
+.empty .real-pop{height:150px;margin:0 auto 18px}
+.up__img{height:26px;width:auto;transform:rotate(-12deg)}
 /* toast */
 .toast{position:fixed;z-index:110;left:50%;bottom:24px;transform:translate(-50%,140%);background:#000;color:#fff;padding:12px 14px 12px 12px;border-radius:999px;display:flex;align-items:center;gap:12px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:transform .6s var(--ease-out);box-shadow:0 20px 40px -20px rgba(0,0,0,.5);max-width:calc(100% - 32px)}
 .toast{display:none!important}
@@ -1051,6 +1056,8 @@ const PAL={
 let uid=0;
 const spiral=(()=>{let d="";for(let t=0;t<=6*Math.PI*2;t+=.12){const r=4+t*2.15;const x=100+r*Math.cos(t),y=100+r*Math.sin(t);d+=(d?"L":"M")+x.toFixed(1)+" "+y.toFixed(1)}return d})();
 function pop(key,opt){
+  /* always the real Cherry Gloss photo, never a drawn lollipop */
+  return `<img class="real-pop" src="${document.getElementById("popImg").src}" alt="" aria-hidden="true">`;
   opt=opt||{};
   if(key==="mix") return mixPop();
   const p=PAL[key]||PAL.pink, n=++uid, stick=opt.stick!==false;
@@ -1176,7 +1183,7 @@ function render(){
     <div class="line__right"><span class="line__price">${money(p.price*l.qty)}</span><button class="rm" data-rm="${p.id}">Remove</button></div></div>`}).join("");
   const ups=PRODUCTS.filter(p=>!cart.some(l=>l.id===p.id)).slice(0,4);
   $("upsell").style.display=ups.length&&cart.length?"":"none";
-  $("upsellRow").innerHTML=ups.map(p=>`<button class="up" data-add="${p.id}"><span class="dot" style="background:${p.pop==="mix"?"conic-gradient(#E3203F 0 33%,#EA3C8C 0 66%,#FF92C6 0)":sw(p.pop)}"></span>${p.name} · $${p.price}</button>`).join("");
+  $("upsellRow").innerHTML=ups.map(p=>`<button class="up" data-add="${p.id}"><img class="up__img" src="${POP_SRC}" alt="">${p.name} · $${p.price}</button>`).join("");
 }
 function bump(){document.querySelectorAll("[data-count]").forEach(e=>{e.classList.remove("bump");void e.offsetWidth;e.classList.add("bump")})}
 let tt;function toast(p){if(drawer.classList.contains("open"))return;$("toastText").textContent=`${p.name} added`;$("toastDot").style.background=p.pop==="mix"?"conic-gradient(#E3203F 0 33%,#EA3C8C 0 66%,#FF92C6 0)":sw(p.pop);$("toastBtn").style.display="";$("toast").classList.add("show");clearTimeout(tt);tt=setTimeout(()=>$("toast").classList.remove("show"),2600)}
@@ -1215,7 +1222,7 @@ mm.querySelectorAll("[data-mlink]").forEach(a=>a.addEventListener("click",closeM
 /* ---------- SEARCH ---------- */
 const sEl=$("search"),sIn=$("searchInput"),sRes=$("searchRes");
 function renderSearch(){const q=sIn.value.trim().toLowerCase();const list=PRODUCTS.filter(p=>!q||(p.name+" "+p.flavor+" "+p.tags.join(" ")).toLowerCase().includes(q));
-  sRes.innerHTML=list.length?list.map(p=>`<button data-add="${p.id}"><span class="dot" style="background:${p.pop==="mix"?"conic-gradient(#E3203F 0 33%,#EA3C8C 0 66%,#FF92C6 0)":sw(p.pop)}"></span>${p.name} · ${p.flavor} · $${p.price} ＋</button>`).join(""):`<span class="label" style="color:var(--ink-60)">No shawtys match "${sIn.value.replace(/[<>&"]/g,"")}"</span>`}
+  sRes.innerHTML=list.length?list.map(p=>`<button data-add="${p.id}"><img class="up__img" src="${POP_SRC}" alt="">${p.name} · ${p.flavor} · $${p.price} ＋</button>`).join(""):`<span class="label" style="color:var(--ink-60)">No shawtys match "${sIn.value.replace(/[<>&"]/g,"")}"</span>`}
 function openSearch(){closeMenu();sEl.classList.add("open");sEl.setAttribute("aria-hidden","false");renderSearch();setTimeout(()=>sIn.focus(),350)}
 function closeSearch(){sEl.classList.remove("open");sEl.setAttribute("aria-hidden","true")}
 sIn.addEventListener("input",renderSearch);$("searchClose").onclick=closeSearch;
