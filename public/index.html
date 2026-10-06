@@ -142,7 +142,7 @@ input{font:inherit}
 /* ============ C. POP SEQUENCE (scroll-driven opener) ============
    One JS-written custom property --p (0 to 1) drives every transform below.
    --rot/--sc/--fill are derived from it in JS so the easing can overshoot. */
-.pop{position:relative;height:320svh;background:var(--pink-hot)}
+.pop{position:relative;height:540svh;background:var(--pink-hot)}
 /* --lift raises everything in the stage: the padding shrinks the content box
    so the grid centre rises, and the absolute type and cue follow it. */
 .pop__stage{position:sticky;top:0;height:100svh;min-height:460px;padding-bottom:var(--lift,0px);overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse 90% 70% at 50% 46%,#FF4FA0 0%,var(--pink-hot) 52%,#E2066F 100%)}
@@ -152,7 +152,7 @@ input{font:inherit}
 
 /* the type is deliberately LOCKED: it never translates, so the lollipop
    turns against a constant backdrop. only its fill and scale breathe. */
-.pop__type{position:absolute;margin:0;width:100%;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:.78;text-align:center;transform:scale(calc(1 + .055*var(--p,0)))}
+.pop__type{position:absolute;margin:0;width:100%;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:.78;text-align:center;transform:scale(calc(1 + .055*var(--p,0)));opacity:var(--typeo,1)}
 /* 16.5vw, not 18vw: "CULTURE" filled the full 1280px viewport and the 1.055
    end-scale then pushed its C and E under the stage's overflow clip */
 .pop__word{display:block;font-size:clamp(56px,16.5vw,232px);letter-spacing:-.035em;text-transform:uppercase;color:#fff}
@@ -161,8 +161,8 @@ input{font:inherit}
 .pop__sparks{position:absolute;inset:0;pointer-events:none}
 .pop__spark{position:absolute;left:50%;top:50%;width:var(--s,8px);height:var(--s,8px);margin:calc(-.5*var(--s,8px)) 0 0 calc(-.5*var(--s,8px));border-radius:50%;opacity:calc(var(--p,0)*var(--o,.6));transform:rotate(var(--a,0deg)) translateY(calc(-1*var(--d,30vmin)*var(--p,0))) scale(calc(.3 + .7*var(--p,0)))}
 
-.pop__float{position:relative;z-index:2;animation:popFloat 6s var(--ease,ease-in-out) infinite}
-.pop__art{height:min(86svh,760px);transform:rotate(var(--rot,-90deg)) scale(var(--sc,.58));will-change:transform;filter:drop-shadow(0 26px 44px rgba(120,0,55,.45))}
+.pop__float{position:relative;z-index:2;animation:popFloat 6s var(--ease,ease-in-out) infinite;perspective:1800px}
+.pop__art{height:min(86svh,760px);transform:translateY(var(--ty,0px)) rotate(var(--rot,90deg)) rotateY(var(--spin,0deg)) scale(var(--sc,.58));will-change:transform;filter:drop-shadow(0 26px 44px rgba(120,0,55,.45))}
 .pop__art img{display:block;height:100%;width:auto;max-width:none}
 @keyframes popFloat{0%,100%{transform:translateY(-9px)}50%{transform:translateY(9px)}}
 
@@ -171,7 +171,7 @@ input{font:inherit}
 @keyframes popCue{0%,100%{transform:scaleY(.35);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
 
 @media (max-width:640px){
-  .pop{height:280svh}
+  .pop{height:470svh}
   .pop__stage{--lift:19vh}
   .pop__art{height:min(76svh,620px)}
   /* "Culture" is the widest word; 18vw left it 7px off each edge once the
@@ -596,7 +596,6 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
     <nav class="nav" aria-label="Primary">
       <a class="u" href="#shop">Shop</a>
       <a class="u" href="#shop">Collections</a>
-      <a class="u" href="#feature">Our Story</a>
     </nav>
     <button class="burger" id="burgerBtn" aria-label="Open menu">
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h18M3 16h12"/></svg>
@@ -623,7 +622,6 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
   <nav class="mmenu__links">
     <a class="d" href="#shop" data-mlink>Shop</a>
     <a class="d" href="#shop" data-mlink>Collections</a>
-    <a class="d" href="#feature" data-mlink>Our Story</a>
     <a class="d" href="#club" data-mlink>The Club</a>
   </nav>
   <div class="mmenu__foot label">
@@ -743,12 +741,12 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
       </form>
     </div>
     <div><h4>Shop</h4><ul><li><a class="u" href="#shop">Shop All</a></li><li><a class="u" href="#shop">Best Sellers</a></li><li><a class="u" href="#shop">New Drops</a></li><li><a class="u" href="#shop">Collections</a></li></ul></div>
-    <div><h4>About</h4><ul><li><a class="u" href="#feature">Our Story</a></li><li><a class="u" href="#top">Contact</a></li><li><a class="u" href="#top">FAQ</a></li></ul></div>
+    <div><h4>About</h4><ul><li><a class="u" href="#top">Contact</a></li><li><a class="u" href="#top">FAQ</a></li></ul></div>
     <div><h4>Help</h4><ul><li><a class="u" href="#top">Shipping</a></li><li><a class="u" href="#top">Returns</a></li><li><a class="u" href="#top">Privacy</a></li><li><a class="u" href="#top">Terms</a></li></ul></div>
-    <div><h4>Social</h4><ul><li><a class="u" href="#top">Instagram</a></li><li><a class="u" href="#top">TikTok</a></li></ul>
+    <div><h4>Social</h4><ul><li><a class="u" href="https://www.instagram.com/getshawtypop/" target="_blank" rel="noopener">Instagram</a></li><li><a class="u" href="https://www.tiktok.com/@getshawtypop" target="_blank" rel="noopener">TikTok</a></li></ul>
       <div class="socials" style="margin-top:18px">
-        <a href="#top" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
-        <a href="#top" aria-label="TikTok"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.4 2.3 1.8 3.8 4 4v3c-1.5 0-2.9-.4-4-1.2V15a6 6 0 1 1-6-6v3.1a3 3 0 1 0 3 3V3h3Z"/></svg></a>
+        <a href="https://www.instagram.com/getshawtypop/" target="_blank" rel="noopener" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+        <a href="https://www.tiktok.com/@getshawtypop" target="_blank" rel="noopener" aria-label="TikTok"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.4 2.3 1.8 3.8 4 4v3c-1.5 0-2.9-.4-4-1.2V15a6 6 0 1 1-6-6v3.1a3 3 0 1 0 3 3V3h3Z"/></svg></a>
       </div>
     </div>
   </div>
@@ -862,15 +860,27 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
   function easeOutBack(x){var c1=1.9,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)}
   function easeOutCubic(x){return 1-Math.pow(1-x,3)}
   function clamp01(v){return v<0?0:v>1?1:v}
+  function easeInOutCubic(x){return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2}
+  function easeInCubic(x){return x*x*x}
+  /* 0-.3 stands up (twisting from the right), .18-.66 spins on its stick
+     one way then back, .66-1 flies at the viewer until the candy fills the screen */
   function apply(p){
-    var turn=clamp01(p/.72);
-    var rot=-90*(1-easeOutBack(turn));
-    var sc=.58+.42*easeOutCubic(turn);
-    var fill=clamp01((p-.5)/.42);
-    sec.style.setProperty("--p",p.toFixed(4));
+    var turn=clamp01(p/.3);
+    var rot=90*(1-easeOutBack(turn));
+    var spinT=clamp01((p-.18)/.48);
+    var spin=spinT<.5?540*easeInOutCubic(spinT*2):540-540*easeInOutCubic(spinT*2-1);
+    var zoom=easeInCubic(clamp01((p-.66)/.34));
+    var sc=(.58+.42*easeOutCubic(turn))*(1+13*zoom);
+    var fill=clamp01((p-.3)/.3);
+    sec.style.setProperty("--p",Math.min(p/.66,1).toFixed(4));
     sec.style.setProperty("--rot",rot.toFixed(2)+"deg");
+    sec.style.setProperty("--spin",spin.toFixed(2)+"deg");
     sec.style.setProperty("--sc",sc.toFixed(4));
     sec.style.setProperty("--fill",fill.toFixed(3));
+    /* slide the candy head (19.6% down the image) to screen centre as it grows */
+    var art=sec.querySelector(".pop__art");
+    sec.style.setProperty("--ty",(.304*(art?art.offsetHeight:0)*sc*Math.min(zoom*4,1)).toFixed(1)+"px");
+    sec.style.setProperty("--typeo",(1-clamp01(zoom*3)).toFixed(3));
   }
   if(reduce){apply(1);return}
   var ticking=false;
@@ -941,7 +951,7 @@ document.querySelectorAll(".repeat__art").forEach(el=>{el.innerHTML=`<img src="$
 const sw=k=>{const p=PAL[k]||PAL.pink;return `radial-gradient(circle at 35% 30%,${p.c},${p.a} 50%,${p.b})`};
 
 /* ---------- MARQUEE ---------- */
-const mqItems=["Cherry Gloss","<span class='serif'>no boring energy</span>","Fashion you can taste","<span class='serif'>shop the shawtys</span>","Wear your energy","<span class='serif'>energy, accessorized.</span>"];
+const mqItems=["Cherry Gloss","<span class='serif'>no boring energy</span>","Fashion you can taste","<span class='serif'>pop off</span>","Wear your energy","<span class='serif'>energy, accessorized.</span>"];
 const pip=`<svg class="pip" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="currentColor"/><circle cx="7" cy="7" r="2.4" fill="#fff" opacity=".8"/></svg>`;
 document.querySelectorAll("[data-mq]").forEach(r=>{r.innerHTML=mqItems.map(t=>(t.startsWith("<")?t:`<span>${t}</span>`)+pip).join("")});
 
