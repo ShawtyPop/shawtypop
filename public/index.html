@@ -951,6 +951,25 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
 (function(){
 "use strict";
 
+/* ---------- SIGNUPS ----------
+   Every email goes to MailerLite (Newsletter group) and, once SHEET_URL is
+   set, to the "ShawtyPop Subscribers" Google Sheet as a backup. */
+var ML_URL="https://assets.mailerlite.com/jsonp/2690429/forms/200599344405021977/subscribe";
+var SHEET_URL="";
+function subscribe(email,source,name){
+  var ml=new URLSearchParams();
+  ml.append("fields[email]",email);
+  if(name)ml.append("fields[name]",name);
+  ml.append("ml-submit","1");ml.append("anticsrf","true");
+  var jobs=[fetch(ML_URL,{method:"POST",mode:"no-cors",body:ml})];
+  if(SHEET_URL){
+    var sh=new URLSearchParams({email:email,source:source});
+    jobs.push(fetch(SHEET_URL,{method:"POST",mode:"no-cors",body:sh}).catch(function(){}));
+  }
+  return Promise.all(jobs);
+}
+window.spSubscribe=subscribe;
+
 /* ---------- GATE (waitlist + prototype password) ----------
    PROTOTYPE ONLY. The password lives in this file, so anyone
    can read it in view-source. Not real access control. */
@@ -973,7 +992,9 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
     var v=document.getElementById("waitEmail").value.trim();
     if(!n){wm.textContent="Enter your name";wm.classList.add("bad");return}
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){wm.textContent="Enter a valid email";wm.classList.add("bad");return}
-    wm.classList.remove("bad");wm.textContent="You're on the list, "+n;wf.reset();
+    wm.classList.remove("bad");wm.textContent="Adding you…";
+    subscribe(v,"Waitlist",n).then(function(){wm.textContent="You're on the list, "+n;wf.reset()},
+      function(){wm.classList.add("bad");wm.textContent="Something went wrong, try again"});
   });
   var kf=document.getElementById("keyForm"),km=document.getElementById("keyMsg"),ki=document.getElementById("keyInput");
   kf.addEventListener("submit",function(e){
@@ -1238,9 +1259,13 @@ const okEmail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
   document.addEventListener("keydown",e=>{if(e.key==="Escape"&&nl.classList.contains("open"))close()});
   $("nlForm").addEventListener("submit",e=>{e.preventDefault();const i=e.target.querySelector("input");
     if(!okEmail(i.value.trim())){$("nlMsg").textContent="Enter a valid email";return}
-    i.value="";$("nlMsg").textContent="You're in 💗";setTimeout(close,1600)});
+    $("nlMsg").textContent="Adding you…";
+    spSubscribe(i.value.trim(),"Popup").then(()=>{i.value="";$("nlMsg").textContent="You're in 💗";setTimeout(close,1600)},
+      ()=>{$("nlMsg").textContent="Something went wrong, try again"})});
 })();
-$("miniForm").addEventListener("submit",e=>{e.preventDefault();const i=e.target.querySelector("input");if(okEmail(i.value.trim())){i.value="";note("You're on the list 💗")}else note("Enter a valid email")});
+$("miniForm").addEventListener("submit",e=>{e.preventDefault();const i=e.target.querySelector("input");const v=i.value.trim();
+  if(!okEmail(v)){i.value="";i.placeholder="Enter a valid email";return}
+  spSubscribe(v,"Footer").then(()=>{i.value="";i.placeholder="You're on the list 💗"},()=>{i.placeholder="Something went wrong, try again"})});
 
 /* ---------- HEADER + ANNOUNCE ---------- */
 const header=$("header");

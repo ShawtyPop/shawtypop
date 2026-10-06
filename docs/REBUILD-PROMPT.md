@@ -126,7 +126,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   - Brand column:
     - the transparent logo (46px tall)
     - pink italic serif line "Fashion, accessorized."
-    - an underlined email field "Email for drops" with a pink "Join" button
+    - an underlined email field "Email for drops" with a pink "Join" button. On submit it signs the email up (see "Email signups") and the placeholder changes to "You're on the list 💗".
   - Link columns:
     - Shop: Shop All, Best Sellers, New Drops, Collections, all linking to /
     - About: Contact, FAQ
@@ -157,7 +157,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
     - text: "Sign up for the ShawtyPop newsletter and get 15% off, plus first dibs on every Cherry Gloss drop."
     - email field, pink "Get 15% off" button, "No thanks" link and a close X
   - Success shows "You're in 💗".
-  - Emails are not stored anywhere yet. This is waiting on a MailerLite form.
+  - The email is signed up as described in "Email signups".
 - **Password gate:**
   - Full-screen hot-pink "Join the waitlist" overlay shown to visitors until they enter the prototype password **ShawtyPop123**.
   - Unlocking sets localStorage `shawtypop_gate_v1` to "open". This is a prototype gate only, since the password is visible in the page source.
@@ -165,8 +165,12 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
     - the logo on a soft white glow
     - heading "Join the *waitlist*"
     - text "Shawtypop is almost here. Get on the list for the first drop."
-    - First name and Email fields with a white "Join →" button, showing "You're on the list, {name}" on submit
+    - First name and Email fields with a white "Join →" button. On submit it signs the email and name up (see "Email signups") and shows "You're on the list, {name}".
     - a "Have a password?" toggle with a password field and "Enter →"
+- **Email signups:**
+  - The popup, the footer field and the waitlist gate all send the email to MailerLite with a background POST (`mode: "no-cors"`) to `https://assets.mailerlite.com/jsonp/2690429/forms/200599344405021977/subscribe`, with form fields `fields[email]` (plus `fields[name]` from the gate), `ml-submit=1` and `anticsrf=true`. That is the MailerLite embedded form "Website Signup", which adds people to the Newsletter group. The MailerLite account signs in with Google as getshawtypop@gmail.com.
+  - Each signup also goes to the "ShawtyPop Subscribers" Google Sheet as a backup, through a Google Apps Script web app (`SHEET_URL` in the code, with fields `email` and `source` set to Popup, Footer or Waitlist). The script is saved in the project files at `website/subscribers-apps-script.gs`.
+  - While a signup is sending, the message reads "Adding you…". If it fails, it reads "Something went wrong, try again".
 - **Hidden on purpose:** the add-to-cart toast exists in the code but is hidden with `display:none`.
 
 ### 6. Product page (`/`, the default page)
