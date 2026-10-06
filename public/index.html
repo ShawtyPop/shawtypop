@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="ShawtyPop caffeinated lollipops. Cherry Gloss is coming soon. Join the waitlist.">
+<title>ShawtyPop Website Draft</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Figtree:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: one candy-pink page. Wordmark + waitlist up top, then Cherry Gloss, then Emmy, then socials. Single deliberate look (no dark mode). */
+:root {
+  --pink: #f80071;     /* logo pink */
+  --plum: #49002d;     /* logo plum */
+  --blush: #ffe3ef;
+  --petal: #ffc2dc;
+  --cream: #fff7fa;
+  --ink: #2a0019;
+  --display: "Bagel Fat One", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { background: var(--cream); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55; }
+.wrap { max-width: 1080px; margin: 0 auto; padding-inline: 20px; }
+h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.02; text-wrap: balance; margin: 0; color: var(--plum); }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--plum); outline-offset: 3px; }
+
+/* top bar */
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 18px; }
+.bar img { height: 34px; width: auto; }
+.bar a.pill { font-weight: 700; font-size: 14px; text-decoration: none; padding: 8px 16px; border-radius: 999px; background: var(--plum); color: var(--cream); }
+
+/* hero */
+.hero { background: var(--blush); border-radius: 28px; overflow: hidden; display: grid; grid-template-columns: 1.15fr 0.85fr; align-items: center; gap: 24px; padding: 48px 44px; }
+.hero > div { min-width: 0; display: grid; gap: 22px; }
+.eyebrow { font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--pink); }
+.hero h1 { font-size: clamp(44px, 7vw, 84px); }
+.hero h1 em { font-style: normal; color: var(--pink); }
+.lede { font-size: 19px; max-width: 34ch; }
+form { display: flex; flex-wrap: wrap; gap: 10px; max-width: 460px; }
+form input { flex: 1 1 220px; min-width: 0; font: inherit; padding: 14px 18px; border-radius: 999px; border: 2px solid var(--plum); background: #fff; color: var(--ink); }
+form button { font: inherit; font-weight: 800; padding: 14px 24px; border-radius: 999px; border: 0; background: var(--pink); color: #fff; cursor: pointer; }
+form button:hover { background: var(--plum); }
+.note { font-size: 14px; color: var(--plum); min-height: 1.4em; }
+
+/* the pop */
+.pop { position: relative; justify-self: center; width: min(300px, 70vw); aspect-ratio: 3 / 4; max-width: 100%; }
+.candy { position: absolute; top: 0; left: 50%; translate: -50% 0; width: 78%; aspect-ratio: 1; border-radius: 50%;
+  background: repeating-conic-gradient(from 10deg, var(--pink) 0 30deg, #ff4d9b 30deg 60deg);
+  box-shadow: inset -14px -18px 0 rgba(73,0,45,.22), 0 18px 40px rgba(248,0,113,.35); animation: spin 18s linear infinite; }
+.candy::after { content: ""; position: absolute; top: 14%; left: 18%; width: 24%; height: 14%; border-radius: 50%; background: rgba(255,255,255,.7); rotate: -30deg; }
+.stick { position: absolute; left: 50%; translate: -50% 0; top: 70%; width: 14px; height: 32%; border-radius: 7px; background: #fff; border: 2px solid var(--petal); }
+.tag { position: absolute; right: -4px; bottom: 22%; background: var(--plum); color: var(--cream); font-weight: 800; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; padding: 8px 14px; border-radius: 999px; rotate: -8deg; }
+@keyframes spin { to { rotate: 360deg; } }
+@media (prefers-reduced-motion: reduce) { .candy { animation: none; } }
+
+/* sections */
+section { padding-block: 72px 0; }
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+.split > * { min-width: 0; }
+section h2 { font-size: clamp(36px, 5vw, 56px); margin-bottom: 18px; }
+.copy { display: grid; gap: 16px; max-width: 52ch; }
+.facts { display: flex; flex-wrap: wrap; gap: 10px; }
+.facts span { font-weight: 700; font-size: 14px; padding: 8px 14px; border-radius: 999px; background: var(--blush); color: var(--plum); }
+.swatch { aspect-ratio: 1; max-width: 100%; border-radius: 28px; background: var(--pink); display: grid; place-items: center; }
+.swatch img { width: 52%; filter: brightness(0) invert(1); }
+.photo { aspect-ratio: 4 / 5; max-width: 100%; border-radius: 28px; background: var(--petal); display: grid; place-items: center; text-align: center; color: var(--plum); font-weight: 700; padding: 24px; }
+
+/* footer */
+footer { margin-top: 80px; background: var(--plum); color: var(--cream); padding-block: 48px; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; }
+footer img { height: 56px; filter: brightness(0) invert(1); }
+footer nav { display: flex; gap: 20px; font-weight: 700; flex-wrap: wrap; }
+footer small { flex-basis: 100%; opacity: .7; }
+
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; padding: 32px 22px; }
+  .pop { width: min(220px, 60vw); }
+  .split { grid-template-columns: 1fr; gap: 28px; }
+  .split.flip > :first-child { order: 2; }
+  section { padding-block: 56px 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="bar">
+    <img src="wordmark.png" alt="ShawtyPop">
+    <a class="pill" href="#join">Join the waitlist</a>
+  </header>
+
+  <div class="hero" id="join">
+    <div>
+      <span class="eyebrow">Caffeinated lollipops</span>
+      <h1>Your pick-me-up, <em>on a stick.</em></h1>
+      <p class="lede">ShawtyPop is a caffeinated lollipop made to be seen. Cherry Gloss drops soon. Get on the list to be first.</p>
+      <form id="waitlist" novalidate>
+        <input id="email" type="email" placeholder="you@colorado.edu" aria-label="Email address" autocomplete="email">
+        <button type="submit">Join the waitlist</button>
+      </form>
+      <p class="note" id="note" aria-live="polite"></p>
+    </div>
+    <div class="pop" aria-hidden="true">
+      <div class="candy"></div>
+      <div class="stick"></div>
+      <div class="tag">Cherry Gloss</div>
+    </div>
+  </div>
+
+  <section class="split">
+    <div class="swatch"><img src="lips.png" alt=""></div>
+    <div class="copy">
+      <span class="eyebrow">Meet the pop</span>
+      <h2>Cherry Gloss</h2>
+      <p>Bright cherry flavor with a little caffeine kick for the 2 PM slump, the library grind, or the night out. It's a fashion piece first: the pink stick in your hand is part of the fit.</p>
+      <div class="facts"><span>Caffeinated</span><span>Cherry flavor</span><span>Coming soon</span></div>
+    </div>
+  </section>
+
+  <section class="split flip">
+    <div class="copy">
+      <span class="eyebrow">The face of ShawtyPop</span>
+      <h2>Hey, it's Emmy</h2>
+      <p>Emmy is helping found ShawtyPop from New York. Follow along on TikTok and Instagram for her day-in-the-life videos and everything going into the first drop.</p>
+      <div class="facts"><span>@getshawtypop</span></div>
+    </div>
+    <div class="photo">Photo of Emmy goes here</div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap">
+    <img src="wordmark.png" alt="ShawtyPop">
+    <nav>
+      <a href="https://www.instagram.com/getshawtypop">Instagram</a>
+      <a href="https://www.tiktok.com/@getshawtypop">TikTok</a>
+    </nav>
+    <small>© 2026 ShawtyPop · shawtypop.com</small>
+  </div>
+</footer>
+
+<script>
+document.getElementById('waitlist').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var email = document.getElementById('email').value.trim();
+  var note = document.getElementById('note');
+  if (!/^\S+@\S+\.\S+$/.test(email)) { note.textContent = 'Enter an email address like you@colorado.edu.'; return; }
+  note.textContent = 'Preview only: signups start working once the site is live.';
+});
+</script>
+</body>
+</html>
