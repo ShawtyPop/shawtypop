@@ -142,7 +142,7 @@ input{font:inherit}
 /* ============ C. POP SEQUENCE (scroll-driven opener) ============
    One JS-written custom property --p (0 to 1) drives every transform below.
    --rot/--sc/--fill are derived from it in JS so the easing can overshoot. */
-.pop{position:relative;height:170svh;background:var(--pink-hot)}
+.pop{position:relative;height:135svh;background:var(--pink-hot)}
 /* --lift raises everything in the stage: the padding shrinks the content box
    so the grid centre rises, and the absolute type and cue follow it. */
 .pop__stage{position:sticky;top:0;height:100svh;min-height:460px;padding-bottom:var(--lift,0px);overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse 90% 70% at 50% 46%,#FF4FA0 0%,var(--pink-hot) 52%,#E2066F 100%)}
@@ -166,12 +166,14 @@ input{font:inherit}
 .pop__art img{display:block;height:100%;width:auto;max-width:none}
 @keyframes popFloat{0%,100%{transform:translateY(-9px)}50%{transform:translateY(9px)}}
 
+.pop__gl{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none}
+.pop--3d .pop__float{visibility:hidden}
 .pop__cue{position:absolute;bottom:clamp(18px,3.4vh,40px);display:flex;flex-direction:column;align-items:center;gap:9px;opacity:calc(1 - var(--p,0)*3.2);pointer-events:none;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.9)}
 .pop__cue i{display:block;width:1px;height:38px;background:linear-gradient(#fff,rgba(255,255,255,0));animation:popCue 1.9s var(--ease,ease-in-out) infinite}
 @keyframes popCue{0%,100%{transform:scaleY(.35);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
 
 @media (max-width:640px){
-  .pop{height:160svh}
+  .pop{height:130svh}
   .pop__stage{--lift:19vh}
   .pop__art{height:min(76svh,620px)}
   /* "Culture" is the widest word; 18vw left it 7px off each edge once the
@@ -227,6 +229,11 @@ input{font:inherit}
 .card__art svg{width:62%;transform:rotate(var(--r,-12deg));filter:drop-shadow(18px 22px 0 var(--shadow,rgba(234,60,140,.22)));transition:transform 1.1s var(--ease-out),filter .9s}
 .card__art img{width:40%;height:auto;transform:rotate(var(--r,-12deg));filter:drop-shadow(0 24px 30px rgba(184,15,99,.25));transition:transform 1.1s var(--ease-out),filter .9s}
 .card:hover .card__art img{transform:rotate(calc(var(--r,-12deg) + 14deg)) scale(1.06) translateY(-8px);filter:drop-shadow(0 34px 40px rgba(90,0,45,.45))}
+.bundle{position:relative;width:100%;height:100%}
+.bundle img{position:absolute;left:50%;bottom:3%;width:30%;height:auto;margin-left:-15%;transform-origin:50% 96%;transform:translateY(var(--y,0)) rotate(var(--a));z-index:var(--z,1);filter:drop-shadow(0 12px 16px rgba(120,0,50,.22));transition:transform 1s var(--ease-out)}
+.bundle--12 img{width:27%;margin-left:-13.5%}
+.card:hover .bundle img{transform:translateY(var(--y,0)) rotate(calc(var(--a)*1.35)) translateY(-3%)}
+.bundle__ribbon{position:absolute;left:50%;bottom:15%;width:13%;height:5%;margin-left:-6.5%;border-radius:999px;z-index:3;background:linear-gradient(180deg,#ff5aa8,#e8157a 60%,#b80f63);box-shadow:0 4px 10px rgba(120,0,50,.3)}
 .card:hover .card__bg{--r:150%}
 .card:hover .card__bg::before{transform:scale(1);opacity:1}
 .card:hover .card__art svg{transform:rotate(calc(var(--r,-12deg) + 14deg)) scale(1.06) translateY(-8px);filter:drop-shadow(26px 30px 0 rgba(0,0,0,.2))}
@@ -716,7 +723,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
   <p class="feature__note">"Matches every outfit. Especially the pink ones."</p>
   <div class="feature__card rv">
     <div class="row"><span class="label" style="color:var(--pink)">Best seller</span><span class="stars" style="color:var(--pink)">★★★★★</span></div>
-    <div class="row" style="margin-top:10px"><h3>Cherry Gloss 5 Pack</h3><span class="price">$10.00</span></div>
+    <div class="row" style="margin-top:10px"><h3>Cherry Gloss 5 Pack</h3><span class="price">$9.99</span></div>
     <dl class="feature__specs">
       <div><dt>Flavor</dt><dd>Cherry Gloss</dd></div>
       <div><dt>Size</dt><dd>5 pops / pack</dd></div>
@@ -900,9 +907,9 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
 
 /* ---------- PRODUCT DATA (edit here) ---------- */
 const PRODUCTS=[
-  {id:"cherry-gloss-1",name:"Cherry Gloss Single",ghost:"Single",flavor:"Cherry Gloss · 1 pop",price:2.50,badge:"",badgeStyle:"",pop:"red",alt:"#E0213A",tags:["single"]},
-  {id:"cherry-gloss-5",name:"Cherry Gloss 5 Pack",ghost:"5 Pack",flavor:"Cherry Gloss · 5 pops",price:10.00,badge:"Best Seller",badgeStyle:"",pop:"red",alt:"#E0213A",tags:["pack"]},
-  {id:"cherry-gloss-12",name:"Cherry Gloss 12 Pack",ghost:"12 Pack",flavor:"Cherry Gloss · 12 pops",price:19.99,badge:"Best Value",badgeStyle:"",pop:"red",alt:"#E0213A",tags:["pack"]}
+  {id:"cherry-gloss-1",count:1,name:"Cherry Gloss Single",ghost:"Single",flavor:"Cherry Gloss · 1 pop",price:2.99,badge:"",badgeStyle:"",pop:"red",alt:"#E0213A",tags:["single"]},
+  {id:"cherry-gloss-5",count:5,name:"Cherry Gloss 5 Pack",ghost:"5 Pack",flavor:"Cherry Gloss · 5 pops",price:9.99,badge:"Best Seller",badgeStyle:"",pop:"red",alt:"#E0213A",tags:["pack"]},
+  {id:"cherry-gloss-12",count:12,name:"Cherry Gloss 12 Pack",ghost:"12 Pack",flavor:"Cherry Gloss · 12 pops",price:19.99,badge:"Best Value",badgeStyle:"",pop:"red",alt:"#E0213A",tags:["pack"]}
 ];
 const SHIP_FREE=50;
 
@@ -961,6 +968,10 @@ document.querySelectorAll("[data-mq]").forEach(r=>{r.innerHTML=mqItems.map(t=>(t
 /* ---------- PRODUCT CARDS ---------- */
 const shelf=document.getElementById("shelf");
 const POP_SRC=document.getElementById("popImg").src;
+/* fanned bouquet of pops, tied with a ribbon, for the multi-packs */
+function bundle(p){const n=p.count,spread=n>6?5.5:8;let h="";
+  for(let i=0;i<n;i++){const a=(i-(n-1)/2)*spread,back=n>6&&i%2;h+=`<img src="${POP_SRC}" alt="" style="--a:${a}deg;--z:${back?0:1};--y:${back?-9:0}%">`}
+  return `<div class="bundle bundle--${n}" role="img" aria-label="${p.name}: ${n} lollipops">${h}<span class="bundle__ribbon"></span></div>`}
 const plusIcon=`<svg width="12" height="12" viewBox="0 0 12 12" stroke="currentColor" stroke-width="2"><path d="M6 1v10M1 6h10"/></svg>`;
 shelf.innerHTML=PRODUCTS.map((p,i)=>{
   const swatch=p.pop==="mix"?["red","pink","baby"]:[p.pop];
@@ -969,12 +980,12 @@ shelf.innerHTML=PRODUCTS.map((p,i)=>{
       <div class="card__bg"></div>
       <span class="card__ghost d" aria-hidden="true">${p.ghost||p.name}</span>
       ${p.badge?`<span class="badge ${p.badgeStyle||""}">${p.badge}</span>`:""}
-      <div class="card__art"><img src="${POP_SRC}" alt="${p.name} lollipop"></div>
+      <div class="card__art">${(p.count||1)>1?bundle(p):`<img src="${POP_SRC}" alt="${p.name} lollipop">`}</div>
       <button class="card__quick" data-add="${p.id}" tabindex="-1">${plusIcon} Add to cart</button>
     </div>
     <div class="card__info">
       <h3 class="card__name">${p.name}</h3><span class="card__price">$${p.price.toFixed(2)}</span>
-      <div class="card__flavor"><span class="swatches">${swatch.map(s=>`<i style="background:${sw(s)}"></i>`).join("")}</span>${p.flavor}</div>
+      <div class="card__flavor">${p.flavor}</div>
     </div>
     <button class="btn btn--sm card__mobile-add" data-add="${p.id}">Add to cart · $${p.price.toFixed(2)}</button>
   </article>`}).join("");
@@ -1125,5 +1136,6 @@ addEventListener("scroll",onScroll,{passive:true});
 render();updShelf();onScroll();
 })();
 </script>
+<script type="module" src="js/pop3d.js"></script>
 </body>
 </html>
