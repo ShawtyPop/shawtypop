@@ -157,14 +157,15 @@ input{font:inherit}
 .pop__type{position:absolute;margin:0;width:100%;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:.78;text-align:center;transform:scale(calc(1 + .055*var(--p,0)))}
 /* 16.5vw, not 18vw: "CULTURE" filled the full 1280px viewport and the 1.055
    end-scale then pushed its C and E under the stage's overflow clip */
-.pop__word{display:block;font-size:clamp(56px,16.5vw,232px);letter-spacing:-.035em;text-transform:uppercase;color:#fff}
+.pop__kicker{position:absolute;right:100%;top:.12em;margin-right:.18em;white-space:nowrap;font-family:var(--serif);font-style:italic;font-weight:400;text-transform:none;font-size:.24em;line-height:1;color:#fff;letter-spacing:0}
+.pop__word{position:relative;display:block;font-size:clamp(56px,16.5vw,232px);letter-spacing:-.035em;text-transform:uppercase;color:#fff}
 .pop__word--b{color:rgba(255,255,255,var(--fill,0));-webkit-text-stroke:clamp(1.6px,.22vw,3.6px) #fff;paint-order:stroke fill}
 
 .pop__sparks{position:absolute;inset:0;pointer-events:none}
 .pop__spark{position:absolute;left:50%;top:50%;width:var(--s,8px);height:var(--s,8px);margin:calc(-.5*var(--s,8px)) 0 0 calc(-.5*var(--s,8px));border-radius:50%;opacity:calc(var(--p,0)*var(--o,.6));transform:rotate(var(--a,0deg)) translateY(calc(-1*var(--d,30vmin)*var(--p,0))) scale(calc(.3 + .7*var(--p,0)))}
 
 .pop__float{position:relative;z-index:2;animation:popFloat 6s var(--ease,ease-in-out) infinite}
-.pop__art{height:min(86svh,760px);transform:rotate(var(--rot,-180deg)) scale(var(--sc,.58));will-change:transform;filter:drop-shadow(0 26px 44px rgba(120,0,55,.45))}
+.pop__art{height:min(86svh,760px);transform:rotate(var(--rot,-80deg)) scale(var(--sc,.58));will-change:transform;filter:drop-shadow(0 26px 44px rgba(120,0,55,.45))}
 .pop__art img{display:block;height:100%;width:auto;max-width:none}
 @keyframes popFloat{0%,100%{transform:translateY(-9px)}50%{transform:translateY(9px)}}
 
@@ -457,6 +458,22 @@ input{font:inherit}
 .drawer__foot small{display:block;color:var(--ink-60);font-size:12px;margin-bottom:16px}
 .drawer__foot .btn{width:100%}
 
+/* newsletter popup */
+.nl{position:fixed;inset:0;z-index:130;display:grid;place-items:center;padding:20px;background:rgba(20,0,10,.45);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .45s var(--ease-out)}
+.nl.open{opacity:1;pointer-events:auto}
+.nl__card{position:relative;width:min(440px,100%);background:#fff;border-radius:22px;padding:clamp(28px,4vw,44px);text-align:center;box-shadow:0 40px 80px -30px rgba(120,0,55,.5);transform:translateY(24px) scale(.97);transition:transform .55s var(--ease-out)}
+.nl.open .nl__card{transform:none}
+.nl__x{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--blush)}
+.nl__kick{font-size:11px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--pink)}
+.nl__title{margin-top:12px;font-size:clamp(44px,8vw,64px);font-weight:900;letter-spacing:-.04em;line-height:.9;text-transform:uppercase}
+.nl__title .serif{display:inline-block;margin-top:6px;font-size:.5em;text-transform:none;letter-spacing:0;color:var(--pink)}
+.nl__sub{margin-top:16px;color:var(--ink-60);font-size:15px;line-height:1.45}
+.nl__form{margin-top:22px;display:flex;flex-direction:column;gap:10px}
+.nl__form input{height:52px;border-radius:999px;border:1.5px solid rgba(0,0,0,.15);padding:0 20px;font-size:15px;outline:0;text-align:center}
+.nl__form input:focus{border-color:var(--pink)}
+.nl__form .btn{height:52px;width:100%}
+.nl__msg{min-height:20px;margin-top:10px;font-size:14px;font-weight:700;color:var(--pink)}
+.nl__no{margin-top:4px;font-size:12px;letter-spacing:.08em;color:var(--ink-60);text-decoration:underline}
 /* toast */
 .toast{position:fixed;z-index:110;left:50%;bottom:24px;transform:translate(-50%,140%);background:#000;color:#fff;padding:12px 14px 12px 12px;border-radius:999px;display:flex;align-items:center;gap:12px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;transition:transform .6s var(--ease-out);box-shadow:0 20px 40px -20px rgba(0,0,0,.5);max-width:calc(100% - 32px)}
 .toast.show{transform:translate(-50%,0)}
@@ -652,8 +669,8 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
   <div class="pop__stage">
     <div class="pop__bloom" aria-hidden="true"></div>
     <div class="pop__rays" aria-hidden="true"></div>
-    <h1 class="pop__type" aria-label="Pop culture">
-      <span class="pop__word d" aria-hidden="true">Pop</span>
+    <h1 class="pop__type" aria-label="Join the Pop Culture">
+      <span class="pop__word d" aria-hidden="true"><span class="pop__kicker">Join the</span>Pop</span>
       <span class="pop__word pop__word--b d" aria-hidden="true">Culture</span>
     </h1>
     <div class="pop__sparks" aria-hidden="true"></div>
@@ -779,6 +796,20 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
 </aside>
 
 <div class="m-bar" id="mBar"><span id="mBarText">Bag · $0.00</span><button class="btn btn--pink" data-open-cart>View bag</button></div>
+<div class="nl" id="nl" role="dialog" aria-modal="true" aria-labelledby="nlTitle" aria-hidden="true">
+  <div class="nl__card">
+    <button class="nl__x" id="nlClose" aria-label="Close"><svg width="14" height="14" viewBox="0 0 16 16" stroke="currentColor" stroke-width="2"><path d="M2 2l12 12M14 2 2 14"/></svg></button>
+    <p class="nl__kick">Join the Pop Culture Club</p>
+    <h2 class="nl__title" id="nlTitle">15% off<br><span class="serif">your first order</span></h2>
+    <p class="nl__sub">Sign up for the ShawtyPop newsletter and get 15% off, plus first dibs on every Cherry Gloss drop.</p>
+    <form class="nl__form" id="nlForm" novalidate>
+      <input type="email" placeholder="Your email" aria-label="Email" autocomplete="email" required>
+      <button type="submit" class="btn btn--pink">Get 15% off</button>
+    </form>
+    <p class="nl__msg" id="nlMsg" aria-live="polite"></p>
+    <button class="nl__no" id="nlNo">No thanks</button>
+  </div>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"><span class="dot" id="toastDot"></span><span id="toastText">Added</span><button id="toastBtn" data-open-cart>View</button></div>
 
 <!-- GATE: waitlist + prototype password -->
@@ -870,7 +901,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
   function apply(p){
     /* one smooth half turn tied straight to the scroll: no overshoot, no snap */
     var turn=clamp01(p/.9);
-    var rot=-180*(1-turn);
+    var rot=-80+180*turn;            /* just short of horizontal -> just past horizontal on the other side */
     var sc=.58+.42*(.5-Math.cos(Math.PI*turn)/2);
     var fill=clamp01((p-.5)/.42);
     sec.style.setProperty("--p",p.toFixed(4));
@@ -1013,7 +1044,7 @@ let cart=store.get().filter(l=>PRODUCTS.some(p=>p.id===l.id));
 const $=id=>document.getElementById(id);
 const money=n=>"$"+n.toFixed(2);
 const find=id=>PRODUCTS.find(p=>p.id===id);
-function add(id,q){q=q||1;const l=cart.find(x=>x.id===id);if(l)l.qty=Math.min(99,l.qty+q);else cart.push({id,qty:q});save();render();bump();toast(find(id))}
+function add(id,q){q=q||1;const l=cart.find(x=>x.id===id);if(l)l.qty=Math.min(99,l.qty+q);else cart.push({id,qty:q});save();render();bump()}
 function setQty(id,q){const l=cart.find(x=>x.id===id);if(!l)return;if(q<=0)cart=cart.filter(x=>x.id!==id);else l.qty=Math.min(99,q);save();render()}
 function remove(id){cart=cart.filter(x=>x.id!==id);save();render()}
 function save(){store.set(cart)}
@@ -1085,6 +1116,16 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeCart();closeSe
 
 /* ---------- FORMS ---------- */
 const okEmail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+/* newsletter popup: once per visitor, 3s after load */
+(function(){const nl=$("nl");let seen=false;try{seen=localStorage.getItem("sp_nl")==="1"}catch(e){}
+  const close=()=>{nl.classList.remove("open");nl.setAttribute("aria-hidden","true");try{localStorage.setItem("sp_nl","1")}catch(e){}};
+  if(!seen)setTimeout(()=>{nl.classList.add("open");nl.setAttribute("aria-hidden","false")},3000);
+  $("nlClose").onclick=close;$("nlNo").onclick=close;nl.addEventListener("click",e=>{if(e.target===nl)close()});
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"&&nl.classList.contains("open"))close()});
+  $("nlForm").addEventListener("submit",e=>{e.preventDefault();const i=e.target.querySelector("input");
+    if(!okEmail(i.value.trim())){$("nlMsg").textContent="Enter a valid email";return}
+    i.value="";$("nlMsg").textContent="You're in 💗";setTimeout(close,1600)});
+})();
 $("miniForm").addEventListener("submit",e=>{e.preventDefault();const i=e.target.querySelector("input");if(okEmail(i.value.trim())){i.value="";note("You're on the list 💗")}else note("Enter a valid email")});
 
 /* ---------- HEADER + ANNOUNCE ---------- */
