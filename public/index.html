@@ -144,10 +144,10 @@ input{font:inherit}
 /* ============ C. POP SEQUENCE (scroll-driven opener) ============
    One JS-written custom property --p (0 to 1) drives every transform below.
    --rot/--sc/--fill are derived from it in JS so the easing can overshoot. */
-.pop{position:relative;height:190svh;background:var(--pink-hot)}
+.pop{position:relative;height:100svh;background:var(--pink-hot)}
 /* --lift raises everything in the stage: the padding shrinks the content box
    so the grid centre rises, and the absolute type and cue follow it. */
-.pop__stage{position:sticky;top:0;height:100svh;min-height:460px;padding-bottom:var(--lift,0px);overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse 90% 70% at 50% 46%,#FF4FA0 0%,var(--pink-hot) 52%,#E2066F 100%)}
+.pop__stage{position:relative;height:100svh;min-height:460px;padding-bottom:var(--lift,0px);overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse 90% 70% at 50% 46%,#FF4FA0 0%,var(--pink-hot) 52%,#E2066F 100%)}
 
 .pop__bloom{position:absolute;width:130vmax;height:130vmax;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,255,255,.6) 0%,rgba(255,255,255,.16) 32%,rgba(255,255,255,0) 60%);transform:scale(calc(.35 + .65*var(--p,0)));opacity:calc(.22 + .5*var(--p,0))}
 .pop__rays{position:absolute;width:160vmax;height:160vmax;border-radius:50%;pointer-events:none;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.55) 0deg 2deg,rgba(255,255,255,0) 2deg 11deg);-webkit-mask-image:radial-gradient(circle,#000 8%,rgba(0,0,0,.45) 30%,transparent 56%);mask-image:radial-gradient(circle,#000 8%,rgba(0,0,0,.45) 30%,transparent 56%);transform:rotate(calc(-20deg + var(--p,0)*160deg));opacity:calc(.08 + .24*var(--p,0))}
@@ -165,7 +165,7 @@ input{font:inherit}
 .pop__spark{position:absolute;left:50%;top:50%;width:var(--s,8px);height:var(--s,8px);margin:calc(-.5*var(--s,8px)) 0 0 calc(-.5*var(--s,8px));border-radius:50%;opacity:calc(var(--p,0)*var(--o,.6));transform:rotate(var(--a,0deg)) translateY(calc(-1*var(--d,30vmin)*var(--p,0))) scale(calc(.3 + .7*var(--p,0)))}
 
 .pop__float{position:relative;z-index:2;animation:popFloat 6s var(--ease,ease-in-out) infinite}
-.pop__art{height:min(86svh,760px);transform:rotate(var(--rot,-80deg)) scale(var(--sc,.58));will-change:transform;filter:drop-shadow(0 26px 44px rgba(120,0,55,.45))}
+.pop__art{height:min(86svh,760px);transform:rotate(var(--rot,-112deg)) scale(var(--sc,.58));will-change:transform;filter:drop-shadow(0 26px 44px rgba(120,0,55,.45))}
 .pop__art img{display:block;height:100%;width:auto;max-width:none}
 @keyframes popFloat{0%,100%{transform:translateY(-9px)}50%{transform:translateY(9px)}}
 
@@ -174,7 +174,7 @@ input{font:inherit}
 @keyframes popCue{0%,100%{transform:scaleY(.35);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
 
 @media (max-width:640px){
-  .pop{height:170svh}
+  .pop{height:100svh}
   .pop__stage{--lift:19vh}
   .pop__art{height:min(76svh,620px)}
   /* "Culture" is the widest word; 18vw left it 7px off each edge once the
@@ -901,7 +901,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
   function apply(p){
     /* one smooth half turn tied straight to the scroll: no overshoot, no snap */
     var turn=clamp01(p/.9);
-    var rot=-80+180*turn;            /* just short of horizontal -> just past horizontal on the other side */
+    var rot=-112+224*turn;           /* starts dipped below horizontal, ends dipped below horizontal on the other side */
     var sc=.58+.42*(.5-Math.cos(Math.PI*turn)/2);
     var fill=clamp01((p-.5)/.42);
     sec.style.setProperty("--p",p.toFixed(4));
@@ -914,7 +914,8 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
   function read(){
     ticking=false;
     var r=sec.getBoundingClientRect();
-    var total=sec.offsetHeight-stage.offsetHeight;
+    /* not pinned: the page scrolls normally and the turn plays as the section leaves */
+    var total=sec.offsetHeight*.75;
     var p=total>0?clamp01(-r.top/total):0;
     apply(p);
   }
