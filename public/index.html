@@ -717,7 +717,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
     <div class="row"><span class="label" style="color:var(--pink)">Best seller</span><span class="stars" style="color:var(--pink)">★★★★★</span></div>
     <div class="row" style="margin-top:10px"><h3>Cherry Gloss</h3><span class="price">$9.99</span></div>
     <dl class="feature__specs">
-      <div><dt>Flavor</dt><dd>Cherry</dd></div>
+      <div><dt>Flavor</dt><dd>Cherry Gloss</dd></div>
       <div><dt>Size</dt><dd>4 pops / pack</dd></div>
       <div><dt>Finish</dt><dd>High gloss</dd></div>
       <div><dt>Vibe</dt><dd>Main character</dd></div>
@@ -889,7 +889,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
 
 /* ---------- PRODUCT DATA (edit here) ---------- */
 const PRODUCTS=[
-  {id:"cherry-gloss",name:"Cherry Gloss",flavor:"Cherry",price:9.99,badge:"Best Seller",badgeStyle:"",pop:"red",alt:"#E0213A",tags:["fruity"]}
+  {id:"cherry-gloss",name:"Cherry Gloss",flavor:"Cherry Gloss",price:9.99,badge:"Best Seller",badgeStyle:"",pop:"red",alt:"#E0213A",tags:["fruity"]}
 ];
 const SHIP_FREE=50;
 
@@ -954,7 +954,7 @@ shelf.innerHTML=PRODUCTS.map((p,i)=>{
   return `<article class="card rv" data-d="${Math.min(i,4)}" style="--alt:${p.alt};--r:${i%2?10:-12}deg">
     <div class="card__media slot" data-slot="product-${p.id}" data-add="${p.id}" role="button" tabindex="0" aria-label="Add ${p.name} to cart">
       <div class="card__bg"></div>
-      <span class="card__ghost d" aria-hidden="true">${p.name.split(" ")[p.name.startsWith("Shawty")?1:0]}</span>
+      <span class="card__ghost d" aria-hidden="true">${p.name.split(" ").pop()}</span>
       ${p.badge?`<span class="badge ${p.badgeStyle||""}">${p.badge}</span>`:""}
       <div class="card__art"><img src="${POP_SRC}" alt="${p.name} lollipop"></div>
       <button class="card__quick" data-add="${p.id}" tabindex="-1">${plusIcon} Add to cart</button>
