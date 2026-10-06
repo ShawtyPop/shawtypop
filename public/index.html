@@ -937,7 +937,7 @@ document.querySelectorAll("[data-pop]").forEach(el=>{el.innerHTML=pop(el.dataset
 const sw=k=>{const p=PAL[k]||PAL.pink;return `radial-gradient(circle at 35% 30%,${p.c},${p.a} 50%,${p.b})`};
 
 /* ---------- MARQUEE ---------- */
-const mqItems=["ShawtyPop","<span class='serif'>candy for the hot ones</span>","Sweet little things","<span class='serif'>zero boring energy</span>","New drop"];
+const mqItems=["Cherry Gloss","<span class='serif'>no boring energy</span>","Fashion you can taste","<span class='serif'>pop culture</span>","Wear your energy","<span class='serif'>energy, accessorized.</span>"];
 const pip=`<svg class="pip" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="currentColor"/><circle cx="7" cy="7" r="2.4" fill="#fff" opacity=".8"/></svg>`;
 document.querySelectorAll("[data-mq]").forEach(r=>{r.innerHTML=mqItems.map(t=>(t.startsWith("<")?t:`<span>${t}</span>`)+pip).join("")});
 
