@@ -34,7 +34,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   - Tagline: "No jitters. No bloat. No crash. Just pop."
   - Sub-slogans: "Energy, accessorized", "No boring energy", "Fashion you can taste", "Wear your energy"
 - **Banned phrases:** never use "Small pop, big energy", "Shop the Shawtys" or "Candy for the hot ones".
-- **Club:** the subscription is the **Pop Culture Club**. Perks are first dibs, 10% off, first in the know, and cancel anytime.
+- **Newsletter:** the newsletter is called **Pop Culture** ("Join the Pop Culture"). Perks are 15% off your first order, first dibs on every Cherry Gloss drop, and first in the know. There is no monthly subscription and no customer accounts for now (Carter plans a subscription later, once the product exists).
 - **Images:** never use drawn or cartoon lollipops anywhere. Every lollipop image is the real product photo.
 - **Emoji:** no 🍭 emoji anywhere.
 - **Things that were removed on purpose (do not add back):**
@@ -106,18 +106,18 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
 
 - **Announcement bar:** black, 36px, white uppercase 11px text. It rotates every 4.2s between two messages:
   - "● Free shipping on orders $50+"
-  - "Join the Pop Culture Club for first dibs ●"
+  - "Join the Pop Culture for 15% off ●"
   - The dot is pink.
 - **Header:**
   - Sticky, cream background, 76px tall, shrinking to 62px with a soft shadow once scrolled.
   - Left: "Shop" (links to /) and "Home" (links to /home).
   - Center: the one-line logo, 36px tall, linking to /.
-  - Right: "Account" and "Cart" with a pink count bubble.
+  - Right: "Cart" with a pink count bubble.
   - Under 1024px wide: a burger icon on the left, the centered logo, and a bag icon with count on the right.
 - **Mobile menu:**
   - Full screen, cream, opening with a circular clip reveal from the top-left.
-  - Big display links "Shop", "Home" (pink) and "The Club" (links to /home#club).
-  - Footer row with "Account" and "@getshawtypop" (Instagram).
+  - Big display links "Shop", "Home" (pink) and "Pop Culture" (links to /home#club).
+  - Footer row with "@getshawtypop" (Instagram).
 - **Marquee:**
   - Black band scrolling left on a loop over 34s.
   - Items alternate between big uppercase white text and pink italic serif text, separated by small round pink "pip" dots: "Cherry Gloss", *no boring energy*, "Fashion you can taste", *pop off*, "Wear your energy", *energy, accessorized.*
@@ -152,9 +152,9 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   - Appears 3 seconds after the site is visible: 3 seconds after load for unlocked visitors, or 3 seconds after the password gate is unlocked. It shows on every visit, except that closing it hides it for the rest of that browser session (sessionStorage key `sp_nl`) and signing up through it hides it for good (localStorage key `sp_nl_joined`).
   - Content:
     - white rounded card on a blurred dark overlay
-    - pink kicker "Join the Pop Culture Club"
+    - pink kicker "Join the Pop Culture"
     - big "15% OFF" with the pink italic serif line "your first order" under it
-    - text: "Sign up for the ShawtyPop newsletter and get 15% off, plus first dibs on every Cherry Gloss drop."
+    - text: "Sign up for Pop Culture, the ShawtyPop newsletter, and get 15% off, plus first dibs on every Cherry Gloss drop."
     - email field, pink "Get 15% off" button, "No thanks" link and a close X
   - Success shows "You're in 💗".
   - The email is signed up as described in "Email signups".
@@ -196,7 +196,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
      - 12 Pack / "Best Value" / $19.99
      - Cards are blush with a thin border. The selected one turns white with a 2px black border.
   7. A quantity stepper (pill) and a pink "Add to bag · $price" button showing the pack price times the quantity. Adding puts that pack in the cart and resets the quantity to 1.
-  8. A black rounded banner linking to /home#club: pink label "Pop Culture Club", "Members save 10% and are first in the know.", and "→".
+  8. A black rounded banner (opens the newsletter popup): pink label "Pop Culture", "Join our newsletter for 15% off your first order.", and "→".
   9. Blush pill chips: "No jitters", "No crash", "Free shipping on $50+".
   10. Accordion:
       - "The pop" (open by default): "One glossy Cherry Gloss lollipop on a rose gold ShawtyPop stick. Energy, accessorized."
@@ -236,15 +236,14 @@ Sections in order:
      - A black "+ Add to cart" pill slides up.
    - Below each card: the name on one line (for example "CHERRY GLOSS 5 PACK"), the price, and "Cherry Gloss · 5 pops".
    - On phones there is a full-width "Add to cart · $price" button instead of the hover pill.
-4. **Pop Culture Club (`#club`), black section:**
-   - Heading "SHAWTYPOP" in pink and "ON REPEAT." in white.
-   - Pink label "Pop Culture Club" with the text "A monthly box of Cherry Gloss pops, plus first dibs on every drop. Pick your pack, set your rhythm, change it whenever."
-   - Pink button "Join the Pop Culture Club →" and the small note "Prototype program. Terms set at launch."
+4. **Pop Culture newsletter (`#club`), black section:**
+   - Heading "JOIN THE" in white and "POP CULTURE." in pink.
+   - Pink label "The newsletter" with the text "Pop Culture is the ShawtyPop newsletter. Sign up for 15% off your first order, plus first dibs on every Cherry Gloss drop."
+   - Pink button "Join the Pop Culture →" that opens the newsletter popup.
    - Numbered perk list with pink italic serif numbers and pink "+" icons:
-     - 01 First dibs: "Get every Cherry Gloss restock before it sells out."
-     - 02 10% off: "On every Club order."
+     - 01 15% off: "Your first order, as soon as you sign up."
+     - 02 First dibs: "Get every Cherry Gloss restock before it sells out."
      - 03 First in the know: "Hear about launches, events and news before anyone else."
-     - 04 Cancel anytime: "No commitment. Pause or skip whenever."
    - A small rotated real lollipop peeks in from the bottom.
 5. **Feature, pink section:**
    - Giant drifting display words: "WEAR YOUR" in black and "ENERGY." in white, aligned right.
@@ -260,7 +259,7 @@ Sections in order:
 ### 8. Behavior details
 
 - **Cart actions:** every add-to-cart bumps the cart count with a little wiggle animation.
-- **Placeholder messages:** the Account and Checkout buttons are placeholders. Their messages appear in the hidden toast, so nothing visible happens.
+- **Placeholder messages:** the Checkout button is a placeholder. Its message appears in the hidden toast, so nothing visible happens.
 - **Escape key:** closes the cart, the menu and the popup.
 - **Responsive:** test at 1366px desktop and 390px phone widths. There should be no horizontal scrolling, and long words like "CULTURE" must fit on phones (16vw).
 - **Accessibility:** keyboard focus rings are pink, and the newsletter popup has dialog semantics.
