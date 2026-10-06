@@ -955,7 +955,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
    Every email goes to MailerLite (Newsletter group) and, once SHEET_URL is
    set, to the "ShawtyPop Subscribers" Google Sheet as a backup. */
 var ML_URL="https://assets.mailerlite.com/jsonp/2690429/forms/200599344405021977/subscribe";
-var SHEET_URL="";
+var SHEET_URL="https://script.google.com/macros/s/AKfycbz9bHyKOJKj2psbYZ-sLsieiq6ZYOLX9B1wcl716xx5VwiH5Sgjb4zPC4ErfsgtZukSMA/exec";
 function subscribe(email,source,name){
   var ml=new URLSearchParams();
   ml.append("fields[email]",email);
