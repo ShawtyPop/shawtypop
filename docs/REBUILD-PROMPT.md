@@ -60,7 +60,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   ```
 - **Routing:** single-page routing.
   - `/` shows the **brand home page** with the spinning lollipop (Carter switched it back on Oct 7, 2026).
-  - `/shop` shows the **product page**. Old `/home` and `/pop-culture` links show the home page.
+  - `/shop` shows the **product page**. `/features` shows the **features page** (class `v-feat`; only the features section and the marquee show). Old `/home` and `/pop-culture` links show the home page.
   - A script in `<head>` adds class `v-shop` to `<html>` when the path matches `/shop`.
   - With `v-shop`, only the product section and the marquee show. Without it, the product section is hidden and the brand sections show.
 - **Fonts:** from Google Fonts.
@@ -112,7 +112,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   - The dot is pink.
 - **Header:**
   - Sticky, cream background, 76px tall, shrinking to 62px with a soft shadow once scrolled.
-  - Left: "Shop" (links to /shop) and "Home" (links to /).
+  - Left: "Shop" (links to /shop), "Home" (links to /) and "Features" (links to /features). The mobile menu has the same links.
   - Center: the one-line logo, 36px tall, linking to /.
   - Right: "Cart" with a pink count bubble.
   - Under 1024px wide: a burger icon on the left, the centered logo, and a bag icon with count on the right.
@@ -164,13 +164,13 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   - Full-screen overlay shown to visitors until they enter the prototype password **ShawtyPop123**. Unlocking sets localStorage `shawtypop_gate_v1` to "open". This is a prototype gate only, since the password is visible in the page source.
   - Styled like Carter's "Want a sucker?" flyer: blush #FFE3EF background with a #F9C6DA dot grid (26px), plum #5F2850 and hot pink #F8217B, Fraunces 900 (SOFT 100, WONK 1) headline.
   - Two columns on desktop:
-    - Left: the one-line logo; headline "Join the" (plum) / "waitlist." (hot pink); text "ShawtyPop is almost here. Get on the list for first dibs on Cherry Gloss."; a white card with a 3px plum border, 26px corners and a solid 7px plum drop (like the flyer's QR box) holding First name and Email fields (blush pills) and a hot-pink "Join →" button. On submit it signs the email and name up (see "Email signups") and shows "You're on the list, {name}".
+    - Left: the one-line logo, big (clamp(44px,4.6vw,68px) tall); headline "Join the" (plum) / "waitlist." (hot pink); text "ShawtyPop is almost here. Get on the list for first dibs on Cherry Gloss."; a white card with a 3px plum border, 26px corners and a solid 7px plum drop (like the flyer's QR box) holding First name and Email fields (blush pills) and a hot-pink "Join →" button. On submit it signs the email and name up (see "Email signups") and shows "You're on the list, {name}".
     - Under the card: "JOIN THE POP SQUAD" with Instagram and TikTok pill buttons (white, plum border, plum drop; hover hot pink) linking to @getshawtypop, plus an italic pink "@getshawtypop".
     - Then a pink "HAVE A PASSWORD?" toggle with a password field and "Enter →".
-    - Right: a big pink #F8C3D7 disc with the real lollipop cutout tilted -22°, gently floating.
-    - Subtle copy on the disc behind the lollipop: a ring of small spaced caps "CAFFEINE + L-THEANINE ·" (Archivo 800, #E58DB2) slowly spinning (60s), and big tone-on-tone Fraunces 900 words "Energy / + Focus" (#F2AFCB) in the middle.
+    - Right: a very big pink #F8C3D7 disc (min(60vw,860px) wide, bleeding off the right side) with the real lollipop cutout tilted -22°, gently floating.
+    - Subtle copy on the disc behind the lollipop: a ring of small spaced caps "CAFFEINE + L-THEANINE ·" (Archivo 800, #E58DB2) slowly spinning (60s), and big tone-on-tone Fraunces 900 words "Energy / + Focus" (#F2AFCB, clamp(44px,6vw,100px)) in the middle.
     - Pink lips (transparent) bottom-right. (No "Coming soon" label, Carter removed it.)
-  - Phones: ONE FIXED SCREEN, no scrolling (100dvh, overflow hidden, content centered). Disc and lollipop on top at 30dvh, then logo, "Join the waitlist." on ONE line (min(13.4vw,7dvh), nowrap), the short text, the card (first name; email + Join on one row), Instagram/TikTok pills, and "Have a password?". No lips on phones. Opening the password toggle hides the text and socials to make room.
+  - Phones: ONE FIXED SCREEN, no scrolling (100dvh, overflow hidden, content centered). Lollipop on top at 32dvh (28dvh on screens under 600px tall) with the disc at 124% of that height (up to full width), then the logo (clamp(30px,4.8dvh,44px) tall), "Join the waitlist." on ONE line (min(13.4vw,7dvh), nowrap), the short text, the card (first name; email + Join on one row), Instagram/TikTok pills, and "Have a password?". No lips on phones. Opening the password toggle hides the text and socials to make room.
 - **Email signups:**
   - The popup, the footer field and the waitlist gate all send the email to MailerLite with a background POST (`mode: "no-cors"`) to `https://assets.mailerlite.com/jsonp/2690429/forms/200599344405021977/subscribe`, with form fields `fields[email]` (plus `fields[name]` from the gate), `ml-submit=1` and `anticsrf=true`. That is the MailerLite embedded form "Website Signup", which adds people to the Newsletter group. The MailerLite account signs in with Google as getshawtypop@gmail.com.
   - Each signup also goes to the "ShawtyPop Subscribers" Google Sheet as a backup, through a Google Apps Script web app (`SHEET_URL` in the code, with fields `email` and `source` set to Popup, Footer or Waitlist). The script is saved in the project files at `website/subscribers-apps-script.gs`.
@@ -205,7 +205,8 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   8. A black rounded banner (opens the newsletter popup): pink label "Pop Culture", "Join our newsletter for 15% off your first order.", and "→".
   9. Blush pill chips: "No jitters", "No crash", "Free shipping on $50+".
   10. Accordion:
-      - "The pop" (open by default): "One glossy Cherry Gloss lollipop on a rose gold ShawtyPop stick, made with caffeine and L-Theanine. Energy, accessorized."
+      - "The pop" (open by default): "One glossy Cherry Gloss lollipop on a rose gold ShawtyPop stick, made with caffeine and L-Theanine. Natural colors. Made in the USA. Energy, accessorized."
+      - "Features": "Caffeine + L-Theanine · Energy + Focus · Natural colors · Made in the USA." with a "See all features →" link to /features.
       - "Shipping": "Free shipping on orders over $50."
 
 ### 7. Brand home page (`/`, the default page)
@@ -233,7 +234,7 @@ Sections in order:
    - A white pill button "Shop now →" (class `pop__shop`) sits centered right under the lollipop, above the Scroll cue, and links to `/shop`. Its bottom offset is `calc(clamp(18px,3.4vh,40px) + 66px)` so it shows at scroll 0 on desktop and phone.
    - Reduced-motion users see the final state with no motion.
 2. **Marquee:** as above.
-3. **The formula section (`.duo`, blush, centered):** pink label "THE FORMULA"; huge display "CAFFEINE + L‑THEANINE" (hot-pink +, non-breaking hyphen so L‑Theanine never splits); pink italic serif "= Energy + Focus." (= and + in black); two white cards: "CAFFEINE / the energy / The lift you came for, in a Cherry Gloss pop." and "L-THEANINE / the focus / Paired with the caffeine to keep it smooth and locked in. No jitters, no crash." Carter wants Caffeine + L-Theanine and Energy + Focus pushed as the main selling point.
+3. **The formula section (`.duo`, blush, centered):** pink label "THE FORMULA"; huge display "CAFFEINE + L‑THEANINE" (hot-pink +, non-breaking hyphen so L‑Theanine never splits); pink italic serif "= Energy + Focus." (= and + in black); two white cards: "CAFFEINE / the energy / The lift you came for, in a Cherry Gloss pop." and "L-THEANINE / the focus / Paired with the caffeine to keep it smooth and locked in. No jitters, no crash." Under the cards, a small "See all features →" button links to /features. Carter wants Caffeine + L-Theanine and Energy + Focus pushed as the main selling point.
 3b. **Product shelf (one big card):**
    - ONE big Cherry Gloss card, centered (flex-basis clamp(440px,46vw,680px) on desktop, full width on phones). Single, 5 Pack and 12 Pack are not separate cards; they are options on the product page. The section heading and progress bar are hidden.
    - The card:
@@ -269,6 +270,15 @@ Sections in order:
      - "CHERRY GLOSS 5 PACK" at $9.99
      - Spec grid: Flavor Cherry Gloss, Size 5 pops / pack, Finish High gloss, Vibe Main character
      - Quantity stepper and an "Add to cart" button that adds the 5 Pack
+
+### 7b. Features page (`/features`)
+- Blush section. Hero in two columns: pink label "CHERRY GLOSS · FEATURES", display headline "WHAT'S IN" + pink italic serif "the pop.", and the text "One glossy Cherry Gloss lollipop on a rose gold ShawtyPop stick. A fashion piece you can taste, made with caffeine and L-Theanine for energy + focus." Right: the real lollipop cutout tilted -20° (clamp(400px,48vw,680px) tall) over a soft pink circle. On phones the lollipop sits on top.
+- A 2x2 grid of big feature cards (one column on phones), each with a small number, a huge uppercase title, a pink italic serif line and a short sentence:
+  1. White: "CAFFEINE / the energy / The lift you came for, in a Cherry Gloss pop."
+  2. Hot pink: "L-THEANINE / the focus / Paired with the caffeine to keep it smooth and locked in. No jitters, no crash."
+  3. Black: "MADE IN THE USA / made here / Every ShawtyPop is made in the USA."
+  4. White: "NATURAL COLORS / the gloss / That Cherry Gloss shine comes from natural colors."
+- A pink "Shop Cherry Gloss →" button to /shop.
 
 ### 8. Behavior details
 
