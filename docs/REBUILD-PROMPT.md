@@ -32,7 +32,8 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
 - **Slogans:**
   - Main: "Pop Culture"
   - Tagline: "No jitters. No bloat. No crash. Just pop."
-  - Sub-slogans: "Energy, accessorized", "No boring energy", "Fashion you can taste", "Wear your energy"
+  - Sub-slogans: "Wear your energy" (lead), "No boring energy", "Fashion you can taste"
+  - Retired: "Fashion, accessorized" / "Energy, accessorized" (Carter abandoned it on Oct 7, 2026; never use it).
 - **Banned phrases:** never use "Small pop, big energy", "Shop the Shawtys" or "Candy for the hot ones".
 - **Newsletter:** the newsletter is called **Pop Culture** ("Join the Pop Culture"). Perks are 15% off your first order, first dibs on every Cherry Gloss drop, and first in the know. There is no monthly subscription and no customer accounts for now (Carter plans a subscription later, once the product exists).
 - **Images:** never use drawn or cartoon lollipops anywhere. Every lollipop image is the real product photo.
@@ -61,6 +62,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
 - **Routing:** single-page routing.
   - `/` shows the **brand home page** with the spinning lollipop (Carter switched it back on Oct 7, 2026).
   - `/shop` shows the **product page**. `/features` shows the **features page** (class `v-feat`; only the features section and the marquee show). Old `/home` and `/pop-culture` links show the home page.
+  - `/faq` shows the **FAQ page** (class `v-faq`) and `/contact` the **contact page** (class `v-contact`); only that section shows (no marquee).
   - A script in `<head>` adds class `v-shop` to `<html>` when the path matches `/shop`.
   - With `v-shop`, only the product section and the marquee show. Without it, the product section is hidden and the brand sections show.
 - **Fonts:** from Google Fonts.
@@ -107,31 +109,31 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
 ### 5. Shared elements (on every page)
 
 - **Announcement bar:** black, 36px, white uppercase 11px text. It rotates every 4.2s between two messages:
-  - "● Free shipping on orders $50+"
-  - "Join the Pop Culture for 15% off ●"
-  - The dot is pink.
+  - "Free shipping on orders $50+"
+  - "Join the Pop Culture for 15% off"
+  - No dots (Carter removed them).
 - **Header:**
   - Sticky, cream background, 76px tall, shrinking to 62px with a soft shadow once scrolled.
-  - Left: "Shop" (links to /shop), "Home" (links to /) and "Features" (links to /features). The mobile menu has the same links.
+  - Left, in this order: "Home" (links to /), "Shop" (links to /shop) and "Features" (links to /features). The mobile menu has the same links in the same order.
   - Center: the one-line logo, 36px tall, linking to /.
   - Right: "Cart" with a pink count bubble.
   - Under 1024px wide: a burger icon on the left, the centered logo, and a bag icon with count on the right.
 - **Mobile menu:**
   - Full screen, cream, opening with a circular clip reveal from the top-left.
-  - Big display links "Shop", "Home" (pink) and "Pop Culture" (links to /#club).
+  - Big display links "Home", "Shop" (pink), "Features" and "Pop Culture" (links to /#club).
   - Footer row with "@getshawtypop" (Instagram).
 - **Marquee:**
   - Black band scrolling left on a loop over 34s.
-  - Items alternate between big uppercase white text and pink italic serif text, separated by small round pink "pip" dots: "Caffeine + L-Theanine", *energy + focus*, "Cherry Gloss", *no boring energy*, "Fashion you can taste", *pop off*, "Wear your energy", *energy, accessorized.*
+  - Items alternate between big uppercase white text and pink italic serif text, separated by small round pink "pip" dots: "Caffeine + L-Theanine", *energy + focus*, "Cherry Gloss", *no boring energy*, "Fashion you can taste", *pop off*, "Wear your energy", *just pop.*
   - It shows on both pages.
 - **Footer (white):** white background, black text, gray column headings, black-outline social circles, light gray divider above the copyright bar.
   - Brand column:
     - the transparent logo (46px tall)
-    - pink italic serif line "Fashion, accessorized."
+    - pink italic serif line "Wear your energy."
     - an underlined email field "Email for drops" with a pink "Join" button. On submit it signs the email up (see "Email signups") and the placeholder changes to "You're on the list 💗".
   - Link columns:
-    - Shop: Shop All, Best Sellers, New Drops, Collections, all linking to /shop
-    - About: Contact, FAQ
+    - Shop: "Buy Now" (links to /shop) and "Features" (links to /features)
+    - About: "Contact" (links to /contact) and "FAQ" (links to /faq). These two pages are linked only from the footer, never the header.
     - Help: Shipping, Returns, Privacy, Terms
     - Social: Instagram, TikTok, plus round outlined icon buttons for both, turning pink on hover
   - Giant "SHAWTYPOP" text runs across the bottom as a pink outline with no fill (transparent text with a clamp(1.5px,.18vw,3px) pink stroke): Archivo 900, width 125, letter-spacing -.065em, uppercase, auto-sized by script to fill the footer width exactly, sitting slightly cut off at the bottom edge. It is text, not the logo image.
@@ -205,7 +207,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   8. A black rounded banner (opens the newsletter popup): pink label "Pop Culture", "Join our newsletter for 15% off your first order.", and "→".
   9. Blush pill chips: "No jitters", "No crash", "Free shipping on $50+".
   10. Accordion:
-      - "The pop" (open by default): "One glossy Cherry Gloss lollipop on a rose gold ShawtyPop stick, made with caffeine and L-Theanine. Natural colors. Made in the USA. Energy, accessorized."
+      - "The pop" (open by default): "One glossy Cherry Gloss lollipop on a rose gold ShawtyPop stick, made with caffeine and L-Theanine. Natural colors. Made in the USA. Wear your energy."
       - "Features": "Caffeine + L-Theanine · Energy + Focus · Natural colors · Made in the USA." with a "See all features →" link to /features.
       - "Shipping": "Free shipping on orders over $50."
 
@@ -279,6 +281,26 @@ Sections in order:
   3. Black: "MADE IN THE USA / made here / Every ShawtyPop is made in the USA."
   4. White: "NATURAL COLORS / the gloss / That Cherry Gloss shine comes from natural colors."
 - A pink "Shop Cherry Gloss →" button to /shop.
+
+### 7c. FAQ page (`/faq`, footer link only)
+- Blush section, centered 860px column: pink label "HELP", display headline "FAQ" + pink italic serif "s.", gray line "Everything you want to know about Cherry Gloss."
+- White rounded accordion cards (question in bold 800; a round blush "+" that turns hot pink and rotates to × when open):
+  1. What does L-Theanine do? "L-Theanine is an amino acid found naturally in tea leaves. We pair it with caffeine so the lift feels smooth and focused. That is our formula: caffeine for the energy, L-Theanine for the focus."
+  2. Why caffeine + L-Theanine? "Caffeine + L-Theanine = Energy + Focus. Together they give you the lift without the jittery, crashy feeling. No jitters. No bloat. No crash. Just pop."
+  3. Where are the lollipops made? "Every ShawtyPop is made in the USA."
+  4. Do you use artificial colors? "No. That Cherry Gloss shine comes from natural colors."
+  5. What flavors are there? "One: Cherry Gloss. Glossy, bright and made to match every outfit."
+  6. What comes in each pack? "Single (1 pop) $2.99, 5 Pack $9.99 and 12 Pack $19.99. Every pop is the same Cherry Gloss lollipop on a rose gold ShawtyPop stick."
+  7. Who shouldn't have ShawtyPop? "ShawtyPop contains caffeine. It is not recommended for children, anyone sensitive to caffeine, or anyone who is pregnant or nursing. Talk to your doctor if you're not sure."
+  8. When can I get one? "ShawtyPop is almost here. Join the waitlist or the Pop Culture newsletter for first dibs on Cherry Gloss and 15% off your first order."
+  9. Do you offer free shipping? "Yes, free shipping on orders over $50."
+- Under the list: pink "Shop Cherry Gloss →" button and "Still curious? Contact us (/contact) or DM @getshawtypop."
+
+### 7d. Contact page (`/contact`, footer link only)
+- Same blush layout: pink label "CONTACT", headline "SAY" + pink italic serif "hi.", text "Questions, collabs, wholesale or just love for Cherry Gloss? Send us a note and we'll get back to you."
+- White rounded form card: "Your name" and "Email" side by side (stacked on phones), "Subject (optional)", a "Your message" textarea, a hidden honeypot field `_honey`, and a pink "Send message →" button.
+- On submit it validates name, email and message, then POSTs JSON to `https://formsubmit.co/ajax/getshawtypop@gmail.com` with name, email, message, `_subject` "ShawtyPop contact: <subject or name>", `_replyto` = their email, `_template` "table", `_captcha` "false". FormSubmit emails it to getshawtypop@gmail.com (the very first submission sends an activation email to that inbox, which must be clicked once). Messages: "Sending…", "Sent! We'll get back to you soon 💗", or "Something went wrong, try again or email getshawtypop@gmail.com".
+- Below: "Prefer email? getshawtypop@gmail.com · DM us @getshawtypop".
 
 ### 8. Behavior details
 
