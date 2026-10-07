@@ -160,15 +160,16 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
     - email field, pink "Get 15% off" button, "No thanks" link and a close X
   - Success shows "You're in 💗".
   - The email is signed up as described in "Email signups".
-- **Password gate:**
-  - Full-screen hot-pink "Join the waitlist" overlay shown to visitors until they enter the prototype password **ShawtyPop123**.
-  - Unlocking sets localStorage `shawtypop_gate_v1` to "open". This is a prototype gate only, since the password is visible in the page source.
-  - Content:
-    - the logo on a soft white glow
-    - heading "Join the *waitlist*"
-    - text "Shawtypop is almost here. Get on the list for the first drop."
-    - First name and Email fields with a white "Join →" button. On submit it signs the email and name up (see "Email signups") and shows "You're on the list, {name}".
-    - a "Have a password?" toggle with a password field and "Enter →"
+- **Password gate (waitlist screen):**
+  - Full-screen overlay shown to visitors until they enter the prototype password **ShawtyPop123**. Unlocking sets localStorage `shawtypop_gate_v1` to "open". This is a prototype gate only, since the password is visible in the page source.
+  - Styled like Carter's "Want a sucker?" flyer: blush #FFE3EF background with a #F9C6DA dot grid (26px), plum #5F2850 and hot pink #F8217B, Fraunces 900 (SOFT 100, WONK 1) headline.
+  - Two columns on desktop:
+    - Left: the one-line logo; headline "Join the" (plum) / "waitlist." (hot pink); text "ShawtyPop is almost here. Get on the list for first dibs on Cherry Gloss."; a white card with a 3px plum border, 26px corners and a solid 7px plum drop (like the flyer's QR box) holding First name and Email fields (blush pills) and a hot-pink "Join →" button. On submit it signs the email and name up (see "Email signups") and shows "You're on the list, {name}".
+    - Under the card: "JOIN THE POP SQUAD" with Instagram and TikTok pill buttons (white, plum border, plum drop; hover hot pink) linking to @getshawtypop, plus an italic pink "@getshawtypop".
+    - Then a pink "HAVE A PASSWORD?" toggle with a password field and "Enter →".
+    - Right: a big pink #F8C3D7 disc with the real lollipop cutout tilted -22°, gently floating.
+    - Pink "COMING SOON" spaced caps bottom-left, pink lips (transparent) bottom-right.
+  - Phones: one column; the disc and lollipop sit on top (about 36vh tall), then the text, card, socials and password; lips at the end.
 - **Email signups:**
   - The popup, the footer field and the waitlist gate all send the email to MailerLite with a background POST (`mode: "no-cors"`) to `https://assets.mailerlite.com/jsonp/2690429/forms/200599344405021977/subscribe`, with form fields `fields[email]` (plus `fields[name]` from the gate), `ml-submit=1` and `anticsrf=true`. That is the MailerLite embedded form "Website Signup", which adds people to the Newsletter group. The MailerLite account signs in with Google as getshawtypop@gmail.com.
   - Each signup also goes to the "ShawtyPop Subscribers" Google Sheet as a backup, through a Google Apps Script web app (`SHEET_URL` in the code, with fields `email` and `source` set to Popup, Footer or Waitlist). The script is saved in the project files at `website/subscribers-apps-script.gs`.
