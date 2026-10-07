@@ -74,7 +74,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
 
 - `lollipop-photo-on-pink.jpg` (1000x1500): the real Cherry Gloss lollipop (thin rose-gold stick printed "shawtypop™") standing upright on a pink background, unwrapped. Main product photo.
 - `lollipop-wrapped-on-pink.jpg` (1000x1500): the same lollipop in its clear cellophane wrapper printed with pink "shawtypop" and lips, on pink. Second product photo.
-- `card-wrapped.webp` and `card-unwrapped.webp` (440x946, transparent): the wrapped and unwrapped lollipop cut out and framed identically (same canvas, stick in the same place) so one can swap for the other. Used only by the home product cards.
+- `card-wrapped.webp` and `card-unwrapped.webp` (660x1419, transparent): the wrapped and unwrapped lollipop cut out and framed identically (same canvas, stick in the same place) so one can swap for the other. Used only by the home product cards.
 - `lollipop-cutout.webp` (493x1349, transparent): the unwrapped lollipop cut out. The candy circle sits at the top (center about x 246, y 245, radius 246) and the thin rose-gold stick runs down the middle (x 220–273). Used for every other lollipop image.
 - `logo-one-line-header.webp`: the one-line "shawtypop™" wordmark (pink "shawty", plum "pop" with lips for the o). Used in the header, the mobile menu and the password gate.
 - `logo-transparent-footer.webp`: the transparent wordmark for the footer brand column (46px tall).
@@ -124,7 +124,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   - Black band scrolling left on a loop over 34s.
   - Items alternate between big uppercase white text and pink italic serif text, separated by small round pink "pip" dots: "Cherry Gloss", *no boring energy*, "Fashion you can taste", *pop off*, "Wear your energy", *energy, accessorized.*
   - It shows on both pages.
-- **Footer (black):**
+- **Footer (white):** white background, black text, gray column headings, black-outline social circles, light gray divider above the copyright bar.
   - Brand column:
     - the transparent logo (46px tall)
     - pink italic serif line "Fashion, accessorized."
@@ -228,20 +228,17 @@ Sections in order:
    - A white pill button "Shop now →" (class `pop__shop`) sits centered right under the lollipop, above the Scroll cue, and links to `/shop`. Its bottom offset is `calc(clamp(18px,3.4vh,40px) + 66px)` so it shows at scroll 0 on desktop and phone.
    - Reduced-motion users see the final state with no motion.
 2. **Marquee:** as above.
-3. **Product shelf:**
-   - Three product cards in a row, centered on wide screens and horizontally scrollable on smaller ones.
-   - The section heading is hidden.
-   - Each card:
-     - Blush 4:5 tile with the lollipop IN ITS WRAPPER (`card-wrapped.webp`), 48% wide and slightly rotated. The unwrapped cutout (`card-unwrapped.webp`) sits exactly underneath at opacity 0.
-     - A big black display "ghost" label in the bottom-left: "SINGLE", "5 PACK" or "12 PACK".
-     - A black badge for Best Seller or Best Value.
-   - On hover:
-     - A soft feathered hot-pink burst spreads out from the center (an animated radial mask, not a hard circle).
-     - The lollipop tilts up and unwraps: the wrapper lifts off (translateY -34%, rotate -10°, scale 1.08) and fades out over about 0.6s while the bare lollipop fades in.
-     - A black "Shop now →" pill slides up.
-   - Below each card: the name on one line (for example "CHERRY GLOSS 5 PACK"), the price, and "Cherry Gloss · 5 pops".
-   - On phones there is a full-width "Shop now · $price" button instead of the hover pill.
-   - Clicking a card (or its button) does not add to the bag. It opens the product page at `/shop?pack=<that pack>` so the product page is where people buy.
+3. **Product shelf (one big card):**
+   - ONE big Cherry Gloss card, centered (flex-basis clamp(440px,46vw,680px) on desktop, full width on phones). Single, 5 Pack and 12 Pack are not separate cards; they are options on the product page. The section heading and progress bar are hidden.
+   - The card:
+     - Blush 4:5 tile with the lollipop IN ITS WRAPPER (`card-wrapped.webp`, clear film with the pink backdrop removed), 46% wide, rotated -10°. The unwrapped cutout (`card-unwrapped.webp`) sits underneath, nudged translate(.6%,2.4%) so its candy lines up with the wrapped candy.
+     - A big black display ghost label in the bottom-left: "CHERRY / GLOSS" on two lines.
+   - On hover (no pink burst, the tile stays blush):
+     - The wrapper TEARS AWAY: two copies of the wrapped image are clipped to the left and right of a jagged rip line down the middle (top half only, so the bare stick stays). They fly apart (left: translate(-48%,-6%) rotate(-30deg); right: translate(48%,-10%) rotate(26deg)) with a slight tug-back easing cubic-bezier(.55,-.35,.3,1) over 0.9s, fading out after 0.45s, leaving the bare lollipop. Moving off re-wraps it.
+     - The lollipop tilts up and a black "Shop now →" pill slides up.
+   - Below the card: "CHERRY GLOSS", "From $2.99", and "Single · 5 Pack · 12 Pack".
+   - On phones there is a full-width "Shop now · from $2.99" button instead of the hover pill.
+   - Clicking the card opens `/shop` (no pack forced).
 4. **Pop Culture newsletter (`#club`), black section:**
    - Heading "JOIN THE" in white and "POP CULTURE." in pink.
    - Pink label "The newsletter" with the text "Pop Culture is the ShawtyPop newsletter. Sign up for 15% off your first order, plus first dibs on every Cherry Gloss drop."
