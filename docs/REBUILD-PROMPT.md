@@ -137,7 +137,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
     - Help: Shipping, Returns, Privacy, Terms
     - Social: Instagram, TikTok, plus round outlined icon buttons for both, turning pink on hover
   - Giant "SHAWTYPOP" text runs across the bottom as a pink outline with no fill (transparent text with a clamp(1.5px,.18vw,3px) pink stroke): Archivo 900, width 125, letter-spacing -.065em, uppercase, auto-sized by script to fill the footer width exactly, sitting slightly cut off at the bottom edge. It is text, not the logo image.
-  - Bottom bar: "© 2026 ShawtyPop. Prototype storefront."
+  - Bottom bar: "© 2026 ShawtyPop."
 - **Cart drawer:**
   - Slides in from the right, 460px wide, over a dark scrim. Title "Your bag" in display type with a pink superscript count.
   - A blush free-shipping bar reads "You're $X away from free shipping" and fills toward $50. At $50 it reads "You unlocked free shipping 💗".
