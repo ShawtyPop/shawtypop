@@ -221,6 +221,7 @@ Sections in order:
      - A shading layer, masked by the cutout's own shape, adds a darker rim around the candy, a soft gloss highlight near its top-left, and a light-to-dark band across the stick so it reads as round.
      - A drop shadow on the unrotated parent always falls straight down.
    - About 26 small pastel sparkle dots burst outward as you scroll. A "Scroll" cue with a pulsing line fades out.
+   - A white pill button "Shop now →" (class `pop__shop`) sits centered right under the lollipop, above the Scroll cue, and links to `/shop`. Its bottom offset is `calc(var(--header-h) + 36px + clamp(20px,4vh,44px))` so it shows at scroll 0 on desktop and phone.
    - Reduced-motion users see the final state with no motion.
 2. **Marquee:** as above.
 3. **Product shelf:**
