@@ -1120,18 +1120,18 @@ const plusIcon=`<svg width="12" height="12" viewBox="0 0 12 12" stroke="currentC
 shelf.innerHTML=PRODUCTS.map((p,i)=>{
   const swatch=p.pop==="mix"?["red","pink","baby"]:[p.pop];
   return `<article class="card rv" data-d="${Math.min(i,4)}" style="--alt:${p.alt};--r:${i%2?10:-12}deg">
-    <div class="card__media slot" data-slot="product-${p.id}" data-add="${p.id}" role="button" tabindex="0" aria-label="Add ${p.name} to cart">
+    <div class="card__media slot" data-slot="product-${p.id}" data-view="${p.id}" role="link" tabindex="0" aria-label="Shop ${p.name}">
       <div class="card__bg"></div>
       <span class="card__ghost d" aria-hidden="true">${p.ghost||p.name}</span>
       ${p.badge?`<span class="badge ${p.badgeStyle||""}">${p.badge}</span>`:""}
       <div class="card__art"><img src="${POP_SRC}" alt="${p.name} lollipop"></div>
-      <button class="card__quick" data-add="${p.id}" tabindex="-1">${plusIcon} Add to cart</button>
+      <button class="card__quick" data-view="${p.id}" tabindex="-1">Shop now <span class="arr">→</span></button>
     </div>
     <div class="card__info">
       <h3 class="card__name">${p.name}</h3><span class="card__price">$${p.price.toFixed(2)}</span>
       <div class="card__flavor">${p.flavor}</div>
     </div>
-    <button class="btn btn--sm card__mobile-add" data-add="${p.id}">Add to cart · $${p.price.toFixed(2)}</button>
+    <button class="btn btn--sm card__mobile-add" data-view="${p.id}">Shop now · $${p.price.toFixed(2)}</button>
   </article>`}).join("");
 
 /* shelf arrows + progress */
@@ -1212,8 +1212,10 @@ $("checkoutBtn").onclick=()=>note("Checkout connects at launch. Prototype only."
 
 /* global click delegation */
 document.addEventListener("click",e=>{
-  const t=e.target.closest("[data-add],[data-inc],[data-dec],[data-rm],[data-open-cart],[data-close-cart],[data-open-search]");
+  const t=e.target.closest("[data-view],[data-add],[data-inc],[data-dec],[data-rm],[data-open-cart],[data-close-cart],[data-open-search]");
   if(!t)return;
+  /* home page product cards open the product page with that pack picked */
+  if(t.dataset.view){if(shelf.dataset.dragged)return;e.preventDefault();location.href="/shop?pack="+encodeURIComponent(t.dataset.view);return}
   if(t.dataset.add){if(shelf.dataset.dragged)return;e.preventDefault();add(t.dataset.add);return}
   if(t.dataset.inc){const l=cart.find(x=>x.id===t.dataset.inc);setQty(l.id,l.qty+1);return}
   if(t.dataset.dec){const l=cart.find(x=>x.id===t.dataset.dec);setQty(l.id,l.qty-1);return}
@@ -1222,7 +1224,7 @@ document.addEventListener("click",e=>{
   if(t.hasAttribute("data-close-cart")){closeCart();document.getElementById("shop").scrollIntoView({behavior:"smooth"});return}
   if(t.hasAttribute("data-open-search")){openSearch();return}
 });
-shelf.addEventListener("keydown",e=>{const m=e.target.closest(".card__media");if(m&&(e.key==="Enter"||e.key===" ")){e.preventDefault();add(m.dataset.add)}});
+shelf.addEventListener("keydown",e=>{const m=e.target.closest(".card__media");if(m&&(e.key==="Enter"||e.key===" ")){e.preventDefault();location.href="/shop?pack="+encodeURIComponent(m.dataset.view)}});
 
 /* ---------- MOBILE MENU ---------- */
 document.getElementById("logoImgM").src=document.getElementById("logoImg").src;
@@ -1308,6 +1310,8 @@ addEventListener("resize",fitWord);if(document.fonts&&document.fonts.ready)docum
     document.querySelectorAll("[data-pdp-img]").forEach(b=>b.classList.toggle("on",+b.dataset.pdpImg===i))}
   show(0);
   document.querySelectorAll("[data-pdp-img]").forEach(b=>b.onclick=()=>show(+b.dataset.pdpImg));
+  /* ?pack=cherry-gloss-12 preselects that pack (links from the home page cards) */
+  try{const want=new URLSearchParams(location.search).get("pack");const r=want&&document.querySelector(`input[name="pack"][value="${CSS.escape(want)}"]`);if(r)r.checked=true}catch(e){}
   let q=1;
   const cur=()=>find(document.querySelector('input[name="pack"]:checked').value);
   function upd(){const p=cur();$("pdpPrice").textContent=money(p.price);

@@ -190,7 +190,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   3. Italic serif line "Fashion you can taste."
   4. Price in large bold type, with the per-pop price next to it in gray. Single shows "1 pop", the 5 Pack shows "$2.00 / pop", and the 12 Pack shows "$1.67 / pop".
   5. Gray line "No jitters. No bloat. No crash. Just pop."
-  6. "Choose your pack": three selectable cards side by side, with the 5 Pack selected by default.
+  6. "Choose your pack": three selectable cards side by side, with the 5 Pack selected by default. All three are options of the one Cherry Gloss product on this one page. A link like `/shop?pack=cherry-gloss-12` opens the page with that pack already picked.
      - Single / "1 pop" / $2.99
      - 5 Pack / "Best Seller" / $9.99
      - 12 Pack / "Best Value" / $19.99
@@ -233,9 +233,10 @@ Sections in order:
    - On hover:
      - A soft feathered hot-pink burst spreads out from the center (an animated radial mask, not a hard circle).
      - The lollipop tilts up.
-     - A black "+ Add to cart" pill slides up.
+     - A black "Shop now →" pill slides up.
    - Below each card: the name on one line (for example "CHERRY GLOSS 5 PACK"), the price, and "Cherry Gloss · 5 pops".
-   - On phones there is a full-width "Add to cart · $price" button instead of the hover pill.
+   - On phones there is a full-width "Shop now · $price" button instead of the hover pill.
+   - Clicking a card (or its button) does not add to the bag. It opens the product page at `/shop?pack=<that pack>` so the product page is where people buy.
 4. **Pop Culture newsletter (`#club`), black section:**
    - Heading "JOIN THE" in white and "POP CULTURE." in pink.
    - Pink label "The newsletter" with the text "Pop Culture is the ShawtyPop newsletter. Sign up for 15% off your first order, plus first dibs on every Cherry Gloss drop."
