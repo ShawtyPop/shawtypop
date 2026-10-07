@@ -72,8 +72,10 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
 
 ### 3. Images (attach these)
 
-- `lollipop-photo-on-pink.jpg` (1000x1500): the real Cherry Gloss lollipop standing upright on a pink background. Main product photo.
-- `lollipop-cutout.webp` (523x1443, transparent): the same lollipop cut out. The candy circle sits at the top (center about x 261, y 261, radius 259) and the rose-gold stick runs down the middle (x 223–306). Used for every other lollipop image.
+- `lollipop-photo-on-pink.jpg` (1000x1500): the real Cherry Gloss lollipop (thin rose-gold stick printed "shawtypop™") standing upright on a pink background, unwrapped. Main product photo.
+- `lollipop-wrapped-on-pink.jpg` (1000x1500): the same lollipop in its clear cellophane wrapper printed with pink "shawtypop" and lips, on pink. Second product photo.
+- `card-wrapped.webp` and `card-unwrapped.webp` (440x946, transparent): the wrapped and unwrapped lollipop cut out and framed identically (same canvas, stick in the same place) so one can swap for the other. Used only by the home product cards.
+- `lollipop-cutout.webp` (493x1349, transparent): the unwrapped lollipop cut out. The candy circle sits at the top (center about x 246, y 245, radius 246) and the thin rose-gold stick runs down the middle (x 220–273). Used for every other lollipop image.
 - `logo-one-line-header.webp`: the one-line "shawtypop™" wordmark (pink "shawty", plum "pop" with lips for the o). Used in the header, the mobile menu and the password gate.
 - `logo-transparent-footer.webp`: the transparent wordmark for the footer brand column (46px tall).
 - `favicon-lips.png`: the pink lips icon. Used as the favicon and apple-touch-icon.
@@ -181,8 +183,9 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
 - **Gallery:**
   - A sticky main image with 4:5 shape and 22px rounded corners. It shows `lollipop-photo-on-pink.jpg`, cropped from the top.
   - A column of two thumbnails on the left (they move under the image on mobile):
-    - Thumbnail 1: the photo.
-    - Thumbnail 2: the cutout rotated -14° on a hot-pink radial background with a drop shadow.
+    - Thumbnail 1: the unwrapped photo.
+    - Thumbnail 2: the wrapped photo.
+    - Thumbnail 3: the cutout rotated -14° on a hot-pink radial background with a drop shadow.
   - Clicking a thumbnail swaps the main image. The active thumbnail gets a black outline.
 - **Info column, top to bottom:**
   1. Pink label "Caffeine + L-Theanine lollipop".
@@ -207,7 +210,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
 Sections in order:
 
 1. **Opener: "Join the Pop Culture" scroll scene**
-   - Section height 150svh with a sticky 100svh stage. The stage is a hot-pink radial gradient (#FF4FA0 to #FF1D8D to #E2066F) with a soft white bloom and faint rotating white rays.
+   - Section height 125svh with a sticky stage pinned at top 62px and `calc(100svh - 112px)` tall (`calc(100svh - 96px)` on phones), i.e. exactly the space under the announcement bar and header, so "Pop Culture" and the lollipop start centered on screen. The stage is a hot-pink radial gradient (#FF4FA0 to #FF1D8D to #E2066F) with a soft white bloom and faint rotating white rays.
    - Text:
      - "POP" huge in solid white display type, with "Join the" in small white italic serif to its left.
      - "CULTURE" below it as a white outline that fills in solid white as you scroll.
@@ -216,25 +219,25 @@ Sections in order:
      - At the top of the page it is turned to -112° (head dipped below horizontal) at 58% scale.
      - As you scroll it does one smooth half turn to +112°, growing to full size with a cosine ease.
      - No overshoot, no stopping, no zoom toward the camera, and no 3D.
-     - Progress runs over the 50svh pin plus 35% of the viewport, so the page never feels stuck waiting on the animation.
+     - Progress runs over the 25svh pin plus 35% of the viewport, so the page never feels stuck waiting on the animation.
    - Lollipop shading (so it doesn't look like a paper cutout):
      - A shading layer, masked by the cutout's own shape, adds a darker rim around the candy, a soft gloss highlight near its top-left, and a light-to-dark band across the stick so it reads as round.
      - A drop shadow on the unrotated parent always falls straight down.
    - About 26 small pastel sparkle dots burst outward as you scroll. A "Scroll" cue with a pulsing line fades out.
    - The turn starts on the very first pixel of page scroll (progress = scrollY / total, not measured from when the section reaches the top under the header), so there is no dead scroll before it moves.
-   - A white pill button "Shop now →" (class `pop__shop`) sits centered right under the lollipop, above the Scroll cue, and links to `/shop`. Its bottom offset is `calc(var(--header-h) + 36px + clamp(20px,4vh,44px))` so it shows at scroll 0 on desktop and phone.
+   - A white pill button "Shop now →" (class `pop__shop`) sits centered right under the lollipop, above the Scroll cue, and links to `/shop`. Its bottom offset is `calc(clamp(18px,3.4vh,40px) + 66px)` so it shows at scroll 0 on desktop and phone.
    - Reduced-motion users see the final state with no motion.
 2. **Marquee:** as above.
 3. **Product shelf:**
    - Three product cards in a row, centered on wide screens and horizontally scrollable on smaller ones.
    - The section heading is hidden.
    - Each card:
-     - Blush 4:5 tile with the real lollipop cutout, 40% wide and slightly rotated.
+     - Blush 4:5 tile with the lollipop IN ITS WRAPPER (`card-wrapped.webp`), 48% wide and slightly rotated. The unwrapped cutout (`card-unwrapped.webp`) sits exactly underneath at opacity 0.
      - A big black display "ghost" label in the bottom-left: "SINGLE", "5 PACK" or "12 PACK".
      - A black badge for Best Seller or Best Value.
    - On hover:
      - A soft feathered hot-pink burst spreads out from the center (an animated radial mask, not a hard circle).
-     - The lollipop tilts up.
+     - The lollipop tilts up and unwraps: the wrapper lifts off (translateY -34%, rotate -10°, scale 1.08) and fades out over about 0.6s while the bare lollipop fades in.
      - A black "Shop now →" pill slides up.
    - Below each card: the name on one line (for example "CHERRY GLOSS 5 PACK"), the price, and "Cherry Gloss · 5 pops".
    - On phones there is a full-width "Shop now · $price" button instead of the hover pill.
