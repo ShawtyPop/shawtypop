@@ -168,6 +168,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
     - Under the card: "JOIN THE POP SQUAD" with Instagram and TikTok pill buttons (white, plum border, plum drop; hover hot pink) linking to @getshawtypop, plus an italic pink "@getshawtypop".
     - Then a pink "HAVE A PASSWORD?" toggle with a password field and "Enter →".
     - Right: a big pink #F8C3D7 disc with the real lollipop cutout tilted -22°, gently floating.
+    - Subtle copy on the disc behind the lollipop: a ring of small spaced caps "CAFFEINE + L-THEANINE ·" (Archivo 800, #E58DB2) slowly spinning (60s), and big tone-on-tone Fraunces 900 words "Caffeine / + L-Theanine" (#F2AFCB) in the middle.
     - Pink "COMING SOON" spaced caps bottom-left, pink lips (transparent) bottom-right.
   - Phones: one column; the disc and lollipop sit on top (about 36vh tall), then the text, card, socials and password; lips at the end.
 - **Email signups:**
