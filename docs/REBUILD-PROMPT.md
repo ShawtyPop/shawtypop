@@ -66,7 +66,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
 - **Fonts:** from Google Fonts.
   - Archivo (variable width 62–125 and weight 400–900): the main display and body font.
   - Instrument Serif (italic): accents.
-- **Page title:** "ShawtyPop | Fashion, Accessorized".
+- **Page title:** "ShawtyPop" (no tagline, Carter).
 - **Meta description:** "ShawtyPop. Glossy lollipops with big flavor and zero boring energy."
 - **Theme color:** #EA3C8C.
 
@@ -234,7 +234,8 @@ Sections in order:
      - Blush 4:5 tile with the lollipop IN ITS WRAPPER (`card-wrapped.webp`, clear film with the pink backdrop removed), 46% wide, rotated -10°. The unwrapped cutout (`card-unwrapped.webp`) sits underneath, nudged translate(.6%,2.4%) so its candy lines up with the wrapped candy.
      - A big black display ghost label in the bottom-left: "CHERRY / GLOSS" on two lines.
    - On hover (no pink burst, the tile stays blush):
-     - The wrapper TEARS AWAY: two copies of the wrapped image are clipped to the left and right of a jagged rip line down the middle (top half only, so the bare stick stays). They fly apart (left: translate(-48%,-6%) rotate(-30deg); right: translate(48%,-10%) rotate(26deg)) with a slight tug-back easing cubic-bezier(.55,-.35,.3,1) over 0.9s, fading out after 0.45s, leaving the bare lollipop. Moving off re-wraps it.
+     - The wrapper MELTS AND TEARS AWAY (WebGL, one `<canvas class="card__melt">` over the card art; full brief in /mnt/project-files/website/prompts/wrapper-melt-prompt.md). Over 1.4s: the film tugs tight, a jagged rip opens from the top edge down to the twist with thin glowing white torn edges and a few stretched strands that snap, then the film curls back toward the outer edges, wrinkles with a moving shine, and dissolves in noise holes like heated cellophane. A glint at the twist and one shine sweep across the bare candy finish it. Moving off re-wraps it at 2x speed. Shader: fbm noise + distance to a wobbly tear line vs a progress threshold, UV pull away from the tear, normals from the noise for specular. Only the top 50.5% (the film) is drawn; the stick comes from the unwrapped image below.
+     - Phones (no hover): the melt plays once when the card is 85% in view. Reduced motion or no WebGL: the old CSS two-halves tear is the fallback (`.card.gl` hides it when WebGL runs).
      - The lollipop tilts up and a black "Shop now →" pill slides up.
    - Below the card: "CHERRY GLOSS", "From $2.99", and "Single · 5 Pack · 12 Pack".
    - On phones there is a full-width "Shop now · from $2.99" button instead of the hover pill.
