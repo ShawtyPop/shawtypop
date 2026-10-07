@@ -483,8 +483,8 @@ input{font:inherit}
 .nl__msg{min-height:20px;margin-top:10px;font-size:14px;font-weight:700;color:var(--pink)}
 .nl__no{margin-top:4px;font-size:12px;letter-spacing:.08em;color:var(--ink-60);text-decoration:underline}
 /* ---------- product page ---------- */
-html:not(.v-home) main>:not(.pdp):not(.marquee){display:none}
-html.v-home .pdp{display:none}
+html.v-shop main>:not(.pdp):not(.marquee){display:none}
+html:not(.v-shop) .pdp{display:none}
 .pdp{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,4vw,72px);padding:clamp(20px,3vw,40px) var(--gutter) clamp(56px,7vw,110px);align-items:start;background:var(--white)}
 .pdp__gallery{position:sticky;top:calc(var(--header-h) + 16px);display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px}
 .pdp__main{grid-column:2;grid-row:1;aspect-ratio:4/5;border-radius:22px;overflow:hidden;background:var(--blush-2)}
@@ -671,8 +671,8 @@ html.unlocked .gate{display:none}
 </style>
 <script>
 /* gate: decide before first paint so the page never flashes */
-/* routes: "/" is the Cherry Gloss product page, "/home" is the full brand page (old "/pop-culture" links still work) */
-if(/^\/(home|pop-culture)\/?$/.test(location.pathname))document.documentElement.classList.add("v-home");
+/* routes: "/" is the brand home page with the spinning lollipop, "/shop" is the Cherry Gloss product page (old "/home" and "/pop-culture" links show the home page) */
+if(/^\/shop\/?$/.test(location.pathname))document.documentElement.classList.add("v-shop");
 try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentElement.classList.add("unlocked")}catch(e){}
 </script>
 </head>
@@ -690,8 +690,8 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
 <header class="header" id="header">
   <div class="header__in">
     <nav class="nav" aria-label="Primary">
-      <a class="u" href="/">Shop</a>
-      <a class="u" href="/home">Home</a>
+      <a class="u" href="/shop">Shop</a>
+      <a class="u" href="/">Home</a>
     </nav>
     <button class="burger" id="burgerBtn" aria-label="Open menu">
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h18M3 16h12"/></svg>
@@ -715,9 +715,9 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
     <span style="width:44px"></span>
   </div>
   <nav class="mmenu__links">
-    <a class="d" href="/" data-mlink>Shop</a>
-    <a class="d" href="/home" data-mlink>Home</a>
-    <a class="d" href="/home#club" data-mlink>Pop Culture</a>
+    <a class="d" href="/shop" data-mlink>Shop</a>
+    <a class="d" href="/" data-mlink>Home</a>
+    <a class="d" href="/#club" data-mlink>Pop Culture</a>
   </nav>
   <div class="mmenu__foot label">
     <a href="https://www.instagram.com/getshawtypop/" target="_blank" rel="noopener" data-mlink>@getshawtypop</a>
@@ -761,7 +761,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
       <div class="stepper"><button id="pMinus" aria-label="Decrease quantity">−</button><span id="pQty">1</span><button id="pPlus" aria-label="Increase quantity">+</button></div>
       <button class="btn btn--pink" id="pAdd">Add to bag · <span id="pAddPrice">$9.99</span></button>
     </div>
-    <a class="pdp__club" href="/home#club" data-open-nl><span class="label">Pop Culture</span><span>Join our newsletter for 15% off your first order.</span><span class="arr">→</span></a>
+    <a class="pdp__club" href="/#club" data-open-nl><span class="label">Pop Culture</span><span>Join our newsletter for 15% off your first order.</span><span class="arr">→</span></a>
     <ul class="pdp__perks label"><li>No jitters</li><li>No crash</li><li>Free shipping on $50+</li></ul>
     <div class="pdp__acc">
       <details open><summary>The pop</summary><p>One glossy Cherry Gloss lollipop on a rose gold ShawtyPop stick, made with caffeine and L-Theanine. Energy, accessorized.</p></details>
@@ -867,7 +867,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
         <button type="submit">Join</button>
       </form>
     </div>
-    <div><h4>Shop</h4><ul><li><a class="u" href="/">Shop All</a></li><li><a class="u" href="/">Best Sellers</a></li><li><a class="u" href="/">New Drops</a></li><li><a class="u" href="/">Collections</a></li></ul></div>
+    <div><h4>Shop</h4><ul><li><a class="u" href="/shop">Shop All</a></li><li><a class="u" href="/shop">Best Sellers</a></li><li><a class="u" href="/shop">New Drops</a></li><li><a class="u" href="/shop">Collections</a></li></ul></div>
     <div><h4>About</h4><ul><li><a class="u" href="#top">Contact</a></li><li><a class="u" href="#top">FAQ</a></li></ul></div>
     <div><h4>Help</h4><ul><li><a class="u" href="#top">Shipping</a></li><li><a class="u" href="#top">Returns</a></li><li><a class="u" href="#top">Privacy</a></li><li><a class="u" href="#top">Terms</a></li></ul></div>
     <div><h4>Social</h4><ul><li><a class="u" href="https://www.instagram.com/getshawtypop/" target="_blank" rel="noopener">Instagram</a></li><li><a class="u" href="https://www.tiktok.com/@getshawtypop" target="_blank" rel="noopener">TikTok</a></li></ul>

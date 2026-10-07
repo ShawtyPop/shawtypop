@@ -59,10 +59,10 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
     "assets": { "directory": "./public", "not_found_handling": "single-page-application" } }
   ```
 - **Routing:** single-page routing.
-  - `/` shows the **product page**.
-  - `/home` shows the **brand home page**. `/pop-culture` is an old alias that still works.
-  - A script in `<head>` adds class `v-home` to `<html>` when the path matches `/home` or `/pop-culture`.
-  - With `v-home`, the product section is hidden and the brand sections show. Without it, only the product section and the marquee show.
+  - `/` shows the **brand home page** with the spinning lollipop (Carter switched it back on Oct 7, 2026).
+  - `/shop` shows the **product page**. Old `/home` and `/pop-culture` links show the home page.
+  - A script in `<head>` adds class `v-shop` to `<html>` when the path matches `/shop`.
+  - With `v-shop`, only the product section and the marquee show. Without it, the product section is hidden and the brand sections show.
 - **Fonts:** from Google Fonts.
   - Archivo (variable width 62–125 and weight 400–900): the main display and body font.
   - Instrument Serif (italic): accents.
@@ -110,13 +110,13 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   - The dot is pink.
 - **Header:**
   - Sticky, cream background, 76px tall, shrinking to 62px with a soft shadow once scrolled.
-  - Left: "Shop" (links to /) and "Home" (links to /home).
+  - Left: "Shop" (links to /shop) and "Home" (links to /).
   - Center: the one-line logo, 36px tall, linking to /.
   - Right: "Cart" with a pink count bubble.
   - Under 1024px wide: a burger icon on the left, the centered logo, and a bag icon with count on the right.
 - **Mobile menu:**
   - Full screen, cream, opening with a circular clip reveal from the top-left.
-  - Big display links "Shop", "Home" (pink) and "Pop Culture" (links to /home#club).
+  - Big display links "Shop", "Home" (pink) and "Pop Culture" (links to /#club).
   - Footer row with "@getshawtypop" (Instagram).
 - **Marquee:**
   - Black band scrolling left on a loop over 34s.
@@ -128,7 +128,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
     - pink italic serif line "Fashion, accessorized."
     - an underlined email field "Email for drops" with a pink "Join" button. On submit it signs the email up (see "Email signups") and the placeholder changes to "You're on the list 💗".
   - Link columns:
-    - Shop: Shop All, Best Sellers, New Drops, Collections, all linking to /
+    - Shop: Shop All, Best Sellers, New Drops, Collections, all linking to /shop
     - About: Contact, FAQ
     - Help: Shipping, Returns, Privacy, Terms
     - Social: Instagram, TikTok, plus round outlined icon buttons for both, turning pink on hover
@@ -173,7 +173,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   - While a signup is sending, the message reads "Adding you…". If it fails, it reads "Something went wrong, try again".
 - **Hidden on purpose:** the add-to-cart toast exists in the code but is hidden with `display:none`.
 
-### 6. Product page (`/`, the default page)
+### 6. Product page (`/shop`)
 
 - **Layout:**
   - Two columns on desktop (gallery on the left, about 1.15 to 1).
@@ -202,7 +202,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
       - "The pop" (open by default): "One glossy Cherry Gloss lollipop on a rose gold ShawtyPop stick, made with caffeine and L-Theanine. Energy, accessorized."
       - "Shipping": "Free shipping on orders over $50."
 
-### 7. Brand home page (`/home`)
+### 7. Brand home page (`/`, the default page)
 
 Sections in order:
 
