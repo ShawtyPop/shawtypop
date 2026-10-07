@@ -122,7 +122,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   - Footer row with "@getshawtypop" (Instagram).
 - **Marquee:**
   - Black band scrolling left on a loop over 34s.
-  - Items alternate between big uppercase white text and pink italic serif text, separated by small round pink "pip" dots: "Cherry Gloss", *no boring energy*, "Fashion you can taste", *pop off*, "Wear your energy", *energy, accessorized.*
+  - Items alternate between big uppercase white text and pink italic serif text, separated by small round pink "pip" dots: "Caffeine + L-Theanine", *energy + focus*, "Cherry Gloss", *no boring energy*, "Fashion you can taste", *pop off*, "Wear your energy", *energy, accessorized.*
   - It shows on both pages.
 - **Footer (white):** white background, black text, gray column headings, black-outline social circles, light gray divider above the copyright bar.
   - Brand column:
@@ -168,9 +168,9 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
     - Under the card: "JOIN THE POP SQUAD" with Instagram and TikTok pill buttons (white, plum border, plum drop; hover hot pink) linking to @getshawtypop, plus an italic pink "@getshawtypop".
     - Then a pink "HAVE A PASSWORD?" toggle with a password field and "Enter →".
     - Right: a big pink #F8C3D7 disc with the real lollipop cutout tilted -22°, gently floating.
-    - Subtle copy on the disc behind the lollipop: a ring of small spaced caps "CAFFEINE + L-THEANINE ·" (Archivo 800, #E58DB2) slowly spinning (60s), and big tone-on-tone Fraunces 900 words "Caffeine / + L-Theanine" (#F2AFCB) in the middle.
-    - Pink "COMING SOON" spaced caps bottom-left, pink lips (transparent) bottom-right.
-  - Phones: one column; the disc and lollipop sit on top (about 36vh tall), then the text, card, socials and password; lips at the end.
+    - Subtle copy on the disc behind the lollipop: a ring of small spaced caps "CAFFEINE + L-THEANINE ·" (Archivo 800, #E58DB2) slowly spinning (60s), and big tone-on-tone Fraunces 900 words "Energy / + Focus" (#F2AFCB) in the middle.
+    - Pink lips (transparent) bottom-right. (No "Coming soon" label, Carter removed it.)
+  - Phones: ONE FIXED SCREEN, no scrolling (100dvh, overflow hidden, content centered). Disc and lollipop on top at 30dvh, then logo, "Join the waitlist." on ONE line (min(13.4vw,7dvh), nowrap), the short text, the card (first name; email + Join on one row), Instagram/TikTok pills, and "Have a password?". No lips on phones. Opening the password toggle hides the text and socials to make room.
 - **Email signups:**
   - The popup, the footer field and the waitlist gate all send the email to MailerLite with a background POST (`mode: "no-cors"`) to `https://assets.mailerlite.com/jsonp/2690429/forms/200599344405021977/subscribe`, with form fields `fields[email]` (plus `fields[name]` from the gate), `ml-submit=1` and `anticsrf=true`. That is the MailerLite embedded form "Website Signup", which adds people to the Newsletter group. The MailerLite account signs in with Google as getshawtypop@gmail.com.
   - Each signup also goes to the "ShawtyPop Subscribers" Google Sheet as a backup, through a Google Apps Script web app (`SHEET_URL` in the code, with fields `email` and `source` set to Popup, Footer or Waitlist). The script is saved in the project files at `website/subscribers-apps-script.gs`.
@@ -193,6 +193,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   1. Pink label "Caffeine + L-Theanine lollipop".
   2. Huge display title "CHERRY / GLOSS" on two lines.
   3. Italic serif line "Fashion you can taste."
+  3b. Two pill chips: black "CAFFEINE + L-THEANINE" and hot-pink "ENERGY + FOCUS".
   4. Price in large bold type, with the per-pop price next to it in gray. Single shows "1 pop", the 5 Pack shows "$2.00 / pop", and the 12 Pack shows "$1.67 / pop".
   5. Gray line "No jitters. No bloat. No crash. Just pop."
   6. "Choose your pack": three selectable cards side by side, with the 5 Pack selected by default. All three are options of the one Cherry Gloss product on this one page. A link like `/shop?pack=cherry-gloss-12` opens the page with that pack already picked.
@@ -232,7 +233,8 @@ Sections in order:
    - A white pill button "Shop now →" (class `pop__shop`) sits centered right under the lollipop, above the Scroll cue, and links to `/shop`. Its bottom offset is `calc(clamp(18px,3.4vh,40px) + 66px)` so it shows at scroll 0 on desktop and phone.
    - Reduced-motion users see the final state with no motion.
 2. **Marquee:** as above.
-3. **Product shelf (one big card):**
+3. **The formula section (`.duo`, blush, centered):** pink label "THE FORMULA"; huge display "CAFFEINE + L‑THEANINE" (hot-pink +, non-breaking hyphen so L‑Theanine never splits); pink italic serif "= Energy + Focus." (= and + in black); two white cards: "CAFFEINE / the energy / The lift you came for, in a Cherry Gloss pop." and "L-THEANINE / the focus / Paired with the caffeine to keep it smooth and locked in. No jitters, no crash." Carter wants Caffeine + L-Theanine and Energy + Focus pushed as the main selling point.
+3b. **Product shelf (one big card):**
    - ONE big Cherry Gloss card, centered (flex-basis clamp(440px,46vw,680px) on desktop, full width on phones). Single, 5 Pack and 12 Pack are not separate cards; they are options on the product page. The section heading and progress bar are hidden.
    - The card:
      - Blush 4:5 tile with the lollipop IN ITS WRAPPER (`card-wrapped.webp`, clear film with the pink backdrop removed), 46% wide, rotated -10°. The unwrapped cutout (`card-unwrapped.webp`) sits underneath, nudged translate(.6%,2.4%) so its candy lines up with the wrapped candy.
