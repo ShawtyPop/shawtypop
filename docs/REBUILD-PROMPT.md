@@ -222,7 +222,8 @@ Sections in order:
      - Progress runs over the 25svh pin plus 35% of the viewport, so the page never feels stuck waiting on the animation.
    - Lollipop shading (so it doesn't look like a paper cutout):
      - A shading layer, masked by the cutout's own shape, adds a darker rim around the candy, a soft gloss highlight near its top-left, and a light-to-dark band across the stick so it reads as round.
-     - A drop shadow on the unrotated parent always falls straight down.
+     - The shadow is its own layer (`.pop__shadow`): a plum shape masked by the lollipop image, blurred 14px, given the same rotate/scale as the lollipop plus a straight-down offset. Never put a CSS filter (drop-shadow) on the floating parent: it repaints every frame and made the turn laggy on phones.
+   - Performance (phones): every moving piece (lollipop, shadow, bloom, rays, type, sparks) is its own GPU layer (`will-change`) and the script writes only `transform`/`opacity` straight onto each element per frame (no CSS variables on the whole section). "CULTURE" fills in by fading a solid white copy on top (`.pop__fillw`, opacity), not by changing the text color. Measured on a 4x-throttled phone: 60fps instead of ~30fps.
    - About 26 small pastel sparkle dots burst outward as you scroll. A "Scroll" cue with a pulsing line fades out.
    - The turn starts on the very first pixel of page scroll (progress = scrollY / total, not measured from when the section reaches the top under the header), so there is no dead scroll before it moves.
    - A white pill button "Shop now →" (class `pop__shop`) sits centered right under the lollipop, above the Scroll cue, and links to `/shop`. Its bottom offset is `calc(clamp(18px,3.4vh,40px) + 66px)` so it shows at scroll 0 on desktop and phone.
