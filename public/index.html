@@ -1044,7 +1044,9 @@ window.spSubscribe=subscribe;
     ticking=false;
     var r=sec.getBoundingClientRect();
     var vh=window.innerHeight||1, total=(sec.offsetHeight-vh)+vh*.35;  /* short hold, then it finishes turning as the section scrolls off */
-    var p=total>0?clamp01(-r.top/total):0;
+    /* start counting from the very first pixel of page scroll, not from when the section reaches the top under the header */
+    var y=window.scrollY||0, top=r.top+y, start=top<vh?0:top;
+    var p=total>0?clamp01((y-start)/total):0;
     apply(p);
   }
   function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(read)}}
