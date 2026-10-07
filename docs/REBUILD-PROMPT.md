@@ -62,6 +62,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
 - **Routing:** single-page routing.
   - `/` shows the **brand home page** with the spinning lollipop (Carter switched it back on Oct 7, 2026).
   - `/shop` shows the **product page**. `/features` shows the **features page** (class `v-feat`; only the features section and the marquee show). Old `/home` and `/pop-culture` links show the home page.
+  - `/shipping`, `/returns`, `/privacy` and `/terms` show the **policy pages** (class `v-legal` plus `data-legal="<page>"` on `<html>`; only the matching `.legal[data-p]` section shows).
   - `/faq` shows the **FAQ page** (class `v-faq`) and `/contact` the **contact page** (class `v-contact`); only that section shows (no marquee).
   - A script in `<head>` adds class `v-shop` to `<html>` when the path matches `/shop`.
   - With `v-shop`, only the product section and the marquee show. Without it, the product section is hidden and the brand sections show.
@@ -134,7 +135,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   - Link columns:
     - Shop: "Buy Now" (links to /shop) and "Features" (links to /features)
     - About: "Contact" (links to /contact) and "FAQ" (links to /faq). These two pages are linked only from the footer, never the header.
-    - Help: Shipping, Returns, Privacy, Terms
+    - Help: Shipping, Returns, Privacy, Terms, linking to /shipping, /returns, /privacy and /terms
     - Social: Instagram, TikTok, plus round outlined icon buttons for both, turning pink on hover
   - Giant "SHAWTYPOP" text runs across the bottom as a pink outline with no fill (transparent text with a clamp(1.5px,.18vw,3px) pink stroke): Archivo 900, width 125, letter-spacing -.065em, uppercase, auto-sized by script to fill the footer width exactly, sitting slightly cut off at the bottom edge. It is text, not the logo image.
   - Bottom bar: "© 2026 ShawtyPop."
@@ -293,7 +294,8 @@ Sections in order:
   6. What comes in each pack? "Single (1 pop) $2.99, 5 Pack $9.99 and 12 Pack $19.99. Every pop is the same Cherry Gloss lollipop on a rose gold ShawtyPop stick."
   7. Who shouldn't have ShawtyPop? "ShawtyPop contains caffeine. It is not recommended for children, anyone sensitive to caffeine, or anyone who is pregnant or nursing. Talk to your doctor if you're not sure."
   8. When can I get one? "ShawtyPop is almost here. Join the waitlist or the Pop Culture newsletter for first dibs on Cherry Gloss and 15% off your first order."
-  9. Do you offer free shipping? "Yes, free shipping on orders over $50."
+  9. Where do you ship? "We ship within the U.S. only for now, with free shipping on orders over $50." + link to /shipping
+  10. Can I return my order? "Because ShawtyPop is a food product, all sales are final. If your order arrives damaged or wrong, email us within 7 days and we'll make it right." + link to /returns
 - Under the list: pink "Shop Cherry Gloss →" button and "Still curious? Contact us (/contact) or DM @getshawtypop."
 
 ### 7d. Contact page (`/contact`, footer link only)
@@ -301,6 +303,13 @@ Sections in order:
 - White rounded form card: "Your name" and "Email" side by side (stacked on phones), "Subject (optional)", a "Your message" textarea, a hidden honeypot field `_honey`, and a pink "Send message →" button.
 - On submit it validates name, email and message, then POSTs JSON to `https://formsubmit.co/ajax/getshawtypop@gmail.com` with name, email, message, `_subject` "ShawtyPop contact: <subject or name>", `_replyto` = their email, `_template` "table", `_captcha` "false". FormSubmit emails it to getshawtypop@gmail.com (the very first submission sends an activation email to that inbox, which must be clicked once). Messages: "Sending…", "Sent! We'll get back to you soon 💗", or "Something went wrong, try again or email getshawtypop@gmail.com".
 - Below: "Prefer email? getshawtypop@gmail.com · DM us @getshawtypop".
+
+### 7e. Policy pages (`/shipping`, `/returns`, `/privacy`, `/terms`, footer links only)
+- Same blush layout: pink label "POLICIES", display title (SHIPPING / RETURNS / PRIVACY / TERMS), gray "Last updated October 7, 2026", then one white rounded card with bold 800 subheads and gray body text. Each ends with "Email us at getshawtypop@gmail.com or use our contact form."
+- Shipping (Carter: U.S. only for now): Where we ship (U.S. only); Shipping cost (free over $50, otherwise shown at checkout); Processing and tracking (tracking email once shipped); Heat and delivery (bring it inside); Lost or damaged packages (see Returns).
+- Returns (Carter: no returns): All sales are final (food product, no returns or exchanges); Damaged or wrong orders (email within 7 days with a photo, replacement or refund at our choice); Lost packages (contact within 7 days); Order changes and cancellations (contact right away; not after it ships).
+- Privacy: what we collect (waitlist/newsletter email and first name, contact form messages, bag saved in the browser, basic hosting data); how we use it; we don't sell data; providers MailerLite, Google (backup signup list), FormSubmit, Cloudflare; unsubscribe and delete requests; not for children under 13; changes.
+- Terms: Products (contains caffeine and L-Theanine; not for children, caffeine-sensitive, pregnant or nursing; FDA statement "not evaluated by the Food and Drug Administration... not intended to diagnose, treat, cure or prevent any disease"); prices can change and pricing errors can be canceled; we may refuse orders, U.S. only, all sales final; discount codes one per customer; our content belongs to ShawtyPop; "as is" disclaimer and liability capped at the order amount; governed by Colorado law; changes.
 
 ### 8. Behavior details
 
