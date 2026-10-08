@@ -145,31 +145,47 @@ input{font:inherit}
    One JS-written custom property --p (0 to 1) drives every transform below.
    --rot/--sc/--fill are derived from it in JS so the easing can overshoot. */
 /* #E2066F is the colour the stage gradient lands on at its bottom edge, so any
-   sliver of .pop that peeks out mid-toolbar-transition is invisible. */
-.pop{position:relative;height:190svh;background:#E2066F}
-/* --lift raises everything in the stage: the padding shrinks the content box
-   so the grid centre rises, and the absolute type and cue follow it. */
-/* height tracks the *dynamic* viewport: sized in svh the sticky stage stays
-   short when the mobile toolbar retracts, exposing a flat pink band of .pop
-   underneath it for the whole time the stage is pinned. svh first as a
-   fallback for engines without dvh. */
-.pop__stage{position:sticky;top:76px;height:calc(100svh - 76px);height:calc(100dvh - 76px);min-height:460px;padding-bottom:var(--lift,0px);overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse 90% 70% at 50% 46%,#FF4FA0 0%,var(--pink-hot) 52%,#E2066F 100%)}
+   sliver of .pop that peeks out mid-toolbar-transition is invisible.
+   --lift is the height of the mobile browser toolbar: lvh is the viewport with
+   it retracted, svh with it showing, so the difference is exactly the strip
+   that the toolbar covers. Both are STATIC lengths, so unlike dvh nothing
+   relayouts while the toolbar animates. Desktop: lvh==svh, so --lift is 0.
+   --rise lets the headline sit above the optical centre. */
+.pop{position:relative;height:190svh;background:#E2066F;--lift:calc(100lvh - 100svh);--rise:clamp(26px,5.4vh,60px)}
+/* --lift only moves real grid items (the lollipop): the padding shrinks the
+   content box so the grid centre rises. Absolutely positioned children resolve
+   against the PADDING box instead, so .pop__type, .pop__kicker and .pop__shop
+   each carry their own lift term below. */
+/* sized to the LARGEST viewport so the stage always covers the screen however
+   the toolbar is sitting (svh left a flat pink band of .pop showing the moment
+   it retracted). lvh is static, so unlike dvh it never relayouts mid-scroll.
+   --lift then pads the covered strip back off the content box, so the
+   composition still centres on the part you can actually see. */
+.pop__stage{position:sticky;top:76px;height:calc(100svh - 76px);height:calc(100lvh - 76px);min-height:460px;padding-bottom:var(--lift,0px);overflow:hidden;display:grid;place-items:center;background:radial-gradient(ellipse 90% 70% at 50% 46%,#FF4FA0 0%,var(--pink-hot) 52%,#E2066F 100%)}
 
 .pop__bloom{position:absolute;width:130vmax;height:130vmax;border-radius:50%;pointer-events:none;background:radial-gradient(circle,rgba(255,255,255,.6) 0%,rgba(255,255,255,.16) 32%,rgba(255,255,255,0) 60%);transform:scale(calc(.35 + .65*var(--p,0)));opacity:calc(.22 + .5*var(--p,0));will-change:transform,opacity}
 .pop__rays{position:absolute;width:160vmax;height:160vmax;border-radius:50%;pointer-events:none;background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.55) 0deg 2deg,rgba(255,255,255,0) 2deg 11deg);-webkit-mask-image:radial-gradient(circle,#000 8%,rgba(0,0,0,.45) 30%,transparent 56%);mask-image:radial-gradient(circle,#000 8%,rgba(0,0,0,.45) 30%,transparent 56%);transform:rotate(calc(-20deg + var(--p,0)*160deg));opacity:calc(.08 + .24*var(--p,0));will-change:transform,opacity}
 
 /* the type is deliberately LOCKED: it never translates, so the lollipop
    turns against a constant backdrop. only its fill and scale breathe. */
-.pop__type{position:absolute;margin:0;width:100%;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:.78;text-align:center;transform:scale(calc(1 + .055*var(--p,0)));will-change:transform,opacity}
+/* absolutely positioned, so it centres on the PADDING box, which --lift does
+   not shrink -- without the lift/2 term it would drift down away from the
+   lollipop (a real grid item, which does follow the content box). */
+.pop__type{position:absolute;margin:0;width:100%;pointer-events:none;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:.78;text-align:center;transform:translateY(calc(-1 * (var(--rise,0px) + var(--lift,0px)/2))) scale(calc(1 + .055*var(--p,0)));will-change:transform,opacity}
 /* 16.5vw, not 18vw: "CULTURE" filled the full 1280px viewport and the 1.055
    end-scale then pushed its C and E under the stage's overflow clip */
-.pop__kicker{position:absolute;left:50%;bottom:calc(50% + .92 * clamp(56px,16.5vw,232px));z-index:4;transform:translateX(-50%) scale(calc(1 + .055*var(--p,0)));pointer-events:none;white-space:nowrap;font-family:"Fraunces",Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;font-style:normal;font-weight:900;text-transform:none;font-size:clamp(16px,3.4vw,48px);line-height:1;color:#fff;letter-spacing:0;text-shadow:0 2px 18px rgba(190,0,92,.35)}
+/* bottom:% resolves against the PADDING box, which --lift does not shrink, so
+   the kicker has to be told about half the lift by hand to track the headline. */
+.pop__kicker{position:absolute;left:50%;bottom:calc(50% + var(--lift,0px)/2 + var(--rise,0px) + .92 * clamp(56px,16.5vw,232px));z-index:4;transform:translateX(-50%) scale(calc(1 + .055*var(--p,0)));pointer-events:none;white-space:nowrap;font-family:"Fraunces",Georgia,serif;font-variation-settings:"SOFT" 100,"WONK" 1;font-style:normal;font-weight:900;text-transform:none;font-size:clamp(16px,3.4vw,48px);line-height:1;color:#fff;letter-spacing:0;text-shadow:0 2px 18px rgba(190,0,92,.35)}
 .pop__word{position:relative;display:block;font-size:clamp(56px,16.5vw,232px);letter-spacing:-.035em;text-transform:uppercase;color:#fff}
 .pop__word--b{color:transparent;-webkit-text-stroke:clamp(1.6px,.22vw,3.6px) #fff;paint-order:stroke fill}
 .pop__fillw{position:absolute;inset:0;color:#fff;-webkit-text-stroke:inherit;opacity:0;will-change:opacity}
 
 .pop__sparks{position:absolute;inset:0;pointer-events:none}
-.pop__spark{position:absolute;left:50%;top:50%;width:var(--s,8px);height:var(--s,8px);margin:calc(-.5*var(--s,8px)) 0 0 calc(-.5*var(--s,8px));border-radius:50%;opacity:calc(var(--p,0)*var(--o,.6));transform:rotate(var(--a,0deg)) translateY(calc(-1*var(--d,30vmin)*var(--p,0))) scale(calc(.3 + .7*var(--p,0)));will-change:transform,opacity}
+.pop__spark{position:absolute;left:50%;top:50%;width:var(--s,8px);height:var(--s,8px);margin:calc(-.5*var(--s,8px)) 0 0 calc(-.5*var(--s,8px));border-radius:50%;opacity:calc(var(--p,0)*var(--o,.6));transform:rotate(var(--a,0deg)) translateY(calc(-1*var(--d,30vmin)*var(--p,0))) scale(calc(.3 + .7*var(--p,0)))}
+/* deliberately NO will-change here: these are a handful of px each, and
+   promoting every one of them costs more in layer-tree churn per frame than
+   compositing them saves. */
 
 .pop__float{position:relative;z-index:2;animation:popFloat 6s var(--ease,ease-in-out) infinite;will-change:transform}
 /* speed: every moving piece is its own GPU layer and only its transform/opacity changes per frame,
@@ -188,11 +204,17 @@ input{font:inherit}
 
 .pop__cue{position:absolute;bottom:clamp(18px,3.4vh,40px);display:flex;flex-direction:column;align-items:center;gap:9px;opacity:calc(1 - var(--p,0)*3.2);pointer-events:none;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.9)}
 .pop__cue i{display:block;width:1px;height:38px;background:linear-gradient(#fff,rgba(255,255,255,0));animation:popCue 1.9s var(--ease,ease-in-out) infinite}
-.pop__shop{position:absolute;z-index:3;left:50%;bottom:calc(clamp(18px,3.4vh,40px) + 66px);translate:-50% 0;box-shadow:0 18px 40px -18px rgba(90,0,40,.55)}
+/* + --lift keeps the button clear of the mobile toolbar, which overlaps the
+   bottom of an lvh-tall stage whenever it is showing. */
+.pop__shop{position:absolute;z-index:3;left:50%;bottom:calc(clamp(18px,3.4vh,40px) + 66px + var(--lift,0px));translate:-50% 0;box-shadow:0 18px 40px -18px rgba(90,0,40,.55)}
 @keyframes popCue{0%,100%{transform:scaleY(.35);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
 
 @media (max-width:640px){
   .pop{height:190svh}
+  /* phone GPUs re-rasterise a blurred, masked layer every time its scale
+     changes, and the scale changes every frame of the turn. Half the radius is
+     a quarter of the work and reads the same at this size. */
+  .pop__shadow{filter:blur(8px)}
   .pop__art{height:min(60svh,110vw)}   /* phones: the finished turn lies almost flat, so keep it about screen-wide instead of running off the edge */
   /* "Culture" is the widest word; 18vw left it 7px off each edge once the
      1.055 end-scale landed, so the phone step is pulled back to 16vw */
@@ -200,7 +222,9 @@ input{font:inherit}
 }
 @media (prefers-reduced-motion:reduce){
   .pop{height:100svh}
-  .pop__stage{position:relative}
+  /* nothing is pinned here, so there is no band to cover: go back to svh and
+     drop the lift, otherwise an lvh-tall stage overflows a svh-tall .pop */
+  .pop__stage{position:relative;height:calc(100svh - 76px);padding-bottom:0}
   .pop__float,.pop__cue i{animation:none}
   .pop__cue{display:none}
 }
@@ -722,7 +746,10 @@ html:not(.v-contact) .contact{display:none}
   .tile__go{opacity:1;transform:none;width:40px;height:40px}
   .story__body{grid-template-columns:1fr}
   .story__sig{flex-direction:column;align-items:flex-start}
-  .feature__type .d{font-size:clamp(48px,15vw,120px)}
+  /* 15vw drew "Wear your" 387px wide inside a 375px phone, so it was clipped at
+     both edges for the whole scroll. 12vw fits it between the gutters with
+     room left for the drift. */
+  .feature__type .d{font-size:clamp(34px,12vw,120px)}
   .feed__grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:44vw}
   .post:nth-child(n){grid-column:span 1;grid-row:span 1}
   .post:nth-child(1){grid-column:span 2;grid-row:span 2}
@@ -1336,9 +1363,13 @@ window.spSubscribe=subscribe;
   var stage=sec.querySelector(".pop__stage");
   var reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
   var sparks=sec.querySelector(".pop__sparks");
+  /* phones do the same turn with a lighter payload: fewer sparks to
+     style-invalidate per frame, and the big masked conic-gradient ray layer
+     holds still instead of being re-rasterised on every frame. */
+  var lite=matchMedia("(max-width: 640px)").matches;
   if(sparks&&!reduce){
     var tints=["#fff","#FFF0F7","#F8E1E2","#FFD1E8"];
-    for(var i=0;i<26;i++){
+    for(var i=0,n=lite?10:26;i<n;i++){
       var s=document.createElement("i");
       s.className="pop__spark";
       s.style.setProperty("--a",(Math.random()*360).toFixed(1)+"deg");
@@ -1364,8 +1395,8 @@ window.spSubscribe=subscribe;
     if(L.art)L.art.style.transform=tf;
     if(L.shadow)L.shadow.style.transform="translate(0,"+(14+22*sc).toFixed(1)+"px) "+tf;   /* light from above: shadow falls straight down */
     if(L.bloom){L.bloom.style.transform="scale("+(.35+.65*p).toFixed(4)+")";L.bloom.style.opacity=(.22+.5*p).toFixed(3)}
-    if(L.rays){L.rays.style.transform="rotate("+(-20+160*p).toFixed(2)+"deg)";L.rays.style.opacity=(.08+.24*p).toFixed(3)}
-    if(L.type)L.type.style.transform="scale("+(1+.055*p).toFixed(4)+")";
+    if(L.rays){if(!lite)L.rays.style.transform="rotate("+(-20+160*p).toFixed(2)+"deg)";L.rays.style.opacity=(.08+.24*p).toFixed(3)}
+    if(L.type)L.type.style.transform="translateY(calc(-1 * (var(--rise,0px) + var(--lift,0px)/2))) scale("+(1+.055*p).toFixed(4)+")";
     if(L.fill)L.fill.style.opacity=fill.toFixed(3);
     if(L.cue)L.cue.style.opacity=Math.max(0,1-p*3.2).toFixed(3);
     if(L.sparks)L.sparks.style.setProperty("--p",p.toFixed(4));   /* scoped: only the sparks recalc */
@@ -1373,7 +1404,7 @@ window.spSubscribe=subscribe;
   (function(){var im=document.getElementById("popImg"),sh=document.getElementById("popShade"),sd=document.getElementById("popShadow");
     if(im){var u='url("'+im.src+'")';[sh,sd].forEach(function(el){if(el){el.style.webkitMaskImage=u;el.style.maskImage=u}})}})();
   if(reduce){apply(1);return}
-  var ticking=false;
+  var ticking=false,lastP=-1;
   function read(){
     ticking=false;
     var r=sec.getBoundingClientRect();
@@ -1384,6 +1415,10 @@ window.spSubscribe=subscribe;
     /* start counting from the very first pixel of page scroll, not from when the section reaches the top under the header */
     var start=pinAt<vh?0:pinAt, total=(pinAt-start)+pinFor;
     var p=total>0?clamp01((y-start)/total):0;
+    /* scroll fires plenty of times for sub-pixel moves; below this the frame
+       would be visually identical, so skip the whole style write. */
+    if(lastP>=0&&Math.abs(p-lastP)<.0012&&p>0&&p<1)return;
+    lastP=p;
     apply(p);
   }
   function onScroll(){if(!ticking){ticking=true;requestAnimationFrame(read)}}
@@ -1762,7 +1797,11 @@ function onScroll(){
     const vh=innerHeight;
     par.forEach(el=>{const r=el.parentElement.getBoundingClientRect();if(r.bottom<-200||r.top>vh+200)return;const off=(r.top+r.height/2-vh/2)*parseFloat(el.dataset.parallax);el.style.translate=`0 ${off}px`});
     const fr=feat.getBoundingClientRect();
-    if(fr.bottom>0&&fr.top<vh){const k=(vh-fr.top)/(vh+fr.height);drifts.forEach(d=>d.style.transform=`translateX(${(k-.5)*24*+d.dataset.drift}vw)`);fPop.style.transform=`translateY(${(k-.5)*-80}px) rotate(${(k-.5)*20}deg)`}
+    /* 24vw of swing is ±45px on a phone, which shoved the headline off both
+       edges; the lines are nearly viewport-wide there, so the travel has to
+       scale down with the room available. */
+    const driftAmp=innerWidth<=640?6:24;
+    if(fr.bottom>0&&fr.top<vh){const k=(vh-fr.top)/(vh+fr.height);drifts.forEach(d=>d.style.transform=`translateX(${(k-.5)*driftAmp*+d.dataset.drift}vw)`);fPop.style.transform=`translateY(${(k-.5)*-80}px) rotate(${(k-.5)*20}deg)`}
     ticking=false})}
 }
 addEventListener("scroll",onScroll,{passive:true});
