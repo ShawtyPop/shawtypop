@@ -230,10 +230,10 @@ input{font:inherit}
 }
 
 /* ============ MARQUEE ============ */
-.marquee{--bg:#000;--fg:#fff;background:var(--bg);color:var(--fg);overflow:hidden;white-space:nowrap;padding:22px 0;display:flex;user-select:none}
-.marquee__row{display:flex;flex-shrink:0;align-items:center;gap:38px;padding-right:38px;animation:mq 34s linear infinite}
-.marquee span{font-size:clamp(26px,3.6vw,52px);font-weight:900;font-variation-settings:"wdth" 120;letter-spacing:-.035em;text-transform:uppercase}
-.marquee .serif{font-size:clamp(28px,3.8vw,56px);text-transform:none;color:var(--pink)}
+.marquee{--bg:#000;--fg:#fff;background:var(--bg);color:var(--fg);overflow:hidden;white-space:nowrap;padding:9px 0;display:flex;user-select:none}
+.marquee__row{display:flex;flex-shrink:0;align-items:center;gap:26px;padding-right:26px;animation:mq 34s linear infinite}
+.marquee span{font-size:clamp(14px,1.9vw,26px);font-weight:900;font-variation-settings:"wdth" 120;letter-spacing:-.035em;text-transform:uppercase}
+.marquee .serif{font-size:clamp(15px,2vw,28px);text-transform:none;color:var(--pink)}
 .marquee .pip{width:.9em;height:.9em;flex-shrink:0}
 .marquee--pink{--bg:var(--pink);--fg:#000}
 .marquee--pink .serif{color:#fff}
@@ -281,7 +281,7 @@ input{font:inherit}
 .duo__card .serif{font-size:22px;color:var(--pink)}
 .duo__card p{margin-top:8px;font-size:15px;color:var(--ink-60);line-height:1.45}
 @media (max-width:640px){.duo__grid{grid-template-columns:1fr;width:100%}}
-.pdp__chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pdp__chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:clamp(8px,1.6vh,14px)}
 .pdp__chips span{display:inline-flex;align-items:center;height:34px;padding:0 16px;border-radius:999px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
 .pdp__chips span:first-child{background:#000;color:#fff}
 .pdp__chips span:last-child{background:var(--pink-hot);color:#fff}
@@ -618,27 +618,57 @@ html:not(.v-contact) .contact{display:none}
 .feat__cta{display:flex;justify-content:center;margin-top:clamp(36px,5vw,70px)}
 .duo__more{margin-top:clamp(10px,1.6vw,20px)}
 @media (max-width:760px){.feat__hero{grid-template-columns:1fr}.feat__art{order:-1;height:min(52vh,340px)}.feat__art img{height:min(52vh,340px)}.feat__art::before{width:min(80vw,300px)}.feat__grid{grid-template-columns:1fr}}
-.pdp{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,4vw,72px);padding:clamp(20px,3vw,40px) var(--gutter) clamp(56px,7vw,110px);align-items:start;background:var(--white)}
-.pdp__gallery{position:sticky;top:calc(var(--header-h) + 16px);display:grid;grid-template-columns:76px minmax(0,1fr);gap:14px}
-.pdp__main{grid-column:2;grid-row:1;aspect-ratio:4/5;border-radius:22px;overflow:hidden;background:var(--blush-2)}
+/* The buy block is exactly one screen tall and nothing inside it scrolls.
+   The single grid row is minmax(0,1fr), so the photo is the thing that gives
+   up height when the window is short -- the copy never gets pushed past the
+   fold. svh (not dvh/lvh) so a phone toolbar sliding in cannot relayout it. */
+.pdp{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:clamp(20px,3.5vw,64px);padding:clamp(14px,2.2vh,28px) var(--gutter);align-items:center;height:calc(100svh - var(--header-h));min-height:520px;background:var(--white)}
+.pdp__gallery{height:100%;min-height:0;display:grid;grid-template-columns:clamp(52px,5vw,76px) minmax(0,1fr);grid-template-rows:minmax(0,1fr);gap:14px;align-items:center}
+/* height:100% + aspect-ratio means the photo is sized off the row, so it
+   shrinks with the viewport instead of forcing the section taller. */
+.pdp__main{grid-column:2;grid-row:1;height:100%;aspect-ratio:4/5;max-width:100%;justify-self:center;border-radius:22px;overflow:hidden;background:var(--blush-2)}
 .pdp__main img{width:100%;height:100%;object-fit:cover;object-position:50% 0;transition:opacity .35s var(--ease)}
 .pdp__main.cut{background:radial-gradient(ellipse 90% 70% at 50% 46%,#FF4FA0 0%,var(--pink-hot) 52%,#E2066F 100%)}
 .pdp__main.cut img{object-fit:contain;padding:8% 0;transform:rotate(-14deg);filter:drop-shadow(0 30px 30px rgba(90,0,40,.45))}
-.pdp__thumbs{grid-column:1;grid-row:1;display:flex;flex-direction:column;gap:10px}
-.pdp__thumbs button{width:76px;aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:var(--blush-2);box-shadow:inset 0 0 0 1.5px transparent;opacity:.6;transition:opacity .3s,box-shadow .3s}
+.pdp__thumbs{grid-column:1;grid-row:1;height:100%;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.pdp__thumbs button{width:100%;aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:var(--blush-2);box-shadow:inset 0 0 0 1.5px transparent;opacity:.6;transition:opacity .3s,box-shadow .3s}
 .pdp__thumbs button:nth-child(3){background:var(--pink-hot)}
 .pdp__thumbs button:nth-child(3) img{object-fit:contain;padding:10% 0;transform:rotate(-14deg)}
 .pdp__thumbs button.on,.pdp__thumbs button:hover{opacity:1;box-shadow:inset 0 0 0 2px #000}
 .pdp__thumbs img{width:100%;height:100%;object-fit:cover}
-.pdp__info{padding-top:clamp(4px,2vw,28px);max-width:560px}
+.pdp__info{min-height:0;max-width:560px}
+/* cut to fit the fold: the long-form copy lives in the footer policy routes
+   and on /features, so it is not lost, just not eating the one screen. */
+.pdp .pdp__tag,.pdp .pdp__perks,.pdp .pdp__acc{display:none}
+/* short landscape windows: the type already scales with vh, but below ~700px
+   even that is not enough, so the two decorative rows go as well and the buy
+   controls stay inside the one screen. */
+@media (min-width:641px) and (max-height:700px){.pdp .pdp__chips,.pdp .pdp__club{display:none}}
+/* short phones (iPhone SE/8 and anything with the toolbar showing): the copy
+   block is near enough fixed, so every px it keeps is a px the photo loses.
+   Trim it hard here or the lollipop ends up thumbnail-sized. */
+@media (max-width:640px) and (max-height:720px){
+  .pdp .pdp__eyebrow{display:none}
+  .pdp__title{font-size:clamp(28px,8vw,40px);margin-top:0}
+  .pdp__title br{display:none}
+  .pdp__price{margin-top:8px}
+  .pdp__price strong{font-size:24px}
+  .pdp__packs{margin-top:10px}
+  .pdp__packs legend{margin-bottom:6px}
+  .pdp__packs label>span{padding:9px 8px}
+  .pdp__buy{margin-top:10px}
+  .pdp__buy .stepper,.pdp__buy .btn{height:50px}
+}
 .pdp__eyebrow{color:var(--pink)}
-.pdp__title{font-size:clamp(64px,8.4vw,132px);margin-top:14px}
-.pdp__sub{font-family:var(--serif);font-style:italic;font-size:clamp(24px,2.4vw,34px);line-height:1.1;margin-top:12px}
-.pdp__price{display:flex;align-items:baseline;gap:14px;margin-top:22px}
+/* min(vw,vh) so a short window shrinks the type instead of pushing the
+   add-to-bag button out of the one-screen box. */
+.pdp__title{font-size:clamp(40px,min(6vw,9vh),104px);margin-top:clamp(6px,1.2vh,14px)}
+.pdp__sub{font-family:var(--serif);font-style:italic;font-size:clamp(19px,min(2.4vw,3.2vh),34px);line-height:1.1;margin-top:clamp(6px,1.4vh,12px)}
+.pdp__price{display:flex;align-items:baseline;gap:14px;margin-top:clamp(10px,2.4vh,22px)}
 .pdp__price strong{font-size:30px;font-weight:800;letter-spacing:-.02em}
 .pdp__price span{color:var(--ink-60);font-size:14px}
 .pdp__tag{margin-top:8px;color:var(--ink-60);font-size:15px}
-.pdp__packs{border:0;margin-top:28px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.pdp__packs{border:0;margin-top:clamp(12px,3vh,28px);display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .pdp__packs legend{margin-bottom:12px}
 .pdp__packs label{cursor:pointer}
 .pdp__packs input{position:absolute;opacity:0;pointer-events:none}
@@ -649,10 +679,10 @@ html:not(.v-contact) .contact{display:none}
 .pdp__packs i{font-style:normal;font-size:15px;font-weight:700;margin-top:8px}
 .pdp__packs input:checked+span{background:#fff;box-shadow:inset 0 0 0 2px #000}
 .pdp__packs input:focus-visible+span{outline:2px solid var(--pink);outline-offset:2px}
-.pdp__buy{display:flex;gap:12px;margin-top:18px}
+.pdp__buy{display:flex;gap:12px;margin-top:clamp(10px,2vh,18px)}
 .pdp__buy .stepper{flex:0 0 auto;height:58px}
 .pdp__buy .btn{flex:1 1 auto}
-.pdp__club{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;margin-top:18px;padding:16px 18px;border-radius:16px;background:#000;color:#fff;font-size:14px}
+.pdp__club{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;margin-top:clamp(10px,2vh,18px);padding:clamp(10px,1.6vh,16px) 18px;border-radius:16px;background:#000;color:#fff;font-size:14px}
 .pdp__club .label{color:var(--pink)}
 .pdp__club .arr{transition:transform .4s var(--ease-out)}
 .pdp__club:hover .arr{transform:translateX(4px)}
@@ -666,11 +696,24 @@ html:not(.v-contact) .contact{display:none}
 .pdp__acc details[open] summary::after{content:"−"}
 .pdp__acc p{padding:0 0 18px;color:var(--ink-60);font-size:15px}
 @media (max-width:860px){
-  .pdp{grid-template-columns:minmax(0,1fr);padding-top:12px}
-  .pdp__gallery{position:relative;top:0;grid-template-columns:minmax(0,1fr)}
+  /* stacked, but still one screen: the photo row is the 1fr, the copy is auto,
+     so the photo takes whatever is left instead of setting the height. */
+  .pdp{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto;gap:14px;padding-top:10px}
+  .pdp__gallery{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto}
   .pdp__main{grid-column:1}
-  .pdp__thumbs{grid-column:1;grid-row:2;flex-direction:row}
-  .pdp__thumbs button{width:64px}
+  .pdp__thumbs{grid-column:1;grid-row:2;height:auto;flex-direction:row;justify-content:center}
+  .pdp__thumbs button{width:52px}
+  .pdp__sub,.pdp__chips,.pdp__club{display:none}
+  .pdp__title{font-size:clamp(34px,9.5vw,52px)}
+  .pdp__price{margin-top:12px}
+  .pdp__packs{margin-top:12px;gap:8px}
+  .pdp__packs legend{margin-bottom:8px}
+  .pdp__packs label>span{padding:11px 10px}
+  .pdp__packs i{margin-top:4px}
+  .pdp__buy{margin-top:14px;gap:10px}
+  /* "Add to bag · $9.99" wrapped to two lines next to the stepper at 375px:
+     tighten the tracking and the side padding instead of shrinking the type. */
+  .pdp__buy .btn{padding:0 16px;gap:8px;letter-spacing:.1em;white-space:nowrap}
   .pdp__club{grid-template-columns:1fr auto}
   .pdp__club .label{grid-column:1/-1}
 }
@@ -978,7 +1021,9 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
   </div>
   <div class="pdp__info">
     <span class="label pdp__eyebrow">Caffeine + L-Theanine lollipop</span>
-    <h1 class="d pdp__title">Cherry<br>Gloss</h1>
+    <!-- the space before the <br> matters: short phones hide the break and the
+         two words have to still read as "Cherry Gloss" -->
+    <h1 class="d pdp__title">Cherry <br>Gloss</h1>
     <p class="pdp__sub">Fashion you can taste.</p>
     <div class="pdp__chips"><span>Caffeine + L-Theanine</span><span>Energy + Focus</span></div>
     <div class="pdp__price"><strong id="pdpPrice">$9.99</strong><span id="pdpEach">$2.00 / pop</span></div>
