@@ -1214,6 +1214,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
 
     <form class="ct__form fm__form on" data-panel="ambassador" novalidate>
       <div class="ct__row"><input name="name" placeholder="Your name" autocomplete="name" required><input name="email" type="email" placeholder="Email" autocomplete="email" required></div>
+      <input name="phone" type="tel" placeholder="Phone number" autocomplete="tel" inputmode="tel" required>
       <div class="ct__row"><input name="instagram" placeholder="Instagram handle"><input name="tiktok" placeholder="TikTok handle"></div>
       <div class="ct__row">
         <input name="location" placeholder="City, State">
@@ -1230,6 +1231,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
 
     <form class="ct__form fm__form" data-panel="ugc" novalidate>
       <div class="ct__row"><input name="name" placeholder="Your name" autocomplete="name" required><input name="email" type="email" placeholder="Email" autocomplete="email" required></div>
+      <input name="phone" type="tel" placeholder="Phone number" autocomplete="tel" inputmode="tel" required>
       <div class="ct__row"><input name="instagram" placeholder="Instagram handle"><input name="tiktok" placeholder="TikTok handle"></div>
       <div class="ct__row"><input name="portfolio" placeholder="Portfolio or work samples link"><input name="rate" placeholder="Rate per video"></div>
       <textarea name="message" placeholder="What would you make for ShawtyPop?" required></textarea>
@@ -2035,7 +2037,8 @@ render();updShelf();onScroll();
       var d=new FormData(f);
       if(d.get("_honey"))return;
       var name=(d.get("name")||"").trim(),email=(d.get("email")||"").trim(),msg=(d.get("message")||"").trim();
-      if(!name||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)||!msg){m.textContent="Add your name, a valid email and an answer";return}
+      var phone=(d.get("phone")||"").trim();
+      if(!name||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)||phone.replace(/\D/g,"").length<10||!msg){m.textContent="Add your name, a valid email, a phone number and an answer";return}
       var body={_subject:"ShawtyPop "+labels[kind]+" application: "+name,_replyto:email,_template:"table",_captcha:"false",role:labels[kind]};
       d.forEach(function(v,k){if(k!=="_honey"&&String(v).trim())body[k]=String(v).trim()});
       var btn=f.querySelector("button[type=submit]");btn.disabled=true;m.textContent="Sending…";
