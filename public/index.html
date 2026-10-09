@@ -943,7 +943,8 @@ if(/^\/shop\/?$/.test(location.pathname))document.documentElement.classList.add(
 if(/^\/features\/?$/.test(location.pathname))document.documentElement.classList.add("v-feat");
 if(/^\/faq\/?$/.test(location.pathname))document.documentElement.classList.add("v-faq");
 if(/^\/contact\/?$/.test(location.pathname))document.documentElement.classList.add("v-contact");
-if(/^\/forms\/?$/.test(location.pathname))document.documentElement.classList.add("v-forms");
+/* /forms is the only page open without the waitlist gate (Carter); every other page stays behind it until the password is entered */
+if(/^\/forms\/?$/.test(location.pathname))document.documentElement.classList.add("v-forms","unlocked");
 (function(){var m=location.pathname.match(/^\/(shipping|returns|privacy|terms)\/?$/);if(m){document.documentElement.classList.add("v-legal");document.documentElement.setAttribute("data-legal",m[1])}})();
 try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentElement.classList.add("unlocked")}catch(e){}
 </script>
@@ -1906,6 +1907,7 @@ const okEmail=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
   const open=()=>{nl.classList.add("open");nl.setAttribute("aria-hidden","false")};
   const later=()=>setTimeout(open,3000);
   document.addEventListener("click",e=>{if(e.target.closest("[data-open-nl]")){e.preventDefault();open()}});
+  if(root.classList.contains("v-forms"))seen=true;   /* no popup over the apply forms */
   if(!seen){if(!gateEl||gateEl.style.display==="none"||root.classList.contains("unlocked"))later();
     else{const mo=new MutationObserver(()=>{if(root.classList.contains("unlocked")){mo.disconnect();later()}});mo.observe(root,{attributes:true,attributeFilter:["class"]})}}
   $("nlClose").onclick=close;$("nlNo").onclick=close;nl.addEventListener("click",e=>{if(e.target===nl)close()});

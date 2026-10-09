@@ -164,7 +164,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   - Success shows "You're in 💗".
   - The email is signed up as described in "Email signups".
 - **Password gate (waitlist screen):**
-  - Full-screen overlay shown to visitors until they enter the prototype password **ShawtyPop123**. Unlocking sets localStorage `shawtypop_gate_v1` to "open". This is a prototype gate only, since the password is visible in the page source.
+  - Full-screen overlay shown to visitors until they enter the prototype password **ShawtyPop123**. It covers EVERY page except `/forms` (the Ambassador / UGC Creator apply page), which is always open: the head script adds `v-forms` and `unlocked` on that path, and the newsletter popup never shows there (Carter, Oct 9, 2026). Unlocking sets localStorage `shawtypop_gate_v1` to "open". This is a prototype gate only, since the password is visible in the page source.
   - Styled like Carter's "Want a sucker?" flyer: blush #FFE3EF background with a #F9C6DA dot grid (26px), plum #5F2850 and hot pink #F8217B, Fraunces 900 (SOFT 100, WONK 1) headline.
   - Two columns on desktop:
     - Left: the one-line logo, big (clamp(44px,4.6vw,68px) tall); headline "Join the" (plum) / "waitlist." (hot pink); text "ShawtyPop is almost here. Get on the list for first dibs on Cherry Gloss."; a white card with a 3px plum border, 26px corners and a solid 7px plum drop (like the flyer's QR box) holding First name and Email fields (blush pills) and a hot-pink "Join →" button. On submit it signs the email and name up (see "Email signups") and shows "You're on the list, {name}".
