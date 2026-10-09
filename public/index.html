@@ -2017,6 +2017,7 @@ render();updShelf();onScroll();
 
 /* /forms apply page: option picker + both applications, same FormSubmit inbox as contact */
 (function(){
+  var APPLY_URL="";
   var sec=document.getElementById("forms");if(!sec)return;
   var opts=[].slice.call(sec.querySelectorAll(".fm__opt")),panels=[].slice.call(sec.querySelectorAll(".fm__form"));
   var blocks=[].slice.call(sec.querySelectorAll("[data-panel]"));
@@ -2038,6 +2039,14 @@ render();updShelf();onScroll();
       var body={_subject:"ShawtyPop "+labels[kind]+" application: "+name,_replyto:email,_template:"table",_captcha:"false",role:labels[kind]};
       d.forEach(function(v,k){if(k!=="_honey"&&String(v).trim())body[k]=String(v).trim()});
       var btn=f.querySelector("button[type=submit]");btn.disabled=true;m.textContent="Sending…";
+      /* APPLY_URL = Apps Script web app on the "Ambassadors" sheet (Website Responses/Prospects tab); it saves the row and emails getshawtypop@gmail.com. Until it's set, FormSubmit emails the inbox. */
+      if(APPLY_URL){
+        var fd=new URLSearchParams();fd.append("role",kind);d.forEach(function(v,k){fd.append(k,String(v).trim())});
+        fetch(APPLY_URL,{method:"POST",mode:"no-cors",body:fd})
+        .then(function(){f.reset();m.textContent="Got it! We'll be in touch 💗"})
+        .catch(function(){m.textContent="Something went wrong, try again or email getshawtypop@gmail.com"}).finally(function(){btn.disabled=false});
+        return;
+      }
       fetch("https://formsubmit.co/ajax/getshawtypop@gmail.com",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(body)})
       .then(function(r){return r.json()}).then(function(j){
         if(j&&(j.success===true||j.success==="true")){f.reset();m.textContent="Got it! We'll be in touch 💗"}
