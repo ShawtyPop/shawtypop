@@ -1188,7 +1188,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
   </div>
 </section>
 
-<!-- APPLY PAGE (/forms): Ambassador or UGC Creator, sends to getshawtypop@gmail.com -->
+<!-- APPLY PAGE (/forms): Ambassador or UGC Creator, saved to the Ambassadors sheet (Website Responses/Prospects) and emailed to getshawtypop@gmail.com via Apps Script -->
 <section class="faq forms" id="forms" aria-label="Work with ShawtyPop">
   <div class="faq__in">
     <h1 class="d">Work with <em>us.</em></h1>
@@ -2017,7 +2017,7 @@ render();updShelf();onScroll();
 
 /* /forms apply page: option picker + both applications, same FormSubmit inbox as contact */
 (function(){
-  var APPLY_URL="";
+  var APPLY_URL="https://script.google.com/macros/s/AKfycbyPTT5UIty0J0a0KTfb9hiUOrQTCVvBLmvpZf_6u3GK_tcRVs9eTgKgRFkqk4I07q_-Ag/exec";
   var sec=document.getElementById("forms");if(!sec)return;
   var opts=[].slice.call(sec.querySelectorAll(".fm__opt")),panels=[].slice.call(sec.querySelectorAll(".fm__form"));
   var blocks=[].slice.call(sec.querySelectorAll("[data-panel]"));
