@@ -120,10 +120,10 @@ input{font:inherit}
 .mmenu{position:fixed;inset:0;z-index:90;background:var(--cream);color:#000;display:flex;flex-direction:column;padding:20px var(--gutter) 32px;clip-path:circle(0% at 28px 28px);transition:clip-path .8s var(--ease-out);visibility:hidden}
 .mmenu.open{clip-path:circle(150% at 28px 28px);visibility:visible}
 .mmenu__top{display:flex;justify-content:space-between;align-items:center;height:44px}
-.mmenu__links{margin-top:auto;display:flex;flex-direction:column;gap:2px}
+.mmenu__links{margin-top:clamp(24px,6vh,52px);display:flex;flex-direction:column;gap:2px}
 .mmenu__links a{font-size:clamp(48px,15vw,84px)}
 .mmenu__links a:nth-child(even){color:var(--pink)}
-.mmenu__foot{margin-top:28px;display:flex;justify-content:space-between;border-top:1.5px solid #000;padding-top:16px}
+.mmenu__foot{margin-top:auto;display:flex;justify-content:space-between;border-top:1.5px solid #000;padding-top:16px}
 
 /* search */
 .search{position:fixed;left:0;right:0;top:0;z-index:80;background:#fff;padding:24px var(--gutter) 32px;transform:translateY(-105%);transition:transform .7s var(--ease-out);box-shadow:0 30px 60px -30px rgba(0,0,0,.25)}
@@ -552,9 +552,11 @@ html.v-shop main>:not(.pdp):not(.marquee){display:none}
    routes, which each black out everything but their own section anyway. */
 html.v-feat main>:not(.feat):not(.marquee){display:none}
 html:not(.v-feat) .feat{display:none}
-html.v-faq main>:not(.faq),html.v-faq main>.contact{display:none}
-html:not(.v-faq) .faq:not(.contact){display:none}
+html.v-faq main>:not(.faq),html.v-faq main>.contact,html.v-faq main>.forms{display:none}
+html:not(.v-faq) .faq:not(.contact):not(.forms){display:none}
 html.v-contact main>:not(.contact){display:none}
+html.v-forms main>:not(.forms){display:none}
+html:not(.v-forms) .forms{display:none}
 html.v-legal main>:not(.legal){display:none}
 .legal{display:none}
 html[data-legal=shipping] .legal[data-p=shipping],html[data-legal=returns] .legal[data-p=returns],html[data-legal=privacy] .legal[data-p=privacy],html[data-legal=terms] .legal[data-p=terms]{display:block}
@@ -583,6 +585,30 @@ html:not(.v-contact) .contact{display:none}
 .ct__msg{min-height:22px;font-weight:700;color:var(--pink)}
 .ct__hp{position:absolute;left:-9999px}
 @media (max-width:560px){.ct__row{grid-template-columns:1fr}.ct__form .btn{align-self:stretch}}
+/* ---------- apply page (/forms): pick Ambassador or UGC Creator, then fill that form ---------- */
+.faq.forms{background:var(--pink);color:#fff}
+.faq.forms .faq__in{max-width:720px}
+.faq.forms h1,.faq.forms h1 em,.faq.forms .faq__lede,.faq.forms .faq__more,.faq.forms .faq__more a{color:#fff}
+.faq.forms .faq__lede{font-size:clamp(18px,1.6vw,24px);font-weight:700}
+.fm__pick{margin-top:clamp(24px,3.4vw,38px);display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fm__opt{text-align:left;color:#000;background:#fff;border:2px solid rgba(0,0,0,.1);border-radius:26px;padding:clamp(18px,2.4vw,26px);cursor:pointer;transition:border-color .2s,transform .2s}
+.fm__opt:hover{transform:translateY(-2px)}
+.fm__opt.on{border-color:var(--pink)}
+.fm__opt-t{display:block;font-size:clamp(24px,3vw,34px);line-height:1}
+.fm__opt.on .fm__opt-t{color:var(--pink)}
+.fm__opt-s{display:block;margin-top:8px;font-size:14px;line-height:1.5;color:rgba(0,0,0,.6)}
+.fm__intro{display:none;margin-top:clamp(26px,3.6vw,44px)}
+.fm__intro.on{display:block}
+.fm__intro h2{font-size:clamp(28px,4vw,48px);line-height:1.02}
+.fm__intro ul{margin-top:clamp(16px,2vw,24px);display:flex;flex-direction:column;gap:14px;list-style:none}
+.fm__intro li{position:relative;padding-left:24px;font-size:clamp(16px,1.3vw,18px);line-height:1.5;font-weight:700}
+.fm__intro li::before{content:"";position:absolute;left:0;top:.58em;width:9px;height:9px;border-radius:50%;background:#fff}
+.fm__intro li span{display:block;margin-top:3px;font-weight:400;color:rgba(255,255,255,.85)}
+.fm__form{display:none}
+.fm__form.on{display:flex}
+.fm__form select{width:100%;height:56px;border:1.5px solid rgba(0,0,0,.12);background:var(--blush);border-radius:999px;padding:0 22px;font:inherit;font-size:16px;outline:0;color:#000;appearance:none}
+.fm__form select:focus{border-color:var(--pink);background:#fff}
+@media (max-width:560px){.fm__pick{grid-template-columns:1fr}}
 /* ---------- FAQ page (/faq, linked only from the footer) ---------- */
 .faq{background:var(--blush);padding:clamp(40px,6vw,96px) var(--gutter) clamp(70px,9vw,140px)}
 .faq__in{max-width:860px;margin:0 auto}
@@ -917,6 +943,7 @@ if(/^\/shop\/?$/.test(location.pathname))document.documentElement.classList.add(
 if(/^\/features\/?$/.test(location.pathname))document.documentElement.classList.add("v-feat");
 if(/^\/faq\/?$/.test(location.pathname))document.documentElement.classList.add("v-faq");
 if(/^\/contact\/?$/.test(location.pathname))document.documentElement.classList.add("v-contact");
+if(/^\/forms\/?$/.test(location.pathname))document.documentElement.classList.add("v-forms");
 (function(){var m=location.pathname.match(/^\/(shipping|returns|privacy|terms)\/?$/);if(m){document.documentElement.classList.add("v-legal");document.documentElement.setAttribute("data-legal",m[1])}})();
 try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentElement.classList.add("unlocked")}catch(e){}
 </script>
@@ -938,6 +965,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
       <a class="u" href="/">Home</a>
       <a class="u" href="/shop">Shop</a>
       <a class="u" href="/features">Features</a>
+      <a class="u" href="/forms">Apply</a>
     </nav>
     <button class="burger" id="burgerBtn" aria-label="Open menu">
       <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8h18M3 16h12"/></svg>
@@ -964,6 +992,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
     <a class="d" href="/" data-mlink>Home</a>
     <a class="d" href="/shop" data-mlink>Shop</a>
     <a class="d" href="/features" data-mlink>Features</a>
+    <a class="d" href="/forms" data-mlink>Apply</a>
     <a class="d" href="/#club" data-mlink>Pop Culture</a>
   </nav>
   <div class="mmenu__foot label">
@@ -1143,6 +1172,64 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
       <p class="ct__msg" id="ctMsg" role="status"></p>
     </form>
     <div class="faq__more"><span>Prefer email? <a class="u" href="mailto:getshawtypop@gmail.com">getshawtypop@gmail.com</a> · DM us <a class="u" href="https://instagram.com/getshawtypop?rpxt=MTdzeDB1ZGxiYm11eA%3D%3D" target="_blank" rel="noopener">@getshawtypop</a></span></div>
+  </div>
+</section>
+
+<!-- APPLY PAGE (/forms): Ambassador or UGC Creator, sends to getshawtypop@gmail.com -->
+<section class="faq forms" id="forms" aria-label="Work with ShawtyPop">
+  <div class="faq__in">
+    <h1 class="d">Work with <em>us.</em></h1>
+    <p class="faq__lede">Take our 2 minute form!</p>
+
+    <div class="fm__pick">
+      <button class="fm__opt on" type="button" data-form="ambassador" aria-pressed="true">
+        <span class="fm__opt-t d">Ambassador</span>
+        <span class="fm__opt-s">Rep the pop to your people. Your own code, free candy, commission.</span>
+      </button>
+      <button class="fm__opt" type="button" data-form="ugc" aria-pressed="false">
+        <span class="fm__opt-t d">UGC Creator</span>
+        <span class="fm__opt-s">Make content we run as ads. Paid per video, no follower count needed.</span>
+      </button>
+    </div>
+
+    <div class="fm__intro on" data-panel="ambassador">
+      <h2 class="d">Be part of ShawtyPop from day one</h2>
+      <ul>
+        <li>Help launch ShawtyPop, a zero-sugar caffeinated lollipop with L&#8209;Theanine, starting at CU Boulder.</li>
+        <li>About 1&#8211;2 hours a week.<span>Film fun campus content and send us the clips.</span></li>
+        <li>Get the title &ldquo;ShawtyPop Founding Ambassador&rdquo;<span>For your resume and LinkedIn, plus your name and photo on our website.</span></li>
+        <li>First perks.<span>Be the first to try our product, get free merch, earn commission with your own code at launch, and get first pick for future paid roles.</span></li>
+        <li>No experience needed.<span>CU Boulder students only, and spots are limited.</span></li>
+      </ul>
+    </div>
+
+    <form class="ct__form fm__form on" data-panel="ambassador" novalidate>
+      <div class="ct__row"><input name="name" placeholder="Your name" autocomplete="name" required><input name="email" type="email" placeholder="Email" autocomplete="email" required></div>
+      <div class="ct__row"><input name="instagram" placeholder="Instagram handle"><input name="tiktok" placeholder="TikTok handle"></div>
+      <div class="ct__row">
+        <input name="location" placeholder="City, State">
+        <select name="audience" aria-label="Audience size">
+          <option value="">Audience size</option>
+          <option>Under 1K</option><option>1K–10K</option><option>10K–50K</option><option>50K–250K</option><option>250K+</option>
+        </select>
+      </div>
+      <textarea name="message" placeholder="Why do you want to be a ShawtyPop ambassador?" required></textarea>
+      <input class="ct__hp" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn btn--pink" type="submit">Send application <span class="arr">→</span></button>
+      <p class="ct__msg" role="status"></p>
+    </form>
+
+    <form class="ct__form fm__form" data-panel="ugc" novalidate>
+      <div class="ct__row"><input name="name" placeholder="Your name" autocomplete="name" required><input name="email" type="email" placeholder="Email" autocomplete="email" required></div>
+      <div class="ct__row"><input name="instagram" placeholder="Instagram handle"><input name="tiktok" placeholder="TikTok handle"></div>
+      <div class="ct__row"><input name="portfolio" placeholder="Portfolio or work samples link"><input name="rate" placeholder="Rate per video"></div>
+      <textarea name="message" placeholder="What would you make for ShawtyPop?" required></textarea>
+      <input class="ct__hp" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button class="btn btn--pink" type="submit">Send application <span class="arr">→</span></button>
+      <p class="ct__msg" role="status"></p>
+    </form>
+
+    <div class="faq__more"><span>Questions first? <a class="u" href="mailto:getshawtypop@gmail.com">getshawtypop@gmail.com</a></span></div>
   </div>
 </section>
 
@@ -1535,7 +1622,17 @@ const sw=k=>{const p=PAL[k]||PAL.pink;return `radial-gradient(circle at 35% 30%,
 /* ---------- MARQUEE ---------- */
 const mqItems=["Caffeine + L-Theanine","<span class='serif'>energy + focus</span>","Cherry Gloss","<span class='serif'>no boring energy</span>","Fashion you can taste","<span class='serif'>pop off</span>","Wear your energy","<span class='serif'>just pop.</span>"];
 const pip=`<svg class="pip" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="currentColor"/><circle cx="7" cy="7" r="2.4" fill="#fff" opacity=".8"/></svg>`;
-document.querySelectorAll("[data-mq]").forEach(r=>{r.innerHTML=mqItems.map(t=>(t.startsWith("<")?t:`<span>${t}</span>`)+pip).join("")});
+const mqRows=[...document.querySelectorAll("[data-mq]")];
+mqRows.forEach(r=>{r.innerHTML=mqItems.map(t=>(t.startsWith("<")?t:`<span>${t}</span>`)+pip).join("")});
+/* The keyframe translates each row by -100% of its OWN width, so the belt's
+   speed is rowWidth/duration -- a fixed CSS duration means the smaller the type
+   the slower it crawls. Drive the duration off the measured width instead so
+   px/sec stays constant at every viewport and font-size clamp. */
+const MQ_PX_PER_SEC=80;
+function mqSync(){const w=mqRows[0]&&mqRows[0].offsetWidth;if(!w)return;const d=(w/MQ_PX_PER_SEC).toFixed(2)+"s";mqRows.forEach(r=>{r.style.animationDuration=d})}
+mqSync();
+addEventListener("resize",mqSync,{passive:true});
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(mqSync);
 
 /* ---------- PRODUCT CARDS ---------- */
 const shelf=document.getElementById("shelf");
@@ -1905,6 +2002,38 @@ render();updShelf();onScroll();
       if(j&&(j.success===true||j.success==="true")){f.reset();m.textContent="Sent! We'll get back to you soon 💗"}
       else throw 0;
     }).catch(function(){m.textContent="Something went wrong, try again or email getshawtypop@gmail.com"}).finally(function(){btn.disabled=false});
+  });
+})();
+
+/* /forms apply page: option picker + both applications, same FormSubmit inbox as contact */
+(function(){
+  var sec=document.getElementById("forms");if(!sec)return;
+  var opts=[].slice.call(sec.querySelectorAll(".fm__opt")),panels=[].slice.call(sec.querySelectorAll(".fm__form"));
+  var blocks=[].slice.call(sec.querySelectorAll("[data-panel]"));
+  var labels={ambassador:"Ambassador",ugc:"UGC Creator"};
+  opts.forEach(function(o){
+    o.addEventListener("click",function(){
+      opts.forEach(function(x){var on=x===o;x.classList.toggle("on",on);x.setAttribute("aria-pressed",String(on))});
+      blocks.forEach(function(p){p.classList.toggle("on",p.dataset.panel===o.dataset.form)});
+    });
+  });
+  panels.forEach(function(f){
+    var m=f.querySelector(".ct__msg"),kind=f.dataset.panel;
+    f.addEventListener("submit",function(e){
+      e.preventDefault();
+      var d=new FormData(f);
+      if(d.get("_honey"))return;
+      var name=(d.get("name")||"").trim(),email=(d.get("email")||"").trim(),msg=(d.get("message")||"").trim();
+      if(!name||!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)||!msg){m.textContent="Add your name, a valid email and an answer";return}
+      var body={_subject:"ShawtyPop "+labels[kind]+" application: "+name,_replyto:email,_template:"table",_captcha:"false",role:labels[kind]};
+      d.forEach(function(v,k){if(k!=="_honey"&&String(v).trim())body[k]=String(v).trim()});
+      var btn=f.querySelector("button[type=submit]");btn.disabled=true;m.textContent="Sending…";
+      fetch("https://formsubmit.co/ajax/getshawtypop@gmail.com",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(body)})
+      .then(function(r){return r.json()}).then(function(j){
+        if(j&&(j.success===true||j.success==="true")){f.reset();m.textContent="Got it! We'll be in touch 💗"}
+        else throw 0;
+      }).catch(function(){m.textContent="Something went wrong, try again or email getshawtypop@gmail.com"}).finally(function(){btn.disabled=false});
+    });
   });
 })();
 </script>
