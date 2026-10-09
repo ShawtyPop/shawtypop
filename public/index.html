@@ -909,6 +909,7 @@ html.unlocked .gate{display:none}
   .gate__form{gap:8px;width:min(330px,100%)}
   .gate__key{width:min(330px,100%)}
   .gate__key summary{font-size:10px;height:40px;padding:0 22px}
+  .gate__forms{font-size:10px;height:40px;padding:0 26px}
 }
 /* short viewports (phone + browser chrome): shrink the pop and trim the
    decorative stick rather than letting the gate scroll */
@@ -927,6 +928,9 @@ html.unlocked .gate{display:none}
 .gate__social a:last-child svg{width:23px;height:23px}
 .gate__social a:hover{color:#fff;transform:translateY(-2px)}
 .gate__key{margin-top:-6px;width:min(300px,100%)}
+/* "Forms" button under the waitlist form: goes to /forms (Ambassador / UGC Creator apply page, the one page open without the gate) */
+.gate__forms{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:34px;padding:0 22px;margin:-2px 0 4px;border-radius:999px;background:#fff;color:var(--pink-hot);font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;transition:transform .2s var(--ease-out),background .2s var(--ease-out),color .2s var(--ease-out)}
+.gate__forms:hover{background:#000;color:#fff;transform:scale(1.04)}
 .gate__key summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;height:30px;padding:0 18px;border:1.5px solid rgba(255,255,255,.55);border-radius:999px;font-size:8px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.82);transition:background .2s var(--ease-out),border-color .2s var(--ease-out),color .2s var(--ease-out)}
 .gate__key summary::-webkit-details-marker{display:none}
 .gate__key summary:hover{color:var(--pink-hot);background:#fff;border-color:#fff}
@@ -1416,6 +1420,7 @@ try{if(localStorage.getItem("shawtypop_gate_v1")==="open")document.documentEleme
     </div>
     <div class="gate__msg" id="waitMsg" role="status" aria-live="polite"></div>
   </form>
+  <a class="gate__forms" href="/forms">Forms <span class="arr">&#8594;</span></a>
   <details class="gate__key">
     <summary>Ambassador login</summary>
     <form class="gate__row" id="keyForm" novalidate>
