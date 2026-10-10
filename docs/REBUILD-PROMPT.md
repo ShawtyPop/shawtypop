@@ -75,10 +75,10 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
 
 ### 3. Images (attach these)
 
-- `lollipop-photo-on-pink.jpg` (1000x1500): the real Cherry Gloss lollipop (thin rose-gold stick printed "shawtypop™") standing upright on a pink background, unwrapped. Main product photo.
-- `lollipop-wrapped-on-pink.jpg` (1000x1500): the same lollipop in its clear cellophane wrapper printed with pink "shawtypop" and lips, on pink. Second product photo.
+- `lollipop-photo-on-pink.jpg` (1000x1500): the real Cherry Gloss lollipop (red candy on a thin plain hot-pink stick) standing upright on a pink background, unwrapped. Main product photo. Every lollipop image on the site is this same pop.
+- `lollipop-wrapped-on-pink.jpg` (1000x1500): the same pink-stick lollipop in its clear cellophane wrapper printed with pink "shawtypop" and lips, on pink. Second product photo.
 - `card-wrapped.webp` and `card-unwrapped.webp` (660x1419, transparent): the wrapped and unwrapped lollipop cut out and framed identically (same canvas, stick in the same place) so one can swap for the other. Used only by the home product cards.
-- `lollipop-cutout.webp` (493x1349, transparent): the unwrapped lollipop cut out. The candy circle sits at the top (center about x 246, y 245, radius 246) and the thin rose-gold stick runs down the middle (x 220–273). Used for every other lollipop image.
+- `lollipop-cutout.webp` (493x1349, transparent): the unwrapped lollipop cut out. The candy circle sits at the top (center about x 246, y 245, radius 246) and the thin hot-pink stick runs down the middle (x 220–273). Used for every other lollipop image.
 - `logo-one-line-header.webp`: the one-line "shawtypop™" wordmark (pink "shawty", plum "pop" with lips for the o). Used in the header, the mobile menu and the password gate.
 - `logo-transparent-footer.webp`: the transparent wordmark for the footer brand column (46px tall).
 - `favicon-lips.png`: the pink lips icon. Used as the favicon and apple-touch-icon.
@@ -208,7 +208,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   8. A black rounded banner (opens the newsletter popup): pink label "Pop Culture", "Join our newsletter for 15% off your first order.", and "→".
   9. Blush pill chips: "No jitters", "No crash", "Free shipping on $50+".
   10. Accordion:
-      - "The pop" (open by default): "One glossy Cherry Gloss lollipop on a rose gold ShawtyPop stick, made with caffeine and L-Theanine. Natural colors. Made in the USA. Wear your energy."
+      - "The pop" (open by default): "One glossy Cherry Gloss lollipop on a pink ShawtyPop stick, made with caffeine and L-Theanine. Natural colors. Made in the USA. Wear your energy."
       - "Features": "Caffeine + L-Theanine · Energy + Focus · Natural colors · Made in the USA." with a "See all features →" link to /features.
       - "Shipping": "Free shipping on orders over $50."
 
@@ -219,7 +219,7 @@ Sections in order:
 1. **Opener: "Join the Pop Culture" scroll scene**
    - Section height 125svh with a sticky stage pinned at top 62px and `calc(100svh - 112px)` tall (`calc(100svh - 96px)` on phones), i.e. exactly the space under the announcement bar and header, so "Pop Culture" and the lollipop start centered on screen. The stage is a hot-pink radial gradient (#FF4FA0 to #FF1D8D to #E2066F) with a soft white bloom and faint rotating white rays.
    - Text:
-     - "POP" huge in solid white display type, with "Join the" in small white italic serif to its left.
+     - "POP" huge in solid white display type, with "Join the" in small white italic serif above it. "Join the" sits BEHIND the lollipop (lower layer), so the pop always passes in front of it while scrolling, like it does with "Pop Culture".
      - "CULTURE" below it as a white outline that fills in solid white as you scroll.
      - The text never moves. It scales up only slightly.
    - The lollipop cutout floats gently up and down, centered in front of the text. Its scroll motion:
@@ -275,7 +275,7 @@ Sections in order:
      - Quantity stepper and an "Add to cart" button that adds the 5 Pack
 
 ### 7b. Features page (`/features`)
-- Blush section. Hero in two columns: pink label "CHERRY GLOSS · FEATURES", display headline "WHAT'S IN" + pink italic serif "the pop.", and the text "One glossy Cherry Gloss lollipop on a rose gold ShawtyPop stick. A fashion piece you can taste, made with caffeine and L-Theanine for energy + focus." Right: the real lollipop cutout tilted -20° (clamp(400px,48vw,680px) tall) over a soft pink circle. On phones the lollipop sits on top.
+- Blush section. Hero in two columns: pink label "CHERRY GLOSS · FEATURES", display headline "WHAT'S IN" + pink italic serif "the pop.", and the text "One glossy Cherry Gloss lollipop on a pink ShawtyPop stick. A fashion piece you can taste, made with caffeine and L-Theanine for energy + focus." Right: the real lollipop cutout tilted -20° (clamp(400px,48vw,680px) tall) over a soft pink circle. On phones the lollipop sits on top.
 - A 2x2 grid of big feature cards (one column on phones), each with a small number, a huge uppercase title, a pink italic serif line and a short sentence:
   1. White: "CAFFEINE / the energy / The lift you came for, in a Cherry Gloss pop."
   2. Hot pink: "L-THEANINE / the focus / Paired with the caffeine to keep it smooth and locked in. No jitters, no crash."
@@ -291,7 +291,7 @@ Sections in order:
   3. Where are the lollipops made? "Every ShawtyPop is made in the USA."
   4. Do you use artificial colors? "No. That Cherry Gloss shine comes from natural colors."
   5. What flavors are there? "One: Cherry Gloss. Glossy, bright and made to match every outfit."
-  6. What comes in each pack? "Single (1 pop) $2.99, 5 Pack $9.99 and 12 Pack $19.99. Every pop is the same Cherry Gloss lollipop on a rose gold ShawtyPop stick."
+  6. What comes in each pack? "Single (1 pop) $2.99, 5 Pack $9.99 and 12 Pack $19.99. Every pop is the same Cherry Gloss lollipop on a pink ShawtyPop stick."
   7. Who shouldn't have ShawtyPop? "ShawtyPop contains caffeine. It is not recommended for children, anyone sensitive to caffeine, or anyone who is pregnant or nursing. Talk to your doctor if you're not sure."
   8. When can I get one? "ShawtyPop is almost here. Join the waitlist or the Pop Culture newsletter for first dibs on Cherry Gloss and 15% off your first order."
   9. Where do you ship? "We ship within the U.S. only for now, with free shipping on orders over $50." + link to /shipping
