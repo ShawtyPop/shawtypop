@@ -208,7 +208,7 @@ If I attached `index-backup.html`, put it at `public/index.html` unchanged and s
   8. A black rounded banner (opens the newsletter popup): pink label "Pop Culture", "Join our newsletter for 15% off your first order.", and "→".
   9. Blush pill chips: "No jitters", "No crash", "Free shipping on $50+".
   10. Accordion:
-      - "The pop" (open by default): "One glossy Cherry Gloss lollipop on a metallic hot pink ShawtyPop stick, made with caffeine and L-Theanine. Natural colors. Made in the USA. Wear your energy."
+      - "The pop" (open by default): "One glossy Cherry Gloss lollipop on a glossy hot pink ShawtyPop stick, made with caffeine and L-Theanine. Natural colors. Made in the USA. Wear your energy."
       - "Features": "Caffeine + L-Theanine · Energy + Focus · Natural colors · Made in the USA." with a "See all features →" link to /features.
       - "Shipping": "Free shipping on orders over $50."
 
@@ -275,7 +275,7 @@ Sections in order:
      - Quantity stepper and an "Add to cart" button that adds the 5 Pack
 
 ### 7b. Features page (`/features`)
-- Blush section. Hero in two columns: pink label "CHERRY GLOSS · FEATURES", display headline "WHAT'S IN" + pink italic serif "the pop.", and the text "One glossy Cherry Gloss lollipop on a metallic hot pink ShawtyPop stick. A fashion piece you can taste, made with caffeine and L-Theanine for energy + focus." Right: the real lollipop cutout tilted -20° (clamp(400px,48vw,680px) tall) over a soft pink circle. On phones the lollipop sits on top.
+- Blush section. Hero in two columns: pink label "CHERRY GLOSS · FEATURES", display headline "WHAT'S IN" + pink italic serif "the pop.", and the text "One glossy Cherry Gloss lollipop on a glossy hot pink ShawtyPop stick. A fashion piece you can taste, made with caffeine and L-Theanine for energy + focus." Right: the real lollipop cutout tilted -20° (clamp(400px,48vw,680px) tall) over a soft pink circle. On phones the lollipop sits on top.
 - A 2x2 grid of big feature cards (one column on phones), each with a small number, a huge uppercase title, a pink italic serif line and a short sentence:
   1. White: "CAFFEINE / the energy / The lift you came for, in a Cherry Gloss pop."
   2. Hot pink: "L-THEANINE / the focus / Paired with the caffeine to keep it smooth and locked in. No jitters, no crash."
@@ -291,7 +291,7 @@ Sections in order:
   3. Where are the lollipops made? "Every ShawtyPop is made in the USA."
   4. Do you use artificial colors? "No. That Cherry Gloss shine comes from natural colors."
   5. What flavors are there? "One: Cherry Gloss. Glossy, bright and made to match every outfit."
-  6. What comes in each pack? "Single (1 pop) $2.99, 5 Pack $9.99 and 12 Pack $19.99. Every pop is the same Cherry Gloss lollipop on a metallic hot pink ShawtyPop stick."
+  6. What comes in each pack? "Single (1 pop) $2.99, 5 Pack $9.99 and 12 Pack $19.99. Every pop is the same Cherry Gloss lollipop on a glossy hot pink ShawtyPop stick."
   7. Who shouldn't have ShawtyPop? "ShawtyPop contains caffeine. It is not recommended for children, anyone sensitive to caffeine, or anyone who is pregnant or nursing. Talk to your doctor if you're not sure."
   8. When can I get one? "ShawtyPop is almost here. Join the waitlist or the Pop Culture newsletter for first dibs on Cherry Gloss and 15% off your first order."
   9. Where do you ship? "We ship within the U.S. only for now, with free shipping on orders over $50." + link to /shipping
