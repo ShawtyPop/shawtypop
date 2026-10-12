@@ -597,12 +597,17 @@ html:not(.v-contact) .contact{display:none}
 /* match the wordmark: the logo is baked into an image, so the age gate's
    Fraunces treatment is the closest type equivalent the site already uses */
 .faq.forms h1,.faq.forms h1 em{font-family:"Fraunces",Georgia,serif;font-style:normal;font-weight:900;font-variation-settings:"SOFT" 100,"WONK" 1;text-transform:lowercase;letter-spacing:-.02em}
-.fm__pick{margin-top:clamp(24px,3.4vw,38px);display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fm__pick{margin-top:clamp(24px,3.4vw,38px);display:grid;grid-template-columns:1fr 1fr;gap:22px}
 .fm__opt{text-align:center;color:#000;background:#fff;border:2px solid rgba(0,0,0,.1);border-radius:26px;padding:clamp(18px,2.4vw,26px);cursor:pointer;transition:border-color .2s,background .2s,transform .2s}
 .fm__opt:hover{transform:translateY(-2px)}
 .fm__opt.on{background:#000;border-color:#000}
 .fm__opt-t{display:block;font-size:clamp(24px,3vw,34px);line-height:1}
 .fm__opt.on .fm__opt-t{color:var(--pink-hot)}
+/* the picked option gets a white ring around it and an underline; the other one fades back */
+.fm__opt.on{outline:4px solid #fff;outline-offset:5px}
+.fm__opt.on .fm__opt-t{text-decoration:underline;text-decoration-thickness:4px;text-underline-offset:8px}
+.fm__opt:not(.on){opacity:.7}
+.fm__opt:not(.on):hover{opacity:1}
 .fm__intro{display:none;margin-top:clamp(26px,3.6vw,44px)}
 .fm__intro.on{display:block}
 .fm__intro h2{font-size:clamp(28px,4vw,48px);line-height:1.02}
