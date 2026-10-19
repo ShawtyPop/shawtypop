@@ -1467,14 +1467,14 @@ var ML_URL="https://assets.mailerlite.com/jsonp/2690429/forms/200599344405021977
 var SHEET_URL="https://script.google.com/macros/s/AKfycbz9bHyKOJKj2psbYZ-sLsieiq6ZYOLX9B1wcl716xx5VwiH5Sgjb4zPC4ErfsgtZukSMA/exec";
 /* /bogo signups can go to their own MailerLite form (Newsletter + BOGO groups) once BOGO_ML_URL is set; until then they use the waitlist form */
 var BOGO_ML_URL="";
-function subscribe(email,source,name,mlUrl){
+function subscribe(email,source,name,mlUrl,tags){
   var ml=new URLSearchParams();
   ml.append("fields[email]",email);
   if(name)ml.append("fields[name]",name);
   ml.append("ml-submit","1");ml.append("anticsrf","true");
   var jobs=[fetch(mlUrl||ML_URL,{method:"POST",mode:"no-cors",body:ml})];
   if(SHEET_URL){
-    var sh=new URLSearchParams({email:email,source:source});
+    var sh=new URLSearchParams({email:email,source:source});if(tags)sh.append("tags",tags);
     jobs.push(fetch(SHEET_URL,{method:"POST",mode:"no-cors",body:sh}).catch(function(){}));
   }
   return Promise.all(jobs);
@@ -1509,7 +1509,7 @@ window.spSubscribe=subscribe;
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){wm.textContent="Enter a valid email";wm.classList.add("bad");return}
     wm.classList.remove("bad");wm.textContent="Adding you…";
     var bogo=root.classList.contains("v-bogo");
-    subscribe(v,bogo?"BOGO":"Waitlist","",bogo?BOGO_ML_URL:"").then(function(){wm.textContent=bogo?"You're in. Your free pop is saved for launch":"You're on the list";wf.reset()},
+    subscribe(v,bogo?"Gold card":"Waitlist","",bogo?BOGO_ML_URL:"",bogo?"BOGO":"").then(function(){wm.textContent=bogo?"You're in. Your free pop is saved for launch":"You're on the list";wf.reset()},
       function(){wm.classList.add("bad");wm.textContent="Something went wrong, try again"});
   });
   var kf=document.getElementById("keyForm"),km=document.getElementById("keyMsg"),ki=document.getElementById("keyInput");
